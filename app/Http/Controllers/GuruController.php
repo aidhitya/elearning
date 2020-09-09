@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GuruRequest;
 use App\Models\Guru;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class GuruController extends Controller
 {
@@ -14,7 +17,7 @@ class GuruController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.guru.main');
     }
 
     /**
@@ -24,7 +27,7 @@ class GuruController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.guru.tambah');
     }
 
     /**
@@ -33,9 +36,31 @@ class GuruController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GuruRequest $request)
     {
-        //
+        $data = $request->all();
+
+        $user = User::create([
+            'nama' => $data['nama'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'role' => $data['role']
+        ]);
+
+        $data['foto'] = $request->file('foto')->store('images/guru', 'public');
+
+        $user->guru()->create([
+            'nip' => $data['nip'],
+            'no_telp' => $data['no_telp'],
+            'agama' => $data['agama'],
+            'jenkel' => $data['jenkel'],
+            'dob' => $data['dob'],
+            'alamat' => $data['alamat'],
+            'foto' => $data['foto'],
+            'pendidikan' => $data['pendidikan']
+        ]);
+
+        return redirect(route('guru.create'))->with('berhasil', 'Guru Berhasil Dibuat');
     }
 
     /**

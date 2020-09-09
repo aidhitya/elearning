@@ -14,7 +14,7 @@ class CreateMuridsTable extends Migration
     public function up()
     {
         Schema::create('murids', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->unique();
             $table->integer('nis')->unique();
             $table->unsignedBigInteger('kelas_id')->nullable();
             $table->string('no_telp')->unique();
