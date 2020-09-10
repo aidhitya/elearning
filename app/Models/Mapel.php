@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\User;
 use App\Models\Kelas;
+use App\Models\Materi;
 use Illuminate\Database\Eloquent\Model;
 
 class Mapel extends Model
@@ -22,7 +23,12 @@ class Mapel extends Model
         return $this->belongsTo(User::class);
     }
 
-    // Parent
+    public function materis()
+    {
+        return $this->hasMany(Materi::class);
+    }
+
+    // Mapel Parent
 
     public function parent()
     {

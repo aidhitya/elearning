@@ -21,6 +21,7 @@ Route::get('/', function () {
 Route::resource('guru', 'GuruController');
 Route::resource('siswa', 'MuridController');
 Route::resource('kelas', 'KelasController');
+Route::resource('materi', 'MateriController');
 
 Route::get('mapel', 'MapelController@index');
 Route::get('mapel/create', 'MapelController@create')->name('mapel.create');
