@@ -22,6 +22,11 @@ Route::resource('guru', 'GuruController');
 Route::resource('siswa', 'MuridController');
 Route::resource('kelas', 'KelasController');
 
+Route::get('mapel', 'MapelController@index');
+Route::get('mapel/create', 'MapelController@create')->name('mapel.create');
+Route::post('mapel', 'MapelController@store')->name('mapel.store');
+
+
 Auth::routes(['verify' => true, 'register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
