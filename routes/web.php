@@ -20,6 +20,7 @@ Route::get('/', function () {
 
 Route::resource('guru', 'GuruController');
 Route::resource('siswa', 'MuridController');
+Route::resource('kelas', 'KelasController');
 
 Auth::routes(['verify' => true, 'register' => false]);
 

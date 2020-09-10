@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Guru;
+use App\Models\Kelas;
 use App\Models\Murid;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -49,5 +50,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function murid()
     {
         return $this->hasOne(Murid::class);
+    }
+
+    // Wali Kelas => Guru
+    public function wali_kelas()
+    {
+        return $this->hasOne(Kelas::class, 'wali_kelas', 'id');
     }
 }
