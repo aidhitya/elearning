@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MuridRequest;
 use App\Models\Murid;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class MuridController extends Controller
 {
@@ -14,7 +17,7 @@ class MuridController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.siswa.main');
     }
 
     /**
@@ -24,7 +27,7 @@ class MuridController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.siswa.tambah');
     }
 
     /**
@@ -33,9 +36,30 @@ class MuridController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MuridRequest $request)
     {
-        //
+        $data = $request->all();
+
+        $user = User::create([
+            'nama' => $data['nama'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'role' => $data['role']
+        ]);
+
+        $data['foto'] = $request->file('foto')->store('images/murid', 'public');
+
+        $user->murid()->create([
+            'nis' => $data['nis'],
+            'no_telp' => $data['no_telp'],
+            'agama' => $data['agama'],
+            'jenkel' => $data['jenkel'],
+            'dob' => $data['dob'],
+            'alamat' => $data['alamat'],
+            'foto' => $data['foto']
+        ]);
+
+        return redirect(route('siswa.create'))->with('berhasil', 'Siswa Berhasil Dibuat');
     }
 
     /**

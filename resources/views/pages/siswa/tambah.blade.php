@@ -14,10 +14,15 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">List Siswa</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Tambah Siswa</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
+                   @if (session('berhasil'))
+                      <div class="alert alert-success">
+                          {{ session('berhasil') }}
+                      </div>
+                  @endif
                   @if ($errors->any())
                       <div class="alert alert-danger">
                           <ul>
@@ -27,23 +32,31 @@
                           </ul>
                       </div>
                   @endif
-                <form class="user" action="#" method="POST" enctype="multipart/form-data">
+                <form class="user" action="{{ route('siswa.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <div class="form-group">
+                    <input type="text" name="nama" class="form-control form-control-user" value="{{ old('nama') }}" placeholder="Nama" required>
+                    </div>
+                    <div class="form-group">
+                    <input type="email" name="email" class="form-control form-control-user" value="{{ old('email') }}" placeholder="Email" required>
+                    </div>
+                    <input type="hidden" name="role" value="2" required>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                          <label for="password">New Password</label><br>
                             <input type="password" name="password" class="form-control form-control-user" placeholder="Password" required>
                         </div>
                         <div class="col-sm-6">
-                          <label for=""></label>
-                            <input type="password" name="confirm_password" class="form-control form-control-user" placeholder="Confirm Password" required>
+                            <input type="password" name="password_confirmation" class="form-control form-control-user" placeholder="Confirm Password" required>
                         </div>
                     </div>
                     <div class="form-group">
-                    <input type="number" name="nomor_hp" class="form-control form-control-user" placeholder="Phone Number" required>
+                    <input type="number" name="nis" class="form-control form-control-user" placeholder="Nomor Induk Siswa" required>
                     </div>
                     <div class="form-group">
-                    <input type="date" name="ttl" class="form-control form-control-user" placeholder="Tanggal Lahir" required>
+                    <input type="number" name="no_telp" class="form-control form-control-user" placeholder="Nomor HP" required>
+                    </div>
+                    <div class="form-group">
+                    <input type="date" name="dob" class="form-control form-control-user" placeholder="Tanggal Lahir" required>
                     </div>
                     <div class="form-group">
                         <select name="jenkel" class="form-control" required>

@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Guru;
+use App\Models\Murid;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -43,5 +44,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function guru()
     {
         return $this->hasOne(Guru::class);
+    }
+
+    public function murid()
+    {
+        return $this->hasOne(Murid::class);
     }
 }

@@ -19,6 +19,7 @@ Route::get('/', function () {
 });
 
 Route::resource('guru', 'GuruController');
+Route::resource('siswa', 'MuridController');
 
 Auth::routes(['verify' => true, 'register' => false]);
 
