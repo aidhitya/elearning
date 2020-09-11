@@ -58,7 +58,13 @@
                         </div>
                     @endif
                     @if ($layout == 'guru')
-                    <input type="hidden" name="kategori" value="Harian">
+                        <div class="form-group">
+                            <select name="kategori" class="form-control" required>
+                                <option value="">Kategori Soal</option>
+                                <option value="Harian">Harian</option>
+                                <option value="Quiz">Quiz</option>
+                            </select>
+                        </div>
                         <div class="form-group row">
                             <div class="col-md-6 mb-3 mb-sm-0">
                                 <select name="kelas_id" class="form-control" id="kelas" required>

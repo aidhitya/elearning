@@ -25,10 +25,11 @@ class SoalRequest extends FormRequest
     {
         return [
             'judul' => 'required|string',
-            'mapel' => 'sometimes|required|integer|exists:mapels,id',
-            'kelas' => 'sometimes|required|integer|exists:kelas,id',
-            'materi' => 'sometimes|required|integer|exists:materis,id',
-            'kategori' => 'required|string',
+            'mapel_id' => 'sometimes|required|integer|exists:mapels,id',
+            'kelas' => 'sometimes|required|integer|exists:kelas,kelas',
+            'kelas_id' => 'sometimes|required|integer|exists:kelas,id',
+            'materi_id' => 'sometimes|required|integer|exists:materis,id',
+            'kategori' => 'required|string|in:Harian,UAS,UTS,Quiz',
             'mulai' => 'required|date|after:now',
             'selesai' => 'required|date|after:mulai'
         ];
