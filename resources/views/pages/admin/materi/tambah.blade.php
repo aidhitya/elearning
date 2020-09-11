@@ -59,7 +59,7 @@
                       <input type="file" name="file" class="form-control" value="{{ old('file') }}" placeholder="File Materi (pdf)" required>
                     </div>
                     <div class="form-group">
-                      <input type="number" max="0" name="pertemuan" class="form-control form-control-user" value="{{ old('pertemuan') }}" placeholder="Pertemuan">
+                      <input type="number" min="0" name="pertemuan" class="form-control form-control-user" value="{{ old('pertemuan') }}" placeholder="Pertemuan">
                     </div>
                     <div class="form-group">
                       <input type="text" name="keterangan" class="form-control form-control-user" value="{{ old('keterangan') }}" placeholder="Keterangan">

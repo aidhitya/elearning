@@ -22,6 +22,9 @@ Route::resource('guru', 'GuruController');
 Route::resource('siswa', 'MuridController');
 Route::resource('kelas', 'KelasController');
 Route::resource('materi', 'MateriController');
+Route::resource('soal', 'SoalController');
+
+Route::post('soal/create', 'SoalController@create')->name('post.materi.soal');
 
 Route::get('mapel', 'MapelController@index');
 Route::get('mapel/create', 'MapelController@create')->name('mapel.create');
