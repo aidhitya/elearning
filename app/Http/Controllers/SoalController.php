@@ -12,6 +12,18 @@ use Illuminate\Support\Facades\Auth;
 
 class SoalController extends Controller
 {
+    public function index()
+    {
+        if (Auth::user()->role == 1) {
+            $soal = Soal::where('author', Auth::id())->with(['materi', 'mapel', 'pembuat', 'speckelas'])->get();
+        } else {
+            $soal = Soal::with(['materi', 'mapel', 'pembuat', 'speckelas'])->get();
+        }
+        // return $soal;
+        return view('pages.umum.soal.main', [
+            'soal' => $soal
+        ]);
+    }
 
     public function create()
     {

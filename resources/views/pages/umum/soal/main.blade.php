@@ -92,7 +92,7 @@
           <div class="row">
 
             <!-- Area Chart -->
-            <div class="col-xl-8 col-lg-7">
+            <div class="col-xl-12 col-lg-11">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -100,13 +100,54 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-
+                  <div class="table-responsive">
+                    <table class="table table-bordered display nowrap" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                <th>ID</th>
+                                <th>Judul</th>
+                                <th>Kelas</th>
+                                <th>Kelas (s)</th>
+                                <th>Kategori</th>
+                                <th>Mapel</th>
+                                <th>Materi</th>
+                                <th>Author</th>
+                                <th>Mulai</th>
+                                <th>Selesai</th>
+                                <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              @php
+                                  $n = 1;
+                              @endphp
+                                @foreach ($soal as $item)
+                                <tr>
+                                <td>{{ $n++ }}</td>
+                                <td>{{ $item->judul }}</td>
+                                <td>{{ $item->kelas }}</td>
+                                <td>{{ $item->speckelas->kelas }} {{ $item->speckelas->kode_kelas }}</td>
+                                <td>{{ $item->kategori }}</td>
+                                <td>{{ $item->mapel->nama }}</td>
+                                <td>{{ $item->materi->judul }}</td>
+                                <td>{{ $item->pembuat->nama }}</td>
+                                <td>{{ $item->mulai }}</td>
+                                <td>{{ $item->selesai }}</td>
+                                <td>
+                                  <a href="{{ route('detail.create', $item->id) }}" class="btn btn-sm btn-primary">Tambah Soal</a>
+                                  <a href="#" class="btn btn-sm btn-info">Edit</a>
+                                </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                  </div>
                 </div>
               </div>
             </div>
 
             <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
+            {{-- <div class="col-xl-2 col-lg-3">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -118,7 +159,17 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> --}}
 
     </div>
 @endsection
+
+@push('addon-script')
+    <script>
+      $(document).ready(function() {
+          $('#dataTable').DataTable( {
+              scrollX: true
+          } );
+      });
+    </script>
+@endpush
