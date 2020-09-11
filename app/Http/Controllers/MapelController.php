@@ -38,6 +38,18 @@ class MapelController extends Controller
     {
         $data =  $request->all();
 
+        $exists = Mapel::where(function ($q) use ($data) {
+            $q->where('kelas_id', $data['kelas'])->where('guru_id', $data['guru']); // Jika Kelas dan Guru sudah ada
+        })->orWhere(function ($q) use ($data) {
+            $q->where('kelas_id', $data['kelas'])->where('parent_id', $data['parent']);  // Jika Kelas dan Mapel sudah ada
+        })->exists();
+
+        if ($exists) {
+            return redirect()->back()->withErrors('Data Sudah ada dalam kelas tersebut');
+        }
+
+
+
         if ($request->has('parent') && $request->has('guru')) {
             $m = Mapel::getParent()->where('id', $data['parent'])->first();
             Mapel::create([
@@ -51,6 +63,6 @@ class MapelController extends Controller
         }
         Mapel::create($data);
 
-        return redirect(route('mapel.create'))->with('berhasil', 'Mapel Bary Berhasil Ditambahkan');
+        return redirect(route('mapel.create'))->with('berhasil', 'Mapel Baru Berhasil Ditambahkan');
     }
 }
