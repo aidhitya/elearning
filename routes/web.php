@@ -23,9 +23,10 @@ Route::resource('siswa', 'MuridController');
 Route::resource('kelas', 'KelasController');
 Route::resource('materi', 'MateriController');
 Route::resource('soal', 'SoalController');
-Route::resource('soal/detail', 'DetailSoalController')->except('create');
+Route::resource('soal/detail', 'DetailSoalController')->except('create', 'store');
 
-Route::post('soal/detail/{soal}/create', 'DetailSoalController@create')->name('detail.create');
+Route::post('soal/{soal}/detail/store', 'DetailSoalController@store')->name('detail.store');
+Route::get('soal/detail/{soal}/create', 'DetailSoalController@create')->name('detail.create');
 
 Route::post('soal/create', 'SoalController@create')->name('post.materi.soal');
 
