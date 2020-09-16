@@ -23,6 +23,7 @@ Route::resource('guru', 'GuruController')->middleware(['auth', 'verified', 'role
 Route::resource('murid', 'MuridController')->middleware(['auth', 'verified', 'roles:2']);
 
 Route::prefix('admin')->middleware(['auth', 'verified', 'roles:0'])->group(function () {
+    Route::view('/', 'pages.admin.main')->name('home.admin');
     Route::resource('kelas', 'KelasController');
     Route::get('mapel', 'MapelController@index');
     Route::get('mapel/create', 'MapelController@create')->name('mapel.create');

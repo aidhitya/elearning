@@ -13,9 +13,9 @@ class Kelas extends Model
 
     // Relathionship
 
-    public function wali_kelas()
+    public function wali_guru_kelas()
     {
-        return $this->belongsTo(User::class, 'wali_kelas', 'id');
+        return $this->belongsTo(User::class, 'wali_kelas');
     }
 
     public function mapels()

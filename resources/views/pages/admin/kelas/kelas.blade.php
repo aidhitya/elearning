@@ -18,24 +18,53 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
+                  @if (session('berhasil'))
+                      <div class="alert alert-success">
+                          {{ session('berhasil') }}
+                      </div>
+                  @endif
+                  @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                  @endif
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                 <th>ID</th>
                                 <th>Kelas</th>
-                                <th>Peminatan</th>
+                                <th>Wali Kelas</th>
+                                <th>Option</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                 <th>ID</th>
                                 <th>Kelas</th>
-                                <th>Peminatan</th>
+                                <th>Wali Kelas</th>
+                                <th>Option</th>
                                 </tr>
                             </tfoot>
                             <tbody>
-                                
+                                @foreach ($kelas as $key => $item)
+                                    <tr>
+                                      <td>{{ $key + 1 }}</td>
+                                      <td>{{ $item->kelas }} {{ $item->kode_kelas }}</td>
+                                      <td>{{ $item->wali_guru_kelas->nama }}</td>
+                                      <td>
+                                        <a href="{{ route('kelas.edit', $item->id) }}" class="btn btn-md btn-primary"><i class="fas fa-pencil-alt"></i></a>
+                                        <form action="{{ route('kelas.destroy', $item->id) }}" method="POST" class="d-inline">
+                                         @csrf @method('DELETE')
+                                         <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                                        </form>
+                                      </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -54,7 +83,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                        <a href="#" class="btn btn-primary">Tambah Kelas</a>
+                        <a href="{{ route('kelas.create') }}" class="btn btn-primary">Tambah Kelas</a>
                         </div>
                     </div>
                 </div>

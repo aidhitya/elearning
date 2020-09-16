@@ -16,7 +16,10 @@ class KelasController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.kelas.main');
+        $kelas = Kelas::with(['wali_guru_kelas'])->orderBy('kelas')->orderBy('kode_kelas')->get();
+        return view('pages.admin.kelas.kelas', [
+            'kelas' => $kelas
+        ]);
     }
 
     /**
@@ -64,9 +67,14 @@ class KelasController extends Controller
      * @param  \App\Models\Kelas  $kelas
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kelas $kelas)
+    public function edit($id)
     {
-        //
+        $kelas = Kelas::with('wali_guru_kelas')->findOrFail($id);
+        $guru = User::has('guru')->doesntHave('wali_kelas')->get();
+        return view('pages.admin.kelas.edit', [
+            'kelas' => $kelas,
+            'guru' => $guru
+        ]);
     }
 
     /**
@@ -76,9 +84,13 @@ class KelasController extends Controller
      * @param  \App\Models\Kelas  $kelas
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kelas $kelas)
+    public function update(KelasRequest $request, $id)
     {
-        //
+        $kelas = Kelas::findOrFail($id);
+        $data = $request->all();
+        $kelas->update($data);
+
+        return redirect(route('kelas.index'))->with('berhasil', 'Kelas Berhasil Diupdate');
     }
 
     /**
@@ -87,8 +99,10 @@ class KelasController extends Controller
      * @param  \App\Models\Kelas  $kelas
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kelas $kelas)
+    public function destroy($id)
     {
-        //
+        Kelas::destroy($id);
+
+        return back()->withErrors(['errors' => 'Kelas Berhasil Dihapus']);
     }
 }
