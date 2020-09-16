@@ -25,6 +25,9 @@
                       </div>
                   @endif
                   @if ($errors->any())
+                  @php
+                    //   dd($errors);
+                  @endphp
                       <div class="alert alert-danger">
                           <ul>
                               @foreach ($errors->all() as $error)
@@ -47,7 +50,7 @@
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade first show active" id="soal_1" role="tabpanel" aria-labelledby="soal-tab">
                                 <div class="form-group">
-                                    <input type="text" name="soal[]" style="width: 95%" class="form-control form-control-user d-inline" value="{{ old('soal') }}" placeholder="Soal" required>
+                                    <input type="text" name="soal[]" style="width: 95%" class="form-control form-control-user d-inline" value="{{ old('soal[]') }}" placeholder="Soal" required>
                                 </div>
 
                                 <div class="form-group row">
@@ -57,19 +60,19 @@
                                     <div class="col-md-7 mb-0 mb-sm-0">
                                         <div class="form-check-inline form-check" style="width: 95%">
                                             <input type="radio" id="kunci" name="kunci_1" class="form-check-input" value="1" required>
-                                            <input id="jawaban" type="text" class="col-md-12 mb-1 form-control form-control-md @error('jawaban') is-invalid @enderror" placeholder="Jawaban A" name="jawaban[]" value="{{ old('jawaban') }}" required autocomplete="jawaban" autofocus>
+                                            <input id="jawaban" type="text" class="col-md-12 mb-1 form-control form-control-md @error('jawaban') is-invalid @enderror" placeholder="Jawaban A" name="jawaban_1_[]" value="{{ old('jawaban_1_[]') }}" required autocomplete="jawaban" autofocus>
                                         </div>
                                         <div class="form-check-inline form-check" style="width: 95%">
                                             <input type="radio" id="kunci" name="kunci_1" class="form-check-input" value="2" required>
-                                            <input id="jawaban" type="text" class="col-md-12 mb-1 form-control form-control-md @error('jawaban') is-invalid @enderror" placeholder="Jawaban B" name="jawaban[]" value="{{ old('jawaban') }}" required autocomplete="jawaban" autofocus>
+                                            <input id="jawaban" type="text" class="col-md-12 mb-1 form-control form-control-md @error('jawaban') is-invalid @enderror" placeholder="Jawaban B" name="jawaban_1_[]" value="{{ old('jawaban_1_[]') }}" required autocomplete="jawaban" autofocus>
                                         </div>
                                         <div class="form-check-inline form-check" style="width: 95%">
                                             <input type="radio" id="kunci" name="kunci_1" class="form-check-input" value="3" required>
-                                            <input id="jawaban" type="text" class="col-md-12 mb-1 form-control form-control-md @error('jawaban') is-invalid @enderror" placeholder="Jawaban C" name="jawaban[]" value="{{ old('jawaban') }}" required autocomplete="jawaban" autofocus>
+                                            <input id="jawaban" type="text" class="col-md-12 mb-1 form-control form-control-md @error('jawaban') is-invalid @enderror" placeholder="Jawaban C" name="jawaban_1_[]" value="{{ old('jawaban_1_[]') }}" required autocomplete="jawaban" autofocus>
                                         </div>
                                         <div class="form-check-inline form-check" style="width: 95%">
                                             <input type="radio" id="kunci" name="kunci_1" class="form-check-input" value="4" required>
-                                            <input id="jawaban" type="text" class="col-md-12 mb-1 form-control form-control-md @error('jawaban') is-invalid @enderror" placeholder="Jawaban D" name="jawaban[]" value="{{ old('jawaban') }}" required autocomplete="jawaban" autofocus>
+                                            <input id="jawaban" type="text" class="col-md-12 mb-1 form-control form-control-md @error('jawaban') is-invalid @enderror" placeholder="Jawaban D" name="jawaban_1_[]" value="{{ old('jawaban_1_[]') }}" required autocomplete="jawaban" autofocus>
                                         </div>
                                     </div>
                                 </div>
@@ -176,7 +179,7 @@
                     <div class="tab-pane fade" id="soal_`+t+`" role="tabpanel" aria-labelledby="soal-tab_`+t+`">
                             <a href="#" id="remove" class="btn btn-sm btn-danger float-right mb-4 my-2">X</a>
                         <div class="form-group">
-                            <input type="text" name="soal[]" style="width: 95%" class="form-control form-control-user" value="{{ old('soal') }}" placeholder="Soal" required>
+                            <input type="text" name="soal[]" style="width: 95%" class="form-control form-control-user" value="{{ old('soal[]') }}" placeholder="Soal" required>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-5 mb-0 mb-sm-0">

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DetailSoalRequest;
 use App\Models\DetailSoal;
+use App\Models\Jawaban;
 use App\Models\Soal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -18,30 +20,13 @@ class DetailSoalController extends Controller
         ]);
     }
 
-    public function store(Request $request, $id)
+    public function store(DetailSoalRequest $request, $id)
     {
-        $rules = [];
+        $count = count(request('soal'));
 
-        for ($i = 1; $i <= count(request('soal')); $i++) {
-            $rules['kunci_' . $i] = 'required|integer|in:1,2,3,4';
-            $rules['gambar_' . $i] = 'image|max:2048';
-        }
+        for ($i = 1; $i <= $count; $i++) {
 
-
-        $v = Validator::make($request->all(), [
-            'soal' => 'required|array',
-            'soal.*' => 'required|string|distinct',
-            'jawaban' => 'required|array',
-            'jawaban.*' => 'required|string|distinct',
-            $rules
-        ]);
-
-        if ($v->fails()) {
-
-            return redirect()->back()->withErrors($v);
-        }
-
-        for ($i = 1; $i <= count(request('soal')); $i++) {
+            // create soal
             $question[] = [
                 'soal_id' => $id,
                 'soal' => request('soal')[$i - 1],
@@ -53,10 +38,27 @@ class DetailSoalController extends Controller
                 $question[$i - 1]['gambar'] = $request->file('gambar_' . $i)->store('images/soal', 'public');
             }
 
-            // DetailSoal::create($question[$i - 1]);
-        }
-        dd($question);
+            $soal = DetailSoal::create($question[$i - 1]);
 
-        return $request;
+            $key = request('kunci_' . $i);
+            for ($j = 1; $j <= count(request('jawaban_' . $i . '_')); $j++) {
+                $kunci = 0;
+                if ($key == $j) {
+                    $kunci = 1;
+                }
+
+                // create jawaban
+                $answers[$i][] = [
+                    'detail_soal_id' => $soal->id,
+                    'jawaban' => request('jawaban_' . $i . '_')[$j - 1],
+                    'kunci' => $kunci,
+                    'randomize' => rand(1, 1000)
+                ];
+            }
+
+            Jawaban::insert($answers[$i]);
+        }
+
+        return redirect()->back()->with('berhasil', 'Soal Berhasil Dibuat');
     }
 }

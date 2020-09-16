@@ -6,6 +6,7 @@ use App\User;
 use App\Models\Kelas;
 use App\Models\Mapel;
 use App\Models\Materi;
+use App\Models\DetailSoal;
 use Illuminate\Database\Eloquent\Model;
 
 class Soal extends Model
@@ -32,5 +33,10 @@ class Soal extends Model
     public function materi()
     {
         return $this->belongsTo(Materi::class);
+    }
+
+    public function detail_soal()
+    {
+        return $this->hasMany(DetailSoal::class);
     }
 }
