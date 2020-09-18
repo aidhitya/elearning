@@ -10,7 +10,7 @@
           <div class="row">
 
             <!-- Index Siswa -->
-            <div class="col-xl-8 col-lg-7">
+            <div class="col-xl-9 col-lg-8">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -18,6 +18,11 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
+                  @if (session('berhasil'))
+                      <div class="alert alert-success">
+                          {!! session('berhasil') !!}
+                      </div>
+                  @endif
                   <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
                       <a class="nav-link active" id="mapel-utama" data-toggle="tab" href="#mapel" role="tab" aria-controls="mapel" aria-selected="true">Mapel</a>
@@ -29,7 +34,7 @@
                   <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="mapel" role="tabpanel" aria-labelledby="mapel-utama">
                       <div class="table-responsive pt-3">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered" id="table-mapel" width="100%" cellspacing="0">
                           @php
                                 $n = 1;
                             @endphp
@@ -45,7 +50,13 @@
                               <tr>
                                 <td>{{ $n++ }}</td>
                                 <td>{{ $item->nama }}</td>
-                                <td>Edit</td>
+                                <td>
+                                  <a href="{{ route('mapel.edit', $item->id) }}" class="btn btn-md btn-primary"><i class="fas fa-pencil-alt"></i></a>
+                                  {{-- <form action="{{ route('mapel.destroy', $item->id) }}" method="POST" class="d-inline">
+                                    @csrf @method('DELETE')
+                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                                  </form> --}}
+                                </td>
                               </tr>
                             @endforeach
                           </tbody>
@@ -54,13 +65,14 @@
                     </div>
                     <div class="tab-pane fade" id="detail" role="tabpanel" aria-labelledby="details">
                       <div class="table-responsive pt-3">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered" id="table-mapel-detail" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                 <th>ID</th>
                                 <th>Mapel</th>
                                 <th>Kelas</th>
                                 <th>Guru</th>
+                                <th>Action</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -69,6 +81,7 @@
                                 <th>Mapel</th>
                                 <th>Kelas</th>
                                 <th>Guru</th>
+                                <th>Action</th>
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -81,6 +94,13 @@
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->kelas->kelas }} {{ $item->kelas->kode_kelas }}</td>
                                 <td>{{ $item->guru->nama }} {{ $item->guru->guru->pendidikan }}</td>
+                                <td>
+                                  <a href="{{ route('mapel.edit', $item->id) }}" class="btn btn-md btn-primary"><i class="fas fa-pencil-alt"></i></a>
+                                  <form action="{{ route('mapel.destroy', $item->id) }}" method="POST" class="d-inline">
+                                    @csrf @method('DELETE')
+                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                                  </form>
+                                </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -93,7 +113,7 @@
             </div>
 
             <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
+            <div class="col-xl-3 col-lg-4">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -101,11 +121,7 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                        <a href="{{ route('mapel.create') }}" class="btn btn-primary">Tambah Mapel</a>
-                        </div>
-                    </div>
+                  <a href="{{ route('mapel.create') }}" class="btn btn-primary">Tambah Mapel</a>
                 </div>
               </div>
             </div>
@@ -113,3 +129,12 @@
 
     </div>
 @endsection
+
+@push('addon-script')
+    <script>
+      $(document).ready( function () {
+          $('#table-mapel').DataTable();
+          $('#table-mapel-detail').DataTable();
+      } );
+    </script>
+@endpush

@@ -21,7 +21,7 @@
     <!-- Nav Item - Charts -->
     <li class="nav-item">
     <a class="nav-link" href="#">
-        <i class="fas fa-book-open"></i>
+        <i class="fas fa-bullhorn"></i>
         <span>Pengumuman</span></a>
     </li>
 
@@ -43,6 +43,13 @@
     <a class="nav-link" href="{{ route('kelas.index') }}">
         <i class="fas fa-chalkboard-teacher"></i>
         <span>Kelas</span></a>
+    </li>
+
+    <!-- Nav Item - Mapel -->
+    <li class="nav-item">
+    <a class="nav-link" href="{{ route('mapel.index') }}">
+        <i class="fas fa-book-open"></i>
+        <span>Mapel</span></a>
     </li>
 
     <!-- Nav Item - Tables -->

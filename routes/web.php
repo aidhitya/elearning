@@ -25,9 +25,7 @@ Route::resource('murid', 'MuridController')->middleware(['auth', 'verified', 'ro
 Route::prefix('admin')->middleware(['auth', 'verified', 'roles:0'])->group(function () {
     Route::view('/', 'pages.admin.main')->name('home.admin');
     Route::resource('kelas', 'KelasController');
-    Route::get('mapel', 'MapelController@index');
-    Route::get('mapel/create', 'MapelController@create')->name('mapel.create');
-    Route::post('mapel', 'MapelController@store')->name('mapel.store');
+    Route::resource('mapel', 'MapelController')->except('show');
 });
 
 Route::middleware(['auth', 'verified', 'roles:0,1'])->group(function () {

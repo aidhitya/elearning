@@ -32,7 +32,7 @@ class Mapel extends Model
 
     public function parent()
     {
-        return $this->belongsTo(Mapel::class);
+        return $this->belongsTo(Mapel::class, 'parent_id');
     }
 
     // Scopre Query
