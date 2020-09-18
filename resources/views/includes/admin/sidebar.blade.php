@@ -25,17 +25,18 @@
         <span>Pengumuman</span></a>
     </li>
 
+    <!-- Nav Item - Users -->
     <li class="nav-item">
-    <a class="nav-link" href="#">
-        <i class="fas fa-swatchbook"></i>
-        <span>Guru</span></a>
-    </li>
-
-    <!-- Nav Item - Charts -->
-    <li class="nav-item">
-    <a class="nav-link" href="#">
-        <i class="fas fa-users"></i>
-        <span>Siswa</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser" aria-expanded="true" aria-controls="collapseUser">
+            <i class="fas fa-users"></i>
+            <span>Users</span>
+        </a>
+        <div id="collapseUser" class="collapse" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="#">Guru</a>
+            <a class="collapse-item" href="#">Siswa</a>
+            </div>
+        </div>
     </li>
 
     <!-- Nav Item - Charts -->
@@ -50,6 +51,20 @@
     <a class="nav-link" href="{{ route('mapel.index') }}">
         <i class="fas fa-book-open"></i>
         <span>Mapel</span></a>
+    </li>
+
+    <!-- Nav Item - Assets -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAssets" aria-expanded="true" aria-controls="collapseAssets">
+            <i class="fas fa-scroll"></i>
+            <span>Assets</span>
+        </a>
+        <div id="collapseAssets" class="collapse" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="#">Materi</a>
+            <a class="collapse-item" href="#">Soal</a>
+            </div>
+        </div>
     </li>
 
     <!-- Nav Item - Tables -->
