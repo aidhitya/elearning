@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin - Tambah Kelas')
+@section('title', 'Tambah Materi')
 
 @section('content')
     <div class="container-fluid">
@@ -10,11 +10,11 @@
           <div class="row">
 
             <!-- Index Siswa -->
-            <div class="col-xl-9 col-lg-8">
+            <div class="col-xl-11 col-lg-10">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Tambah Mapel</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Tambah Materi</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -67,7 +67,7 @@
                     <div class="form-group row">
                       <div class="col-md-8"></div>
                       <div class="col-md-4 mb-sm-0">
-                        <button type="submit" class="btn btn-primary btn-user btn-block">Tambah Mapel</button>
+                        <button type="submit" class="btn btn-primary btn-user btn-block">Tambah Materi</button>
                       </div>
                     </div>
                   </form>
@@ -76,7 +76,7 @@
             </div>
 
             <!-- Pie Chart -->
-            {{-- <div class="col-xl-3 col-lg-4">
+            {{-- <div class="col-xl-1 col-lg-2">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">

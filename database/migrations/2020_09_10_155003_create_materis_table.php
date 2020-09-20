@@ -19,7 +19,8 @@ class CreateMaterisTable extends Migration
             $table->unsignedBigInteger('kelas_id')->nullable();
             $table->unsignedBigInteger('mapel_id');
             $table->string('judul');
-            $table->text('file');
+            $table->text('url')->nullable();
+            $table->text('file')->nullable();
             $table->integer('pertemuan')->nullable();
             $table->unsignedBigInteger('author');
             $table->string('keterangan')->nullable();

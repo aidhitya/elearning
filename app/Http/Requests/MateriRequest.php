@@ -28,7 +28,7 @@ class MateriRequest extends FormRequest
             'kelas_id' => 'sometimes|required|integer|exists:kelas,id',
             'mapel' => 'required|integer|exists:mapels,id',
             'judul' => 'required|string',
-            'file' => 'required|mimetypes:application/pdf|max:5120',
+            'url' => 'nullable|active_url|url',
             'pertemuan' => 'sometimes|required|integer',
             'keterangan' => 'nullable|string'
         ];
