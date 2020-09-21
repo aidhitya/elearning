@@ -1,92 +1,9 @@
-@extends('layouts.admin')
+@extends('layouts.'.$layout)
 
 @section('title', 'Dashboard Soal')
 
 @section('content')
     <div class="container-fluid">
-
-          <!-- Content Row -->
-          <div class="row">
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
-                      <div class="row no-gutters align-items-center">
-                        <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                        </div>
-                        <div class="col">
-                          <div class="progress progress-sm mr-2">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50"
-                              aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Pending Requests Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-comments fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <!-- Content Row -->
 
           <div class="row">
@@ -96,10 +13,25 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">List Soal</h6>
+                  <a href="{{ route('soal.create') }}" class="btn btn-primary">Tambah+</a>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
+                  @if (session('berhasil'))
+                      <div class="alert alert-success">
+                          {{ session('berhasil') }}
+                      </div>
+                  @endif
+                  @if ($errors->any())
+                      <div class="alert alert-danger">
+                          <ul>
+                              @foreach ($errors->all() as $error)
+                                  <li>{{ $error }}</li>
+                              @endforeach
+                          </ul>
+                      </div>
+                  @endif
                   <div class="table-responsive">
                     <table class="table table-bordered display nowrap" id="dataTable" width="100%" cellspacing="0">
                             <thead>
@@ -118,24 +50,48 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              @php
-                                  $n = 1;
-                              @endphp
-                                @foreach ($soal as $item)
+                                @foreach ($soal as $key => $item)
                                 <tr>
-                                <td>{{ $n++ }}</td>
+                                <td>{{ $key + 1 }}</td>
                                 <td>{{ $item->judul }}</td>
-                                <td>{{ $item->kelas }}</td>
-                                <td>{{ $item->speckelas->kelas }} {{ $item->speckelas->kode_kelas }}</td>
+                                <td>
+                                  @if ($item->speckelas !== null)
+                                    {{ $item->speckelas->kelas }}
+                                  @else
+                                    {{ $item->kelas }}
+                                  @endif
+                                </td>
+                                <td>
+                                  @if ($item->speckelas !== null)
+                                      {{ $item->speckelas->kelas }} {{ $item->speckelas->kode_kelas }}
+                                  @else
+                                  -
+                                  @endif
+                                </td>
                                 <td>{{ $item->kategori }}</td>
                                 <td>{{ $item->mapel->nama }}</td>
-                                <td>{{ $item->materi->judul }}</td>
+                                <td>
+                                  @if ($item->materi !== null)
+                                      {{ $item->materi->judul }}
+                                  @else
+                                  -
+                                  @endif
+                                </td>
                                 <td>{{ $item->pembuat->nama }}</td>
                                 <td>{{ $item->mulai }}</td>
                                 <td>{{ $item->selesai }}</td>
                                 <td>
-                                  <a href="{{ route('detail.create', $item->id) }}" class="btn btn-sm btn-primary">Tambah Soal</a>
-                                  <a href="#" class="btn btn-sm btn-info">Edit</a>
+                                  <a href="{{ route('detail.create', $item->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i></a>
+                                  <a href="#" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></i></a>
+                                  @if ($item->author == Auth::id())
+                                    @if ($item->mulai > now())
+                                      <a href="{{ route('soal.edit', $item->id) }}" class="btn btn-sm btn-info"><i class="fas fa-pencil-alt"></i></a>
+                                    @endif
+                                    <form action="{{ route('soal.destroy', $item->id) }}" method="POST" class="d-inline ml-2">
+                                      @csrf @method('DELETE')
+                                      <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                                    </form>
+                                  @endif
                                 </td>
                                 </tr>
                                 @endforeach

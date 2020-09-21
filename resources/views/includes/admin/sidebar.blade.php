@@ -62,7 +62,7 @@
         <div id="collapseAssets" class="collapse" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="{{ route('materi.index') }}">Materi</a>
-            <a class="collapse-item" href="#">Soal</a>
+            <a class="collapse-item" href="{{ route('soal.index') }}">Soal</a>
             </div>
         </div>
     </li>

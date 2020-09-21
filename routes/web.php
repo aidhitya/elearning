@@ -37,6 +37,7 @@ Route::middleware(['auth', 'verified', 'roles:0,1'])->group(function () {
     Route::get('soal/detail/{soal}/create', 'DetailSoalController@create')->name('detail.create');
 
     Route::post('soal/create', 'SoalController@create')->name('post.materi.soal');
+    Route::post('soal/{soal}/edit', 'SoalController@create')->name('post.edit.soal');
 });
 
 Auth::routes(['verify' => true, 'register' => false]);
