@@ -61,4 +61,48 @@ class DetailSoalController extends Controller
 
         return redirect()->back()->with('berhasil', 'Soal Berhasil Dibuat');
     }
+
+    public function edit(DetailSoal $detail)
+    {
+        $detail->load(['soalnya', 'jawabans']);
+        return view('pages.umum.detail-soal.edit', [
+            'detail' => $detail,
+            'layout' => 'admin'
+        ]);
+    }
+
+    public function update(Request $request, DetailSoal $detail)
+    {
+        $data = $request->all();
+
+        $detail->update([
+            'soal' => $data['soal']
+        ]);
+
+        $jwb = Jawaban::where('detail_soal_id', $detail->id)->get();
+
+        for ($i = 0; $i < count($data['jawaban']); $i++) {
+            $kunci = 0;
+
+            if ($data['kunci'] == $i) {
+                $kunci = 1;
+            }
+
+            $jwb[$i]->update([
+                'jawaban' => $data['jawaban'][$i],
+                'kunci' => $kunci
+            ]);
+        }
+
+        return redirect(route('soal.show', $detail->soal_id))->with('berhasil', 'Detail soal berhasil diupdate');
+    }
+
+    public function destroy(DetailSoal $detail)
+    {
+        $jwb = Jawaban::where('detail_soal_id', $detail->id);
+        $jwb->delete();
+        $detail->delete();
+
+        return redirect(route('soal.show', $detail->soal_id))->with('berhasil', 'Detail soal berhasil dihapus');
+    }
 }

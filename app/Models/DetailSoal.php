@@ -15,7 +15,7 @@ class DetailSoal extends Model
 
     public function soalnya()
     {
-        return $this->belongsTo(Soal::class);
+        return $this->belongsTo(Soal::class, 'soal_id');
     }
 
     public function jawabans()

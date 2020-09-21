@@ -82,6 +82,23 @@ class SoalController extends Controller
         return redirect(route('soal.create'))->with('berhasil', 'Soal ' . $soal->judul . ' berhasil dibuat');
     }
 
+    public function show(Soal $soal)
+    {
+        $complete =  $soal->load([
+            'pembuat:id,nama',
+            'speckelas:id,kelas,kode_kelas',
+            'mapel:id,nama',
+            'materi:id,judul',
+            'detail_soal',
+            'detail_soal.jawabans'
+        ]);
+        // return $complete;
+        return view('pages.umum.soal.detail', [
+            'layout' => 'admin',
+            'complete' => $complete
+        ]);
+    }
+
     public function edit(Soal $soal)
     {
         if ($soal->mulai < now()) {
