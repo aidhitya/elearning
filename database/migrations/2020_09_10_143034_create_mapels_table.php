@@ -19,6 +19,7 @@ class CreateMapelsTable extends Migration
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->unsignedBigInteger('guru_id')->nullable();
             $table->unsignedBigInteger('kelas_id')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

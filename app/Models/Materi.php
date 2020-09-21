@@ -6,9 +6,12 @@ use App\User;
 use App\Models\Kelas;
 use App\Models\Mapel;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Materi extends Model
 {
+    use SoftDeletes;
+
     protected $guarded = [];
 
     // Relathionship

@@ -24,6 +24,7 @@ class CreateSoalsTable extends Migration
             $table->dateTimeTz('mulai');
             $table->dateTimeTz('selesai');
             $table->unsignedBigInteger('author');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

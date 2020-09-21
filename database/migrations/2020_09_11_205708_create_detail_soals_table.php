@@ -19,6 +19,7 @@ class CreateDetailSoalsTable extends Migration
             $table->text('soal');
             $table->text('gambar')->nullable();
             $table->smallInteger('randomize');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

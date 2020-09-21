@@ -8,9 +8,12 @@ use App\Models\Mapel;
 use App\Models\Materi;
 use App\Models\DetailSoal;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Soal extends Model
 {
+    use SoftDeletes;
+
     protected $guarded = [];
 
     // Relathionship

@@ -19,6 +19,7 @@ class CreateJawabansTable extends Migration
             $table->text('jawaban');
             $table->boolean('kunci');
             $table->smallInteger('randomize');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

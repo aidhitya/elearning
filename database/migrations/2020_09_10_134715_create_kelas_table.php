@@ -18,6 +18,7 @@ class CreateKelasTable extends Migration
             $table->integer('kelas');
             $table->string('kode_kelas');
             $table->unsignedBigInteger('wali_kelas')->unique();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

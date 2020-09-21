@@ -24,6 +24,7 @@ class CreateMaterisTable extends Migration
             $table->integer('pertemuan')->nullable();
             $table->unsignedBigInteger('author');
             $table->string('keterangan')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
