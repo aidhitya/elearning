@@ -103,7 +103,7 @@ class MateriController extends Controller
 
     public function destroy(Materi $materi)
     {
-        Storage::delete('public/' . $materi->file);
+        // Storage::delete('public/' . $materi->file);
         $materi->delete();
 
         return redirect(route('materi.index'))->with('berhasil', 'Materi Berhasil Dihapus');

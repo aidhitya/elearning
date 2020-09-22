@@ -11,6 +11,7 @@ use App\Models\Soal;
 use App\Models\Jawaban;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class SoalController extends Controller
 {
@@ -164,14 +165,12 @@ class SoalController extends Controller
 
     public function destroy(Soal $soal)
     {
-        $detail = DetailSoal::where('soal_id', $soal->id);
-
-        foreach ($detail as $item) {
-            $jawaban = Jawaban::where('detail_soal_id', $item->id);
+        $detail = DetailSoal::where('soal_id', $soal->id)->get();
+        foreach ($detail as $value) {
+            $jawaban = Jawaban::where('detail_soal_id', $value->id);
             $jawaban->delete();
+            $value->delete();
         }
-
-        $detail->delete();
         $soal->delete();
 
         return redirect(route('soal.index'))->with('berhasil', 'Soal berhasil dihapus');

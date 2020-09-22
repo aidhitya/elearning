@@ -8,6 +8,7 @@ use App\Models\Jawaban;
 use App\Models\Soal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class DetailSoalController extends Controller
 {
@@ -75,9 +76,21 @@ class DetailSoalController extends Controller
     {
         $data = $request->all();
 
-        $detail->update([
-            'soal' => $data['soal']
-        ]);
+        if ($request->hasFile('gambar')) {
+
+            Storage::delete('public/' . $detail->gambar);
+            $data['gambar'] = $request->file('gambar')->store('images/soal', 'public');
+            $detail->update([
+                'soal' => $data['soal'],
+                'gambar' => $data['gambar']
+            ]);
+        } else {
+
+            $detail->update([
+                'soal' => $data['soal']
+            ]);
+        }
+
 
         $jwb = Jawaban::where('detail_soal_id', $detail->id)->get();
 

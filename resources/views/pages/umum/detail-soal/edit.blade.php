@@ -43,9 +43,9 @@
 
                     <div class="form-group row">
                         <div class="col-md-5 mb-0 mb-sm-0">
-                            <input id="gambar" type="file" class="form-control @error('gambar') is-invalid @enderror mb-2" name="gambar_1" value="" autocomplete="gambar" autofocus>
+                            <input id="gambar" type="file" class="form-control @error('gambar') is-invalid @enderror mb-2" name="gambar" autocomplete="gambar" autofocus>
                             @if (! is_null($detail->gambar))
-                                <img src="{{ $detail->gambar }}" alt="soal" class="img-fluid mb-2">
+                                <img src="{{ asset('storage/'.$detail->gambar) }}" alt="soal" class="img-fluid mb-2">
                             @endif
                         </div>
                         <div class="col-md-7 mb-0 mb-sm-0">
