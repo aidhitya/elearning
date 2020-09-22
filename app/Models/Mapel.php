@@ -23,7 +23,7 @@ class Mapel extends Model
 
     public function guru()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'guru_id', 'id');
     }
 
     public function materis()

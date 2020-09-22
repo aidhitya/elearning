@@ -27,7 +27,9 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="#">Tambah</a>
+            @foreach ($data->mengajar as $item)
+                <a class="collapse-item" href="#">Kelas {{ $item->kelas->kelas }}{{ $item->kelas->kode_kelas }}</a>
+            @endforeach
           </div>
         </div>
       </li>
@@ -36,12 +38,14 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
           aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-user-graduate"></i>
-          <span>Siswa</span>
+          <i class="fas fa-tasks"></i>
+          <span>Soal</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="#">Tambah</a>
+            <a class="collapse-item" href="#">Ulangan</a>
+            <a class="collapse-item" href="#">Quiz</a>
+            <a class="collapse-item" href="#">Tugas</a>
           </div>
         </div>
       </li>
@@ -49,35 +53,22 @@
       <!-- Nav Item - Pengumuman -->
       <li class="nav-item">
         <a class="nav-link" href="#">
-          <i class="fas fa-scroll"></i>
-          <span>Pengumuman</span></a>
-      </li>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fas fa-pencil-alt"></i>
-          <span>Kuis</span></a>
-      </li>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fas fa-pencil-alt"></i>
-          <span>Kuis</span></a>
-      </li>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="#">
           <i class="fas fa-book-open"></i>
           <span>Materi</span></a>
       </li>
 
+      <!-- Nav Item - Pengumuman -->
       <li class="nav-item">
         <a class="nav-link" href="#">
-          <i class="fas fa-swatchbook"></i>
-          <span>Tugas</span></a>
+          <i class="fas fa-star-half-alt"></i>
+          <span>Nilai</span></a>
+      </li>
+
+      <!-- Nav Item - Pengumuman -->
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fas fa-scroll"></i>
+          <span>Pengumuman</span></a>
       </li>
 
       <!-- Nav Item - Tables -->

@@ -4,6 +4,7 @@ namespace App;
 
 use App\Models\Guru;
 use App\Models\Kelas;
+use App\Models\Mapel;
 use App\Models\Murid;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -42,6 +43,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'status' => 'boolean'
     ];
 
+    // Relathionship
+
     public function guru()
     {
         return $this->hasOne(Guru::class);
@@ -50,6 +53,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function murid()
     {
         return $this->hasOne(Murid::class);
+    }
+
+    public function mengajar()
+    {
+        return $this->hasMany(Mapel::class, 'guru_id', 'id');
     }
 
     // Wali Kelas => Guru

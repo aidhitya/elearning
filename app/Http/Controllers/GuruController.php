@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\GuruRequest;
 use App\Models\Guru;
+use App\Models\Kelas;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class GuruController extends Controller
@@ -17,7 +19,10 @@ class GuruController extends Controller
      */
     public function index()
     {
-        return view('pages.guru.main');
+        $data = User::where('id', Auth::id())->with('mengajar.kelas')->first();
+        return view('pages.guru.main', [
+            'data' => $data
+        ]);
     }
 
     /**

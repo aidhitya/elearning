@@ -92,7 +92,7 @@
                                 <tr>
                                 <td>{{ $n++ }}</td>
                                 <td>{{ $item->nama }}</td>
-                                <td>{{ $item->kelas->kelas }} {{ $item->kelas->kode_kelas }}</td>
+                                <td>{{ $item->kelas->kelas }}{{ $item->kelas->kode_kelas }}</td>
                                 <td>{{ $item->guru->nama }} {{ $item->guru->guru->pendidikan }}</td>
                                 <td>
                                   <a href="{{ route('mapel.edit', $item->id) }}" class="btn btn-md btn-primary"><i class="fas fa-pencil-alt"></i></a>
