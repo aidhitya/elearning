@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\KelasRequest;
 use App\Http\Requests\MapelRequest;
 use App\Models\Kelas;

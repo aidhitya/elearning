@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,17 +19,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('guru', 'GuruController')->middleware(['auth', 'verified', 'roles:1']);
-
 Route::resource('murid', 'MuridController')->middleware(['auth', 'verified', 'roles:2']);
 
-Route::prefix('admin')->middleware(['auth', 'verified', 'roles:0'])->group(function () {
+Route::namespace('Guru')->prefix('guru')->middleware(['auth', 'verified', 'roles:1'])->group(function () {
+    Route::get('/', 'GuruController@index');
+    Route::resource('guru', 'GuruController')->except('index');
+});
+
+Route::namespace('Admin')->prefix('admin')->middleware(['auth', 'verified', 'roles:0'])->group(function () {
     Route::view('/', 'pages.admin.main')->name('home.admin');
     Route::resource('kelas', 'KelasController');
     Route::resource('mapel', 'MapelController')->except('show');
 });
 
-Route::middleware(['auth', 'verified', 'roles:0,1'])->group(function () {
+Route::namespace('Umum')->middleware(['auth', 'verified', 'roles:0,1'])->group(function () {
     Route::resource('materi', 'MateriController');
     Route::resource('soal', 'SoalController');
     Route::resource('soal/detail', 'DetailSoalController')->except('create', 'store');

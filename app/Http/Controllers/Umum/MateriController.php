@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Umum;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\MateriRequest;
 use Illuminate\Http\Request;
 use App\Models\Kelas;

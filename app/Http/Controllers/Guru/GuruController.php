@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Guru;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\GuruRequest;
 use App\Models\Guru;
 use App\Models\Kelas;
