@@ -54,7 +54,7 @@
                                         <td>{{ $item->soal }}</td>
                                         <td>
                                             @if ($item->gambar !== null)
-                                                <img src="{{ asset('storage/'.$item->gambar) }}" class="img-fluid rounded">
+                                                <img src="{{ asset('storage/'. $item->gambar) }}" class="img-fluid rounded">
                                             @endif
                                         </td>
                                         @foreach ($item->jawabans as $jwb)

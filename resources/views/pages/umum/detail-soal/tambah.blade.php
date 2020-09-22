@@ -10,7 +10,7 @@
           <div class="row">
 
             <!-- Index Siswa -->
-            <div class="col-xl-10 col-lg-9">
+            <div class="col-xl-9 col-lg-8">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -86,18 +86,29 @@
             </div>
 
             <!-- Pie Chart -->
-            {{-- <div class="col-xl-2 col-lg-3">
+            <div class="col-xl-3 col-lg-4">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Action Siswa</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Excel Upload</h6>
+                  <a href="{{ url('/storage/example.xlsx') }}" class="m-0 font-weight-bold text-primary"><i class="fas fa-arrow-circle-down"></i></a>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                   
+                    <form action="{{ route('detail.excel', $soal->id) }}" class="user" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <div class="mb-0 mb-sm-0">
+                                <input id="excel" type="file" class="form-control @error('excel') is-invalid @enderror" name="excel" autocomplete="excel" required>
+                            </div>
+                            <div class="mb-0 mb-sm-0 mt-2">
+                                <button type="submit" class="btn btn-primary btn-user btn-block">Proses</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
               </div>
-            </div> --}}
+            </div>
           </div>
     </div>
 @endsection
