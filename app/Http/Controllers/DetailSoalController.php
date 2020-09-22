@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DetailSoalRequest;
+use App\Imports\SoalImport;
 use App\Models\DetailSoal;
 use App\Models\Jawaban;
 use App\Models\Soal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 class DetailSoalController extends Controller
 {
@@ -101,8 +104,28 @@ class DetailSoalController extends Controller
     {
         $jwb = Jawaban::where('detail_soal_id', $detail->id);
         $jwb->delete();
+        if ($detail->gambar != null) {
+            Storage::delete('public/' . $detail->gambar);
+        }
         $detail->delete();
 
         return redirect(route('soal.show', $detail->soal_id))->with('berhasil', 'Detail soal berhasil dihapus');
+    }
+
+    public function excel(Request $request, $id)
+    {
+        $this->validate($request, [
+            'excel' => 'file|mimes:xlsx|max:2048'
+        ]);
+
+        $data = $request->all();
+        $data['excel'] = $request->file('excel')->store('soal/excel', 'public');
+
+        $excel =  storage_path('app/public/' . $data['excel']);
+
+        Excel::import(new SoalImport($id), $excel);
+        Storage::delete('public/' . $excel);
+
+        return redirect()->back()->with('berhasil', 'Detail soal berhasil diupload');
     }
 }

@@ -53,7 +53,9 @@
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $item->soal }}</td>
                                         <td>
-                                            <img src="{{ $item->gambar }}" class="img-fluid rounded">
+                                            @if ($item->gambar !== null)
+                                                <img src="{{ asset('storage/'. $item->gambar) }}" class="img-fluid rounded">
+                                            @endif
                                         </td>
                                         @foreach ($item->jawabans as $jwb)
                                             <td class="{{ $jwb->kunci == 1 ? 'text-success font-weight-bold' : null }}">{{ $jwb->jawaban }}</td>
