@@ -20,10 +20,7 @@ class GuruController extends Controller
      */
     public function index()
     {
-        $data = User::where('id', Auth::id())->with('mengajar.kelas')->first();
-        return view('pages.guru.main', [
-            'data' => $data
-        ]);
+        //
     }
 
     /**

@@ -27,8 +27,8 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            @foreach ($data->mengajar as $item)
-                <a class="collapse-item" href="#">Kelas {{ $item->kelas->kelas }}{{ $item->kelas->kode_kelas }}</a>
+            @foreach ($datakelas->mengajar as $item)
+                <a class="collapse-item" href="{{ route('data.kelas.guru', $item->kelas->kelas .'-'. $item->kelas->kode_kelas) }}">Kelas {{ $item->kelas->kelas }}{{ $item->kelas->kode_kelas }}</a>
             @endforeach
           </div>
         </div>

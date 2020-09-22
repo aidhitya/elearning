@@ -22,8 +22,9 @@ Route::get('/', function () {
 Route::resource('murid', 'MuridController')->middleware(['auth', 'verified', 'roles:2']);
 
 Route::namespace('Guru')->prefix('guru')->middleware(['auth', 'verified', 'roles:1'])->group(function () {
-    Route::get('/', 'GuruController@index');
-    Route::resource('guru', 'GuruController')->except('index');
+    Route::view('/', 'pages.guru.main');
+    Route::resource('guru', 'GuruController');
+    Route::get('kelas/{kelas}', 'DataKelasController@index')->name('data.kelas.guru');
 });
 
 Route::namespace('Admin')->prefix('admin')->middleware(['auth', 'verified', 'roles:0'])->group(function () {
