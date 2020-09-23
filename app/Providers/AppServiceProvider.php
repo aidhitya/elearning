@@ -25,6 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('includes.guru.sidebar', DataKelasComposer::class);
+        View::composer('includes.guru.*', DataKelasComposer::class);
     }
 }
