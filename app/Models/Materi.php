@@ -7,12 +7,18 @@ use App\Models\Kelas;
 use App\Models\Mapel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Scopes\PertemuanScope;
 
 class Materi extends Model
 {
     use SoftDeletes;
 
     protected $guarded = [];
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new PertemuanScope);
+    }
 
     // Relathionship
 
