@@ -22,7 +22,7 @@ Route::get('/', function () {
 Route::resource('murid', 'MuridController')->middleware(['auth', 'verified', 'roles:2']);
 
 Route::namespace('Guru')->prefix('guru')->middleware(['auth', 'verified', 'roles:1'])->group(function () {
-    Route::view('/', 'pages.guru.main');
+    Route::view('/', 'pages.guru.main')->name('home.guru');
     Route::resource('guru', 'GuruController');
     Route::get('kelas/{kelas}', 'DataKelasController@index')->name('data.kelas.guru');
 });

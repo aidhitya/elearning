@@ -9,6 +9,7 @@ use App\Models\DetailSoal;
 use App\Models\Jawaban;
 use App\Models\Soal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
@@ -17,10 +18,15 @@ class DetailSoalController extends Controller
 {
     public function create(Soal $soal)
     {
-        // return $soal;
+        $layout = 'admin';
+
+        if (Auth::user()->role = 1) {
+            $layout = 'guru';
+        }
+
         return view('pages.umum.detail-soal.tambah', [
             'soal' => $soal,
-            'layout' => 'admin'
+            'layout' => $layout
         ]);
     }
 
@@ -69,9 +75,16 @@ class DetailSoalController extends Controller
     public function edit(DetailSoal $detail)
     {
         $detail->load(['soalnya', 'jawabans']);
+
+        $layout = 'admin';
+
+        if (Auth::user()->role = 1) {
+            $layout = 'guru';
+        }
+
         return view('pages.umum.detail-soal.edit', [
             'detail' => $detail,
-            'layout' => 'admin'
+            'layout' => $layout
         ]);
     }
 

@@ -94,9 +94,15 @@ class SoalController extends Controller
             'detail_soal',
             'detail_soal.jawabans'
         ]);
-        // return $complete;
+
+        $layout = 'admin';
+
+        if (Auth::user()->role = 1) {
+            $layout = 'guru';
+        }
+
         return view('pages.umum.soal.detail', [
-            'layout' => 'admin',
+            'layout' => $layout,
             'complete' => $complete
         ]);
     }
