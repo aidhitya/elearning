@@ -34,10 +34,12 @@ Route::namespace('Admin')->prefix('admin')->middleware(['auth', 'verified', 'rol
 });
 
 Route::namespace('Umum')->middleware(['auth', 'verified', 'roles:0,1'])->group(function () {
-    Route::resource('materi', 'MateriController');
+    Route::resource('materi', 'MateriController')->except('show', 'create');
     Route::resource('soal', 'SoalController');
     Route::resource('soal/detail', 'DetailSoalController')->except('create', 'store');
 
+    Route::get('materi/create/{kelas?}', 'MateriController@create')->name('materi.create');
+    Route::get('materi/{kelas}/{materi?}', 'MateriController@show')->name('materi.show');
     Route::post('soal/{soal}/excel/store', 'DetailSoalController@excel')->name('detail.excel');
     Route::post('soal/{soal}/detail/store', 'DetailSoalController@store')->name('detail.store');
     Route::get('soal/detail/{soal}/create', 'DetailSoalController@create')->name('detail.create');

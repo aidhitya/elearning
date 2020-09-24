@@ -31,4 +31,14 @@ class Kelas extends Model
     {
         return $this->hasMany(Murid::class);
     }
+
+    public function materis() // kelas specific
+    {
+        return $this->hasMany(Materi::class);
+    }
+
+    public function materi()
+    {
+        return $this->hasMany(Materi::class, 'kelas', 'kelas')->whereNull('kelas_id');
+    }
 }

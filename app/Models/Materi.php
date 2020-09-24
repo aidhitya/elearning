@@ -29,7 +29,7 @@ class Materi extends Model
 
     public function kelas_spec() // untuk specific kelas
     {
-        return $this->belongsTo(Kelas::class);
+        return $this->belongsTo(Kelas::class, 'kelas_id');
     }
 
     public function guru()

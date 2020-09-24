@@ -26,9 +26,8 @@ class MateriRequest extends FormRequest
         return [
             'kelas' => 'required|integer|exists:kelas,kelas',
             'kelas_id' => 'sometimes|required|integer|exists:kelas,id',
-            'mapel' => 'required|integer|exists:mapels,id',
+            'mapel' => 'sometimes|required|integer|exists:mapels,id',
             'judul' => 'required|string',
-            'url' => 'nullable|active_url|url',
             'pertemuan' => 'sometimes|required|integer',
             'keterangan' => 'nullable|string'
         ];
