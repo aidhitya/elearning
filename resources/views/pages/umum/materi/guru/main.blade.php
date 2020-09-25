@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="align-items-center justify-content-center text-center">
-                                        <h6 class="font-weight-bold text-dark">{{ $item->kelas->wali_guru_kelas->nama }}</h6><br>
+                                        <h6 class="font-weight-bold text-dark">{{ $item->kelas->wali_kelas->nama }}</h6><br>
                                         <h6 class="m-0 text-dark">{{ $item->nama }}</h6>
                                         <h6 class="m-0 font-weight-bold text-info">Materi : {{ $item->kelas->materi_count }} + ({{ $item->kelas->materis_count }}) Materi</h6><br>
                                         <a href="{{ route('materi.show', $item->kelas->id) }}" class="btn btn-sm btn-primary">Lihat</a>

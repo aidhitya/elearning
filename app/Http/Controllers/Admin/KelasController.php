@@ -17,7 +17,7 @@ class KelasController extends Controller
      */
     public function index()
     {
-        $kelas = Kelas::with(['wali_guru_kelas'])->orderBy('kelas')->orderBy('kode_kelas')->get();
+        $kelas = Kelas::with(['wali_kelas'])->orderBy('kelas')->orderBy('kode_kelas')->get();
         return view('pages.admin.kelas.kelas', [
             'kelas' => $kelas
         ]);
@@ -70,7 +70,7 @@ class KelasController extends Controller
      */
     public function edit($id)
     {
-        $kelas = Kelas::with('wali_guru_kelas')->findOrFail($id);
+        $kelas = Kelas::with('wali_kelas')->findOrFail($id);
         $guru = User::has('guru')->doesntHave('wali_kelas')->get();
         return view('pages.admin.kelas.edit', [
             'kelas' => $kelas,

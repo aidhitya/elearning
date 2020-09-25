@@ -55,7 +55,7 @@
                                     <tr>
                                       <td>{{ $key + 1 }}</td>
                                       <td>{{ $item->kelas }} {{ $item->kode_kelas }}</td>
-                                      <td>{{ $item->wali_guru_kelas->nama }}</td>
+                                      <td>{{ $item->wali_kelas->nama }}</td>
                                       <td>
                                         <a href="{{ route('kelas.edit', $item->id) }}" class="btn btn-md btn-primary"><i class="fas fa-pencil-alt"></i></a>
                                         <form action="{{ route('kelas.destroy', $item->id) }}" method="POST" class="d-inline">

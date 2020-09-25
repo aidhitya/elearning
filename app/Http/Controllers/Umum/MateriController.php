@@ -18,7 +18,7 @@ class MateriController extends Controller
     {
         if (Auth::user()->role == 1) {
             $materi = User::select('id')->where('id', Auth::id())->with(['mengajar.kelas' => function ($q) {
-                $q->with('wali_guru_kelas:id,nama')->withCount(['materi', 'materis'])->orderBy('kelas')->get();
+                $q->with('wali_kelas:id,nama')->withCount(['materi', 'materis'])->orderBy('kelas')->get();
             }])->first();
             // return $materi;
             return view('pages.umum.materi.guru.main', [

@@ -63,6 +63,6 @@ class User extends Authenticatable implements MustVerifyEmail
     // Wali Kelas => Guru
     public function wali_kelas()
     {
-        return $this->hasOne(Kelas::class, 'wali_kelas', 'id');
+        return $this->hasOne(Kelas::class, 'guru_id', 'id');
     }
 }

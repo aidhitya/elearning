@@ -36,8 +36,8 @@
                     @csrf @method('PATCH')
                     <div class="form-group">
                         <div class="mb-3 mb-sm-0">
-                            <select name="wali_kelas" id="wali_kelas" class="form-control">
-                              <option value="{{ $kelas->wali_kelas }}">{{ $kelas->wali_guru_kelas->nama }}</option>
+                            <select name="guru_id" id="wali_kelas" class="form-control">
+                              <option value="{{ $kelas->wali_kelas }}">{{ $kelas->wali_kelas->nama }}</option>
                               @foreach ($guru as $item)
                                 <option value="{{ $item->id }}">{{ $item->nama }} {{ $item->guru->pendidikan }}</option>
                               @endforeach

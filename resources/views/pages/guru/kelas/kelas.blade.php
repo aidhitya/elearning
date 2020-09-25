@@ -16,7 +16,7 @@
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">{{ $data->nama }} / {{ $data->kelas->kelas }}{{ $data->kelas->kode_kelas }}</h6>
                   <h6 class="m-0 text-primary">Jumlah Siswa : <span class="font-weight-bold">{{ count($data->kelas->murids) }}</span></h6>
-                  <h6 class="m-0 text-primary">Wali Kelas : <span class="font-weight-bold">{{ $data->kelas->wali_guru_kelas->nama }} {{ $data->kelas->wali_guru_kelas->guru->pendidikan }}</span></h6>
+                  <h6 class="m-0 text-primary">Wali Kelas : <span class="font-weight-bold">{{ $data->kelas->wali_kelas->nama }} {{ $data->kelas->wali_kelas->guru->pendidikan }}</span></h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">

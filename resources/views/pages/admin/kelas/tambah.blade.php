@@ -36,7 +36,7 @@
                     @csrf
                     <div class="form-group">
                         <div class="mb-3 mb-sm-0">
-                            <select name="wali_kelas" id="wali_kelas" class="form-control">
+                            <select name="guru_id" id="wali_kelas" class="form-control">
                               <option value="">Wali Kelas</option>
                               @foreach ($guru as $item)
                                 <option value="{{ $item->id }}">{{ $item->nama }} {{ $item->guru->pendidikan }}</option>

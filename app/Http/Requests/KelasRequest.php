@@ -26,7 +26,7 @@ class KelasRequest extends FormRequest
         return [
             'kelas' => 'required|integer',
             'kode_kelas' => 'required|string',
-            'wali_kelas' => 'required|integer|exists:users,id|unique:kelas,wali_kelas'
+            'guru_id' => 'required|integer|exists:users,id|unique:kelas,guru_id'
         ];
     }
 }
