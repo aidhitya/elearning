@@ -20,10 +20,10 @@ class SoalController extends Controller
     {
         $layout = 'admin';
         if (Auth::user()->role == 1) {
-            $soal = Soal::where('author', Auth::id())->with(['materi', 'mapel', 'pembuat', 'speckelas'])->get();
+            $soal = Soal::where('guru_id', Auth::id())->with(['materi', 'mapel', 'author', 'speckelas'])->get();
             $layout = 'guru';
         } else {
-            $soal = Soal::with(['materi', 'mapel', 'pembuat', 'speckelas'])->get();
+            $soal = Soal::with(['materi', 'mapel', 'author', 'speckelas'])->get();
         }
         // return $soal;
         return view('pages.umum.soal.main', [
@@ -73,7 +73,7 @@ class SoalController extends Controller
     public function store(SoalRequest $request)
     {
         $data = $request->all();
-        $data['author'] = Auth::id();
+        $data['guru_id'] = Auth::id();
         if (!$request->has('mapel_id')) {
             $mapel = Materi::where('id', $data['materi_id'])->first();
 
@@ -87,7 +87,7 @@ class SoalController extends Controller
     public function show(Soal $soal)
     {
         $complete =  $soal->load([
-            'pembuat:id,nama',
+            'author:id,nama',
             'speckelas:id,kelas,kode_kelas',
             'mapel:id,nama',
             'materi:id,judul',
@@ -159,7 +159,7 @@ class SoalController extends Controller
         }
 
         $data = $request->all();
-        $data['author'] = Auth::id();
+        $data['guru_id'] = Auth::id();
         if (!$request->has('mapel_id')) {
             $mapel = Materi::where('id', $data['materi_id'])->first();
 

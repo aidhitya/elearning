@@ -23,7 +23,7 @@ class CreateSoalsTable extends Migration
             $table->string('kategori');
             $table->dateTimeTz('mulai');
             $table->dateTimeTz('selesai');
-            $table->unsignedBigInteger('author');
+            $table->unsignedBigInteger('guru_id');
             $table->softDeletes();
             $table->timestamps();
         });

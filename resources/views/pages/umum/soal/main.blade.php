@@ -77,13 +77,13 @@
                                   -
                                   @endif
                                 </td>
-                                <td>{{ $item->pembuat->nama }}</td>
+                                <td>{{ $item->author->nama }}</td>
                                 <td>{{ $item->mulai }}</td>
                                 <td>{{ $item->selesai }}</td>
                                 <td>
                                   <a href="{{ route('detail.create', $item->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i></a>
                                   <a href="{{ route('soal.show', $item->id) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></i></a>
-                                  @if ($item->author == Auth::id())
+                                  @if ($item->guru_id == Auth::id())
                                     @if ($item->mulai > now())
                                       <a href="{{ route('soal.edit', $item->id) }}" class="btn btn-sm btn-info"><i class="fas fa-pencil-alt"></i></a>
                                     @endif

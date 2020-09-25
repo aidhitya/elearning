@@ -26,9 +26,9 @@ class Mapel extends Model
         return $this->belongsTo(User::class, 'guru_id', 'id');
     }
 
-    public function materis()
+    public function materiUtama()
     {
-        return $this->hasMany(Materi::class);
+        return $this->hasMany(Materi::class, 'mapel_id', 'parent_id')->whereNull('kelas_id');
     }
 
     // Mapel Parent

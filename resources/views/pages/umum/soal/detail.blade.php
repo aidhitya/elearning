@@ -15,7 +15,7 @@
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">{{ $complete->judul }} - {{ is_null($complete->kelas) ? 'Kelas '.$complete->speckelas->kelas .' '. $complete->speckelas->kode_kelas : 'Kelas '.$complete->kelas}}</h6>
                   <h6 class="m-0 font-weight-bold text-primary">{{ is_null($complete->materi_id) ? $complete->mapel->nama : $complete->mapel->nama . ' - '. $complete->materi->judul}}</h6>
-                  <h6 class="m-0 font-weight-bold text-primary">{{ $complete->pembuat->nama }}</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">{{ $complete->author->nama }}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
