@@ -1,11 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Murid;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\MuridRequest;
+use App\Models\Kelas;
+use App\Models\Mapel;
 use App\Models\Murid;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class MuridController extends Controller
@@ -17,7 +21,17 @@ class MuridController extends Controller
      */
     public function index()
     {
-        return view('pages.siswa.main');
+        // $userKelas = Kelas::select('id', 'kelas')->find(Auth::user()->murid->kelas_id);
+        // $mapel = Kelas::where('id', $userKelas->id)->with(['mapels' => function($q) use ($userKelas){
+        //     $q->withCount(['materis' => function($query) use ($userKelas) {
+        //         $query->where('kelas', $userKelas->kelas)->orWhere('kelas_id', $userKelas->id);
+        //     }]);
+        // }])->get();
+        $mapel = Kelas::where('id', Auth::user()->murid->kelas_id)->with('mapels')->first();
+        
+        return view('pages.siswa.main',[
+            'mapel' => $mapel
+        ]);
     }
 
     /**

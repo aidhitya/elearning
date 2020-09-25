@@ -19,7 +19,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('murid', 'MuridController')->middleware(['auth', 'verified', 'roles:2']);
+Route::namespace('Murid')->middleware(['auth', 'verified', 'roles:2'])->group(function(){
+    Route::resource('murid', 'MuridController');
+    Route::get('murid/mapel/{mapel}', 'DataMuridController@mapel')->name('murid.mapel');
+    Route::get('murid/mapel/{mapel}/{materi}', 'DataMuridController@materi')->name('murid.materi');
+});
 
 Route::namespace('Guru')->prefix('guru')->middleware(['auth', 'verified', 'roles:1'])->group(function () {
     Route::view('/', 'pages.guru.main')->name('home.guru');

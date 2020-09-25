@@ -26,9 +26,14 @@ class Mapel extends Model
         return $this->belongsTo(User::class, 'guru_id', 'id');
     }
 
-    public function materiUtama()
+    public function materis() // mapel child
     {
-        return $this->hasMany(Materi::class, 'mapel_id', 'parent_id')->whereNull('kelas_id');
+        return $this->hasMany(Materi::class, 'mapel_id', 'parent_id');
+    }
+
+    public function materi() // mapel parent
+    {
+        return $this->hasMany(Materi::class);
     }
 
     // Mapel Parent
@@ -36,6 +41,14 @@ class Mapel extends Model
     public function parent()
     {
         return $this->belongsTo(Mapel::class, 'parent_id');
+    }
+
+
+    // Mapel Child
+
+    public function child()
+    {
+        return $this->hasMany(Mapel::class, 'parent_id');
     }
 
     // Scopre Query
@@ -48,5 +61,12 @@ class Mapel extends Model
     public function scopeGetChildren($query)
     {
         $query->whereNotNull('parent_id');
+    }
+
+    // Mutators
+
+    public function setNamaAttribute($value)
+    {
+        $this->attributes['nama'] = ucwords($value);
     }
 }
