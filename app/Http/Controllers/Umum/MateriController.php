@@ -26,7 +26,7 @@ class MateriController extends Controller
             ]);
         }
 
-        $materi = Materi::with(['guru', 'kelas_spec', 'mapel'])->get();
+        $materi = Materi::with(['author', 'kelas_spec', 'mapel'])->get();
         $kelas = Kelas::select('kelas')->distinct()->orderBy('kelas')->get();
         $mapel = Mapel::getParent()->orderBy('nama')->get();
 
@@ -84,7 +84,7 @@ class MateriController extends Controller
                 'judul' => $data['judul'],
                 'file' => $data['file'],
                 'pertemuan' => $data['pertemuan'],
-                'author' => Auth::id(),
+                'guru_id' => Auth::id(),
                 'keterangan' => $data['keterangan']
             ]);
 
@@ -112,7 +112,7 @@ class MateriController extends Controller
             'judul' => $data['judul'],
             'url' => $data['url'],
             'file' => $data['file'],
-            'author' => Auth::id(),
+            'guru_id' => Auth::id(),
             'keterangan' => $data['keterangan']
         ]);
 
@@ -192,7 +192,6 @@ class MateriController extends Controller
                 'judul' => $data['judul'],
                 'file' => $data['file'],
                 'pertemuan' => $data['pertemuan'],
-                'author' => Auth::id(),
                 'keterangan' => $data['keterangan']
             ]);
         } else {
@@ -202,7 +201,6 @@ class MateriController extends Controller
                 'mapel_id' => $data['mapel'],
                 'judul' => $data['judul'],
                 'pertemuan' => $data['pertemuan'],
-                'author' => Auth::id(),
                 'keterangan' => $data['keterangan']
             ]);
         }

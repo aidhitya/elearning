@@ -22,7 +22,7 @@ class CreateMaterisTable extends Migration
             $table->text('url')->nullable();
             $table->text('file')->nullable();
             $table->integer('pertemuan')->nullable();
-            $table->unsignedBigInteger('author');
+            $table->unsignedBigInteger('guru_id');
             $table->string('keterangan')->nullable();
             $table->softDeletes();
             $table->timestamps();

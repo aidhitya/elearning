@@ -32,9 +32,9 @@ class Materi extends Model
         return $this->belongsTo(Kelas::class, 'kelas_id');
     }
 
-    public function guru()
+    public function author()
     {
-        return $this->belongsTo(User::class, 'author', 'id');
+        return $this->belongsTo(User::class, 'guru_id', 'id');
     }
 
     public function mapel()

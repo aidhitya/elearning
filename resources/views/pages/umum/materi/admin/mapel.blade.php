@@ -71,7 +71,7 @@
                             </td>
                             <td>{{ $item->mapel->nama }}</td>
                             <td>{{ $item->pertemuan }}</td>
-                            <td>{{ $item->guru->nama }}</td>
+                            <td>{{ $item->author->nama }}</td>
                             <td>{{ $item->keterangan }}</td>
                             <td>
                               <a href="{{ route('materi.edit', $item->id) }}" class="btn btn-md btn-primary"><i class="fas fa-pencil-alt"></i></a>
