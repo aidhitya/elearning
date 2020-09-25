@@ -16,7 +16,7 @@ class CreateDetailSoalsTable extends Migration
         Schema::create('detail_soals', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('soal_id');
-            $table->text('soal');
+            $table->text('isi');
             $table->text('gambar')->nullable();
             $table->smallInteger('randomize');
             $table->softDeletes();

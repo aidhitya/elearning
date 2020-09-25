@@ -14,7 +14,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Edit Detail Soal - {{ $detail->soalnya->judul }}</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Edit Detail Soal - {{ $detail->soal->judul }}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -38,7 +38,7 @@
                 <form class="user" name="detailsoal" action="{{ route('detail.update', $detail->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf @method('PUT')
                     <div class="form-group">
-                        <input type="text" name="soal" style="width: 95%" class="form-control form-control-user d-inline" value="{{ $detail->soal }}" placeholder="Soal" required>
+                        <input type="text" name="soal" style="width: 95%" class="form-control form-control-user d-inline" value="{{ $detail->isi }}" placeholder="Soal" required>
                     </div>
 
                     <div class="form-group row">

@@ -13,7 +13,7 @@ class DetailSoal extends Model
 
     protected $guarded = [];
 
-    public function soalnya()
+    public function soal()
     {
         return $this->belongsTo(Soal::class, 'soal_id');
     }

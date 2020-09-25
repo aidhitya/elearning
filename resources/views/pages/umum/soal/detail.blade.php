@@ -51,7 +51,7 @@
                                 @foreach ($complete->detail_soal as $key => $item)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
-                                        <td>{{ $item->soal }}</td>
+                                        <td>{{ $item->isi }}</td>
                                         <td>
                                             @if ($item->gambar !== null)
                                                 <img src="{{ asset('storage/'. $item->gambar) }}" class="img-fluid rounded">

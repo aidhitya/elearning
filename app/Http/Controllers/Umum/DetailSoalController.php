@@ -20,7 +20,7 @@ class DetailSoalController extends Controller
     {
         $layout = 'admin';
 
-        if (Auth::user()->role = 1) {
+        if (Auth::user()->role == 1) {
             $layout = 'guru';
         }
 
@@ -39,7 +39,7 @@ class DetailSoalController extends Controller
             // create soal
             $question[] = [
                 'soal_id' => $id,
-                'soal' => request('soal')[$i - 1],
+                'isi' => request('soal')[$i - 1],
                 'gambar' => request('gambar_' . $i),
                 'randomize' => rand(1, 1000)
             ];
@@ -74,7 +74,7 @@ class DetailSoalController extends Controller
 
     public function edit(DetailSoal $detail)
     {
-        $detail->load(['soalnya', 'jawabans']);
+        $detail->load(['soal', 'jawabans']);
 
         $layout = 'admin';
 
@@ -97,13 +97,13 @@ class DetailSoalController extends Controller
             Storage::delete('public/' . $detail->gambar);
             $data['gambar'] = $request->file('gambar')->store('images/soal', 'public');
             $detail->update([
-                'soal' => $data['soal'],
+                'isi' => $data['soal'],
                 'gambar' => $data['gambar']
             ]);
         } else {
 
             $detail->update([
-                'soal' => $data['soal']
+                'isi' => $data['soal']
             ]);
         }
 

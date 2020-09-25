@@ -23,9 +23,9 @@ class Soal extends Model
         return $this->belongsTo(Kelas::class, 'kelas_id');
     }
 
-    public function pembuat()
+    public function author()
     {
-        return $this->belongsTo(User::class, 'author', 'id');
+        return $this->belongsTo(User::class, 'guru_id', 'id');
     }
 
     public function mapel()

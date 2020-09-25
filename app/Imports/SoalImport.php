@@ -39,7 +39,7 @@ class SoalImport implements ToCollection, WithStartRow, WithChunkReading
 
             $soal = DetailSoal::create([
                 'soal_id' => $this->soalId,
-                'soal' => $row[0],
+                'isi' => $row[0],
                 'randomize' => rand(1, 1000)
             ]);
 
