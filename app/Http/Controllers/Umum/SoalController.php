@@ -39,11 +39,18 @@ class SoalController extends Controller
             $kelas = Mapel::where('guru_id', Auth::id())->with('kelas')->get();
 
             if (request()->ajax()) {
+                $mat = explode('-', request('kelas_materi'));
+                $k = Kelas::where('id', $mat[0])->first();
 
-                $k = Kelas::where('id', request('kelas_id'))->first();
-
-                $materi = Materi::where('kelas', $k->kelas)->where(function ($q) {
-                    $q->WhereNull('kelas_id')->orWhere('kelas_id', request('kelas_id'));
+                $materi = Materi::where([
+                    'kelas' => $k->kelas,
+                    'mapel_id' => $mat[1],
+                    'kelas_id' => null
+                ])->orWhere(function ($q) use ($mat) {
+                    $q->where([
+                        'kelas_id' => $mat[0],
+                        'guru_id' => Auth::id()
+                    ])->get();
                 })->get();
 
                 return view('pages.umum.soal.materi')->with([
@@ -73,6 +80,12 @@ class SoalController extends Controller
     public function store(SoalRequest $request)
     {
         $data = $request->all();
+        if (Auth::user()->role == 1) {
+            $mat = explode('-', $data['kelas_materi']);
+            $data['kelas_id'] = $mat[0];
+            unset($data['kelas_materi']);
+        }
+        
         $data['guru_id'] = Auth::id();
         if (!$request->has('mapel_id')) {
             $mapel = Materi::where('id', $data['materi_id'])->first();
@@ -97,7 +110,7 @@ class SoalController extends Controller
 
         $layout = 'admin';
 
-        if (Auth::user()->role = 1) {
+        if (Auth::user()->role == 1) {
             $layout = 'guru';
         }
 

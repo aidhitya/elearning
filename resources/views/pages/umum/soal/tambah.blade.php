@@ -67,10 +67,10 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6 mb-3 mb-sm-0">
-                                <select name="kelas_id" class="form-control" id="kelas" required>
+                                <select name="kelas_materi" class="form-control" id="kelas" required>
                                     <option value="0" id="zonk">Kelas</option>
                                     @foreach ($kelas as $item)
-                                        <option value="{{ $item->kelas_id }}">{{ $item->kelas->kelas }} {{ $item->kelas->kode_kelas }} - {{ $item->nama }}</option>
+                                        <option value="{{ $item->kelas_id }}-{{ $item->parent_id }}">{{ $item->kelas->kelas }} {{ $item->kelas->kode_kelas }} - {{ $item->nama }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -131,7 +131,7 @@
                         url:`{{ route('post.materi.soal') }}`,
                         type: 'POST',
                         data: {
-                            kelas_id: kelas,
+                            kelas_materi: kelas,
                             _token: '{{ csrf_token() }}'
                         },
                         success:function(data)
