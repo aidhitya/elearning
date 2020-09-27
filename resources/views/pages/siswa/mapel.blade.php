@@ -10,7 +10,7 @@
           <div class="row">
 
             <!-- Area Chart -->
-            <div class="col-xl-8 col-lg-7">
+            <div class="col-xl-7 col-lg-6">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -60,15 +60,22 @@
             </div>
 
             <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
+            <div class="col-xl-5 col-lg-6">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Tugas</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Soal</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-
+                  <ul class="list-group list-group-flush">
+                    @foreach ($soal as $item)
+                    <li class="list-group-item list-group-item-action">
+                      {{ $item->judul }}<small class="ml-2 text-muted">( {{ $item->kategori }} )</small>
+                      <a href="{{ route('murid.soal', [strtolower($item->kategori), \Str::slug($item->mapel->nama), $item->id]) }}" class="float-right btn btn-sm btn-primary">Kerjakan</a>
+                    </li>
+                    @endforeach
+                  </ul>
                 </div>
               </div>
             </div>

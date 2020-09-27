@@ -23,6 +23,9 @@ Route::namespace('Murid')->middleware(['auth', 'verified', 'roles:2'])->group(fu
     Route::resource('murid', 'MuridController');
     Route::get('murid/mapel/{mapel}', 'DataMuridController@mapel')->name('murid.mapel');
     Route::get('murid/mapel/{mapel}/{materi}', 'DataMuridController@materi')->name('murid.materi');
+
+    Route::get('soal/{kategori}/{mapel}/{soal}', 'MengerjakanController@soal')->name('murid.soal');
+    Route::post('soal/{kategori}/{mapel}/{soal}', 'MengerjakanController@slide')->name('murid.slide');
 });
 
 Route::namespace('Guru')->prefix('guru')->middleware(['auth', 'verified', 'roles:1'])->group(function () {

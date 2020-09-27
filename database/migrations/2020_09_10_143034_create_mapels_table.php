@@ -15,7 +15,7 @@ class CreateMapelsTable extends Migration
     {
         Schema::create('mapels', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->string('nama')->unique();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->unsignedBigInteger('guru_id')->nullable();
             $table->unsignedBigInteger('kelas_id')->nullable();

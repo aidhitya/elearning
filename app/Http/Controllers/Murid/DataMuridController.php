@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Mapel;
 use App\Models\Kelas;
 use App\Models\Materi;
+use App\Models\Soal;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class DataMuridController extends Controller
 {
@@ -27,18 +30,30 @@ class DataMuridController extends Controller
         ])->with(['materis' => function ($q) use ($userKelas) {
             $q->where('kelas', $userKelas->kelas)->orWhere('kelas_id', $userKelas->id);
         }, 'guru.guru:user_id,pendidikan'])->first();
-
-        // $search = Mapel::getParent()->where('nama', $m)->with(['child' => function($q) use ($userKelas){
-        //     $q->where('kelas_id', $userKelas->id)->with(['guru', ]);
-        // }])->first();
-        // return $search;
+        
+        $soal = Soal::with('mapel:id,nama')->where([
+            'kelas' => $userKelas->kelas,
+            'mapel_id' => $search->parent_id
+        ])->orWhere(function($q) use ($userKelas, $search){
+            $q->where([
+                'kelas_id' => $userKelas->id,
+                'mapel_id' => $search->parent_id
+            ]);
+        })->has('detail_soal')->get();
+        
         return view('pages.siswa.mapel', [
-            'search' => $search
+            'search' => $search,
+            'soal' => $soal
         ]);
     }
 
     public function materi($mapel, Materi $materi)
     {
+        $materi->load('mapel:id,nama');
+        if ($mapel !== Str::slug($materi->mapel->nama)) {
+            abort(404);
+        }
+        
         return view('pages.siswa.materi',[
             'materi' => $materi
         ]);
