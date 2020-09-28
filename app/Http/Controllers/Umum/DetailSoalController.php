@@ -78,7 +78,7 @@ class DetailSoalController extends Controller
 
         $layout = 'admin';
 
-        if (Auth::user()->role = 1) {
+        if (Auth::user()->role == 1) {
             $layout = 'guru';
         }
 
@@ -150,7 +150,7 @@ class DetailSoalController extends Controller
         $excel =  storage_path('app/public/' . $data['excel']);
 
         Excel::import(new SoalImport($id), $excel);
-        Storage::delete('public/' . $excel);
+        Storage::delete('public/' . $data['excel']);
 
         return redirect()->back()->with('berhasil', 'Detail soal berhasil diupload');
     }

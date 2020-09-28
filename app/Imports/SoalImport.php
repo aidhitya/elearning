@@ -40,16 +40,17 @@ class SoalImport implements ToCollection, WithStartRow, WithChunkReading
             $soal = DetailSoal::create([
                 'soal_id' => $this->soalId,
                 'isi' => $row[0],
+                'gambar' => $row[1],
                 'randomize' => rand(1, 1000)
             ]);
 
             $jawaban = [
-                $row[1], $row[2], $row[3], $row[4]
+                $row[2], $row[3], $row[4], $row[5]
             ];
 
             for ($i = 0; $i < count($jawaban); $i++) {
                 $kunci = 0;
-                switch (strtoupper($row[5])) {
+                switch (strtoupper($row[6])) {
                     case 'A':
                         if ($i == 0) {
                             $kunci = 1;

@@ -38,14 +38,19 @@
                 <form class="user" name="detailsoal" action="{{ route('detail.update', $detail->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf @method('PUT')
                     <div class="form-group">
-                        <input type="text" name="soal" style="width: 95%" class="form-control form-control-user d-inline" value="{{ $detail->isi }}" placeholder="Soal" required>
+                        {{-- <input type="text" name="soal" style="width: 95%" class="form-control form-control-user d-inline" value="{{ $detail->isi }}" placeholder="Soal" required> --}}
+                        <textarea name="soal" id="soal" cols="30" class="form-control form-control-user d-inline" required>{{ $detail->isi }}</textarea>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-md-5 mb-0 mb-sm-0">
                             <input id="gambar" type="file" class="form-control @error('gambar') is-invalid @enderror mb-2" name="gambar" autocomplete="gambar" autofocus>
                             @if (! is_null($detail->gambar))
-                                <img src="{{ asset('storage/'.$detail->gambar) }}" alt="soal" class="img-fluid mb-2">
+                            @if (\File::exists('storage/'. $detail->gambar))
+                            <img src="{{ asset('storage/'.$detail->gambar) }}" alt="soal" class="img-fluid mb-2">
+                            @else
+                            <img src="{{ url($detail->gambar) }}" alt="soal" class="img-fluid mb-2">
+                            @endif
                             @endif
                         </div>
                         <div class="col-md-7 mb-0 mb-sm-0">

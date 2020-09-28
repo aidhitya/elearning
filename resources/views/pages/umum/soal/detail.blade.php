@@ -51,14 +51,18 @@
                                 @foreach ($complete->detail_soal as $key => $item)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
-                                        <td>{{ $item->isi }}</td>
+                                        <td class="text-wrap w-75">{{ $item->isi }}</td>
                                         <td>
                                             @if ($item->gambar !== null)
-                                                <img src="{{ asset('storage/'. $item->gambar) }}" class="img-fluid rounded">
+                                            @if (\File::exists('storage/'. $item->gambar))
+                                            <img src="{{ asset('storage/'.$item->gambar) }}" alt="soal" class="w-50 img-fluid rounded">
+                                            @else
+                                            <img src="{{ url($item->gambar) }}" alt="sda" class="img-fluid rounded">
+                                            @endif
                                             @endif
                                         </td>
                                         @foreach ($item->jawabans as $jwb)
-                                            <td class="{{ $jwb->kunci == 1 ? 'text-success font-weight-bold' : null }}">{{ $jwb->jawaban }}</td>
+                                            <td class="{{ $jwb->kunci == 1 ? 'text-success font-weight-bold' : null }} text-wrap w-25">{{ $jwb->jawaban }}</td>
                                         @endforeach
                                         <td>
                                             <a href="{{ route('detail.edit', $item->id) }}" class="btn btn-md btn-primary"><i class="fas fa-pencil-alt"></i></a>
@@ -96,10 +100,11 @@
 
 @push('addon-script')
     <script>
-      $(document).ready(function() {
-          $('#dataTable').DataTable( {
-              scrollX: true
-          } );
-      });
+        $(document).ready(function() {
+            $('#dataTable').DataTable( {
+                scrollX: true,
+                
+            });
+        });
     </script>
 @endpush
