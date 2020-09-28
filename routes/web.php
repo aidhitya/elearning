@@ -26,10 +26,13 @@ Route::namespace('Murid')->middleware(['auth', 'verified', 'roles:2'])->group(fu
 
     Route::get('soal/{kategori}/{mapel}/{soal}', 'MengerjakanController@soal')->name('murid.soal');
     Route::post('soal/{kategori}/{mapel}/{soal}', 'MengerjakanController@slide')->name('murid.slide');
+
+    Route::post('soal/{kategori}/{mapel}/{soal}/checking', 'CheckerController')->name('soal.checking');
+    Route::get('soal/{kategori}/{mapel}/{soal}/checking', 'CheckerController')->name('soal.check');
 });
 
 Route::namespace('Guru')->prefix('guru')->middleware(['auth', 'verified', 'roles:1'])->group(function () {
-    Route::view('/', 'pages.guru.main')->name('home.guru');
+    Route::view('/', 'pages.guru.main')->name('home.guru'); 
     Route::resource('guru', 'GuruController');
     Route::get('kelas/{kelas}', 'DataKelasController@index')->name('data.kelas.guru');
 });
@@ -40,7 +43,7 @@ Route::namespace('Admin')->prefix('admin')->middleware(['auth', 'verified', 'rol
     Route::resource('mapel', 'MapelController')->except('show');
 });
 
-Route::namespace('Umum')->middleware(['auth', 'verified', 'roles:0,1'])->group(function () {
+Route::prefix('assets')->namespace('Umum')->middleware(['auth', 'verified', 'roles:0,1'])->group(function () {
     Route::resource('materi', 'MateriController')->except('show', 'create');
     Route::resource('soal', 'SoalController');
     Route::resource('soal/detail', 'DetailSoalController')->except('create', 'store');

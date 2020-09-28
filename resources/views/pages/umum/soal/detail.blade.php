@@ -51,7 +51,7 @@
                                 @foreach ($complete->detail_soal as $key => $item)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
-                                        <td class="text-wrap w-75">{{ $item->isi }}</td>
+                                        <td class="text-wrap w-75 text-justify">{{ $item->isi }}</td>
                                         <td>
                                             @if ($item->gambar !== null)
                                             @if (\File::exists('storage/'. $item->gambar))
@@ -62,7 +62,7 @@
                                             @endif
                                         </td>
                                         @foreach ($item->jawabans as $jwb)
-                                            <td class="{{ $jwb->kunci == 1 ? 'text-success font-weight-bold' : null }} text-wrap w-25">{{ $jwb->jawaban }}</td>
+                                            <td class="{{ $jwb->kunci == 1 ? 'text-success font-weight-bold' : null }} text-justify text-wrap w-50">{{ $jwb->jawaban }}</td>
                                         @endforeach
                                         <td>
                                             <a href="{{ route('detail.edit', $item->id) }}" class="btn btn-md btn-primary"><i class="fas fa-pencil-alt"></i></a>

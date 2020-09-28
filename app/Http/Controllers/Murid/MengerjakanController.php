@@ -18,12 +18,11 @@ class MengerjakanController extends Controller
         // session()->forget('by');
 
         // URL
-        $toggle = 'null';
-        $soal->load('mapel:id,nama');
-
         if ($category !== strtolower($soal->kategori) || $mapel !== Str::slug($soal->mapel->nama)) {
             abort(404);
         }
+
+        $soal->load('mapel:id,nama');
 
         // SESSION ORDERBY SOAL
         if (!Session::exists(['soal', 'jawaban'])) {
@@ -45,11 +44,11 @@ class MengerjakanController extends Controller
             $q->inRandomOrder()->get();
         }])->paginate(1);
 
-        // return $detail;
+        // return $soal;
         return view('pages.siswa.soal', [
             'soal' => $soal,
             'detail' => $detail,
-            'toggle' => $toggle
+            'toggle' => 'null', // untuk hidden toggle navbar
         ]);
     }
 
