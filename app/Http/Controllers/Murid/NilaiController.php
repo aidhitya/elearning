@@ -50,7 +50,7 @@ class NilaiController extends Controller
                 'detail_soal_id' => $question,
                 'jawaban_id' => $answer,
                 'status' => $status,
-                'percobaan' => 1
+                'percobaan' => $try
             ]);
         }
         $score =  ($n / $count) * 100;
@@ -67,7 +67,7 @@ class NilaiController extends Controller
             'nilai' => $score,
             'status' => $lulus,
             'keterangan' => $ket,
-            'percobaan' => 1
+            'percobaan' => $try
         ]);
 
         session()->forget(['soal', 'jawaban', 'sort', 'by']);

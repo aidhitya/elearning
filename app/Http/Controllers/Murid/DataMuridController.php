@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetailSoal;
 use Illuminate\Http\Request;
 use App\Models\Mapel;
 use App\Models\Kelas;
 use App\Models\Materi;
 use App\Models\Soal;
+use App\Models\Nilai;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
 class DataMuridController extends Controller
@@ -30,8 +32,10 @@ class DataMuridController extends Controller
         ])->with(['materis' => function ($q) use ($userKelas) {
             $q->where('kelas', $userKelas->kelas)->orWhere('kelas_id', $userKelas->id);
         }, 'guru.guru:user_id,pendidikan'])->first();
-        
-        $soal = Soal::with('mapel:id,nama')->where([
+
+        $soal = Soal::whereHas('nilais', function($q) {
+            $q->where('user_id', Auth::id());
+        }, '<', 2)->with('mapel:id,nama')->where([
             'kelas' => $userKelas->kelas,
             'mapel_id' => $search->parent_id
         ])->orWhere(function($q) use ($userKelas, $search){

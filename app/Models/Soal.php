@@ -44,7 +44,7 @@ class Soal extends Model
         return $this->hasMany(DetailSoal::class);
     }
 
-    public function nilai()
+    public function nilais()
     {
         return $this->morphMany(Nilai::class, 'nilaiable');
     }

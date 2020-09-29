@@ -19,7 +19,7 @@
                 <!-- Card Body -->
                 <div class="card-body">
                     <div class="card-header py-3 flex-row align-items-center justify-content-center text-center">
-                        @if ({{ \Request::route()->getName() == 'soal.selesai' }} && isset($soal))
+                        @if (\Request::route()->getName() == 'soal.selesai' && isset($soal))
                           @include('includes.siswa.nilai.hasil')
                         @else
                           @include('includes.siswa.nilai.alert')

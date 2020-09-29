@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Murid;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Soal;
+use App\Models\Nilai;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class MengerjakanController extends Controller
 {
@@ -20,6 +22,16 @@ class MengerjakanController extends Controller
         // URL
         if ($category !== strtolower($soal->kategori) || $mapel !== Str::slug($soal->mapel->nama)) {
             abort(404);
+        }
+
+        $percobaan = Nilai::where([
+            'user_id' => Auth::user()->id,
+            'nilaiable_type' => 'App\Models\Soal',
+            'nilaiable_id' => $soal->id
+        ])->get();
+
+        if (count($percobaan) >= 2) {
+            return view('pages.siswa.nilai');
         }
 
         $soal->load('mapel:id,nama');
