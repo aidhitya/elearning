@@ -7,6 +7,7 @@ use App\Models\Kelas;
 use App\Models\Mapel;
 use App\Models\Materi;
 use App\Models\DetailSoal;
+use App\Models\Nilai;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -41,5 +42,10 @@ class Soal extends Model
     public function detail_soal()
     {
         return $this->hasMany(DetailSoal::class);
+    }
+
+    public function nilai()
+    {
+        return $this->morphMany(Nilai::class, 'nilaiable');
     }
 }

@@ -1,4 +1,4 @@
-<form action="#" method="POST">
+<form action="{{ route('soal.selesai', $soal->id) }}" method="POST">
     @csrf
     <div class="form-group">
         <input type="hidden" name="mulai" id="waktu" value="{{ $soal->selesai }}">
@@ -22,7 +22,7 @@
                             </div>
                         @endforeach
                     </div>
-                    <a href="{{ route('murid.soal', [strtolower($soal->kategori), \Str::slug($soal->mapel->nama), $soal->id, 'page' => $key+1]) }}" class="btn btn-sm btn-info float-right">EDIT</a>
+                    <a href="{{ route('murid.soal', [strtolower($soal->kategori), \Str::slug($soal->mapel->nama), $soal->id, 'page' => $key+1, 'checking']) }}" class="btn btn-sm btn-info float-right">EDIT</a>
                 </li>
             @endforeach
         </ul>

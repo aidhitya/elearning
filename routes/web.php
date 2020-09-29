@@ -29,6 +29,8 @@ Route::namespace('Murid')->middleware(['auth', 'verified', 'roles:2'])->group(fu
 
     Route::post('soal/{kategori}/{mapel}/{soal}/checking', 'CheckerController')->name('soal.checking');
     Route::get('soal/{kategori}/{mapel}/{soal}/checking', 'CheckerController')->name('soal.check');
+
+    Route::post('soal/{soal}/selesai', 'NilaiController@selesai')->name('soal.selesai');
 });
 
 Route::namespace('Guru')->prefix('guru')->middleware(['auth', 'verified', 'roles:1'])->group(function () {

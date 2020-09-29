@@ -23,7 +23,7 @@
             <img src="{{ url($item->gambar) }}" alt="sda" style="width: 250px" class="img-fluid rounded float-right">
             @endif
             @endif
-            {{-- <?php echo ; ?> --}}
+                    
             <ul class="list-group list-group-flush">
                 @foreach ($item->jawabans as $jwb)
                     <li class="list-group-item">
@@ -36,17 +36,19 @@
             </ul>
         @endforeach
 
-        <div class="mt-5 d-flex flex-row align-items-center justify-content-center">
+        <div class="d-flex flex-row align-items-center justify-content-center" style="margin-top: 150px;">
             <div class="justify-content-between">
-                @if ($detail->previousPageUrl() !== null)
-                    <button type="submit" class="btn btn-sm btn-primary" formaction="{{ $detail->previousPageUrl() }}"><i class="fas fa-chevron-left"></i></button>
-                @endif
-                @if ($detail->nextPageUrl() !== null)
-                    <button type="submit" class="btn btn-sm btn-primary" formaction="{{ $detail->nextPageUrl() }}"><i class="fas fa-chevron-right"></i></button>
+                @if (!\Request::has('checking'))
+                    @if ($detail->previousPageUrl() !== null)
+                        <button type="submit" class="btn btn-sm btn-primary" formaction="{{ $detail->previousPageUrl() }}"><i class="fas fa-chevron-left"></i></button>
+                    @endif
+                    @if ($detail->nextPageUrl() !== null)
+                        <button type="submit" class="btn btn-sm btn-primary" formaction="{{ $detail->nextPageUrl() }}"><i class="fas fa-chevron-right"></i></button>
+                    @endif
                 @endif
             </div>
         </div>
-        @if ($detail->nextPageUrl() == null)
+        @if ($detail->nextPageUrl() == null || \Request::has('checking'))
             <button type="submit" class="btn btn-sm btn-primary float-right">CHECK</button>
         @endif
     </div>
