@@ -15,8 +15,7 @@ class CreateCheckersTable extends Migration
     {
         Schema::create('checkers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('murid_id');
-            $table->unsignedBigInteger('soal_id');
+            $table->unsignedBigInteger('nilai_id')->nullable();
             $table->unsignedBigInteger('detail_soal_id');
             $table->unsignedBigInteger('jawaban_id');
             $table->boolean('status');

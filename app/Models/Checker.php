@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\User;
-use App\Models\Soal;
+use App\Models\Nilai;
 use App\Models\DetailSoal;
 use App\Models\Jawaban;
 
@@ -17,14 +16,9 @@ class Checker extends Model
 
     // Relationship
 
-    public function murid()
+    public function nilai()
     {
-        return $this->belongsTo(User::class, 'murid_id');
-    }
-
-    public function soal()
-    {
-        return $this->belongsTo(Soal::class);
+        return $this->belongsTo(Nilai::class);
     }
 
     public function detail_soal()

@@ -19,6 +19,11 @@ class Nilai extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function checker()
+    {
+        return $this->hasOne(Checker::class);
+    }
+
     public function nilaiable()
     {
         return $this->morphTo();
