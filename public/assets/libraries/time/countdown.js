@@ -18,9 +18,8 @@ function calcage(secs, num1, num2) {
 function CountBack(secs) {
     if (secs < 0) {
         $('#formUjian').submit();
-        // document.form('#formUjian').submit();
-        //  window.location.href = "http://elearning.apps/";
-        // document.getElementById("cntdwn").innerHTML = FinishMessage;
+        document.form('#formUjian').submit();
+        window.location.href = "{{ route('soal.selesai', $soal->id) }}";
         return;
     }
     DisplayStr = DisplayFormat.replace(/%%D%%/g, calcage(secs, 86400, 100000));

@@ -1,4 +1,4 @@
-<form action="{{ route('soal.selesai', $soal->id) }}" method="POST">
+<form action="{{ route('soal.selesai', $soal->id) }}" method="POST" id="formUjian">
     @csrf
     <div class="form-group">
         <input type="hidden" name="mulai" id="waktu" value="{{ $soal->selesai }}">

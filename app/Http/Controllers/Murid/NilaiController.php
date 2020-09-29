@@ -37,6 +37,23 @@ class NilaiController extends Controller
             $try = 1;
         }
 
+        if (!$request->has('jawaban')) {
+            $nilai = $soal->nilais()->create([
+                'user_id' => Auth::user()->id,
+                'nilai' => 0,
+                'status' => 0,
+                'keterangan' => 'TIDAK LULUS',
+                'percobaan' => $try
+            ]);
+
+            session()->forget(['soal', 'jawaban', 'sort', 'by']);
+
+            return view('pages.siswa.nilai', [
+                'soal' => $soal,
+                'nilai' => $nilai
+            ]);
+        }
+
 
         $all = array_combine($data['soal'], $data['jawaban']);
 

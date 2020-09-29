@@ -10,6 +10,7 @@ use App\Models\Kelas;
 use App\Models\Materi;
 use App\Models\Soal;
 use App\Models\Nilai;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
@@ -33,17 +34,19 @@ class DataMuridController extends Controller
             $q->where('kelas', $userKelas->kelas)->orWhere('kelas_id', $userKelas->id);
         }, 'guru.guru:user_id,pendidikan'])->first();
 
-        $soal = Soal::whereHas('nilais', function($q) {
+        $soal = Soal::whereHas('nilais', function ($q) {
             $q->where('user_id', Auth::id());
-        }, '<', 2)->with('mapel:id,nama')->where([
+        }, '<', 2)->where([
             'kelas' => $userKelas->kelas,
             'mapel_id' => $search->parent_id
-        ])->orWhere(function($q) use ($userKelas, $search){
+        ])->orWhere(function ($q) use ($userKelas, $search) {
             $q->where([
                 'kelas_id' => $userKelas->id,
                 'mapel_id' => $search->parent_id
             ]);
-        })->has('detail_soal')->get();
+        })->has('detail_soal')->whereHas('nilais', function ($q) {
+            $q->where('user_id', Auth::id());
+        }, '<', 2)->with('mapel:id,nama')->whereDate('mulai', '>', Carbon::now())->get();
         
         return view('pages.siswa.mapel', [
             'search' => $search,
