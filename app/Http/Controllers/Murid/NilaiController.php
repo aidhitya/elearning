@@ -9,6 +9,10 @@ use App\Models\Nilai;
 use App\Models\Soal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+// use Barryvdh\DomPDF\PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Session;
 
 class NilaiController extends Controller
@@ -25,7 +29,10 @@ class NilaiController extends Controller
         
         $try = 2;
         if (count($percobaan) >= 2) {
-            return view('pages.siswa.nilai');
+            return view('pages.siswa.nilai',[
+                'checker' => $percobaan,
+                'soal' => $soal
+            ]);
         } elseif (count($percobaan) == 0) {
             $try = 1;
         }
@@ -45,8 +52,6 @@ class NilaiController extends Controller
             }
 
             Checker::create([
-                'murid_id' => Auth::id(),
-                'soal_id' => $soal->id,
                 'detail_soal_id' => $question,
                 'jawaban_id' => $answer,
                 'status' => $status,
@@ -62,13 +67,15 @@ class NilaiController extends Controller
             $ket = 'TIDAK LULUS';
         }
 
-        $nilai = $soal->nilai()->create([
+        $nilai = $soal->nilais()->create([
             'user_id' => Auth::user()->id,
             'nilai' => $score,
             'status' => $lulus,
             'keterangan' => $ket,
             'percobaan' => $try
         ]);
+
+        Checker::whereNull('nilai_id')->update(['nilai_id' => $nilai->id]);
 
         session()->forget(['soal', 'jawaban', 'sort', 'by']);
 
@@ -78,5 +85,31 @@ class NilaiController extends Controller
             'soal' => $soal,
             'nilai' => $nilai
         ]);
+    }
+
+    public function nilaipdf($category, $mapel, Soal $soal, $try)
+    {
+        if ($category !== strtolower($soal->kategori) || $mapel !== Str::slug($soal->mapel->nama)) {
+            abort(404);
+        }
+
+        $checker = Nilai::where([
+            'user_id' => Auth::id(),
+            'nilaiable_type' => 'App\Models\Soal',
+            'nilaiable_id' => $soal->id,
+            'percobaan' => $try
+        ])->with(['nilaiable' => function(MorphTo $morphTo) {
+            $morphTo->morphWithCount([Soal::class => ['detail_soal']]);
+        }])->with(['checker.jawaban', 'murid.murid.kelas'])->first();
+
+        $pdf = PDF::loadView('pages.siswa.nilai-pdf',[
+            'checker' => $checker
+        ])->setWarnings(false);
+
+        // return view('pages.siswa.nilai-pdf',[
+        //     'checker' => $checker
+        // ]);
+        
+        return $pdf->download('Ujian_'.Auth::user()->murid->nis.'.pdf');
     }
 }

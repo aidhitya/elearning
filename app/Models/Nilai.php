@@ -16,12 +16,12 @@ class Nilai extends Model
 
     public function murid()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function checker()
     {
-        return $this->hasOne(Checker::class);
+        return $this->hasMany(Checker::class);
     }
 
     public function nilaiable()

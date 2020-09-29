@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
+use App\Models\Checker;
 use Illuminate\Http\Request;
 use App\Models\Soal;
 use App\Models\Nilai;
@@ -31,7 +32,11 @@ class MengerjakanController extends Controller
         ])->get();
 
         if (count($percobaan) >= 2) {
-            return view('pages.siswa.nilai');
+
+            return view('pages.siswa.nilai',[
+                'checker' => $percobaan,
+                'soal' => $soal
+            ]);
         }
 
         $soal->load('mapel:id,nama');
