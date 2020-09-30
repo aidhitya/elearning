@@ -34,19 +34,25 @@ class DataMuridController extends Controller
             $q->where('kelas', $userKelas->kelas)->orWhere('kelas_id', $userKelas->id);
         }, 'guru.guru:user_id,pendidikan'])->first();
 
-        $soal = Soal::whereHas('nilais', function ($q) {
+        $soal = Soal::where(function($que){
+            $que->where(function($s){
+                $s->whereDate('mulai', '<=', Carbon::now())->whereTime('mulai', '<', Carbon::now());
+            })->where(function ($e) {
+                $e->whereDate('selesai', '>=', Carbon::now())->whereTime('selesai', '>', Carbon::now());
+            });
+        })->whereHas('nilais', function ($q) {
             $q->where('user_id', Auth::id());
-        }, '<', 2)->where([
-            'kelas' => $userKelas->kelas,
-            'mapel_id' => $search->parent_id
-        ])->orWhere(function ($q) use ($userKelas, $search) {
+        }, '<', 2)->has('detail_soal')->with('mapel:id,nama')->where(function($q) use ($userKelas, $search){
             $q->where([
-                'kelas_id' => $userKelas->id,
+                'kelas' => $userKelas->kelas,
                 'mapel_id' => $search->parent_id
-            ]);
-        })->has('detail_soal')->whereHas('nilais', function ($q) {
-            $q->where('user_id', Auth::id());
-        }, '<', 2)->with('mapel:id,nama')->whereDate('mulai', '>', Carbon::now())->get();
+            ])->orWhere(function($query) use ($userKelas, $search){
+                $query->where([
+                    'kelas_id' => $userKelas->id,
+                    'mapel_id' => $search->parent_id
+                ]);
+            });
+        })->get();
         
         return view('pages.siswa.mapel', [
             'search' => $search,
