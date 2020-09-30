@@ -58,12 +58,8 @@ class MateriController extends Controller
             abort(404);
         }
 
-        $kelas = Kelas::select('kelas')->distinct()->orderBy('kelas')->get();
-        $mapel = Mapel::getParent()->orderBy('nama')->get();
-        return view('pages.umum.materi.admin.tambah', [
-            'kelas' => $kelas,
-            'mapel' => $mapel
-        ]);
+        // Data Berada Di View Composer
+        return view('pages.umum.materi.admin.tambah');
     }
 
     public function store(MateriRequest $request)
@@ -138,11 +134,8 @@ class MateriController extends Controller
             ]);
         }
 
-        $kelas = Kelas::select('kelas')->distinct()->orderBy('kelas')->get();
-        $mapel = Mapel::getParent()->orderBy('nama')->get();
+        // Data Berada Di View Composer
         return view('pages.umum.materi.admin.edit', [
-            'kelas' => $kelas,
-            'mapel' => $mapel,
             'materi' => $materi
         ]);
     }

@@ -89,25 +89,6 @@
               </div>
             </div>
 
-            <!-- Pie Chart -->
-            {{-- <div class="col-xl-2 col-lg-3">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Action Materi</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                        <a href="{{ route('materi.create') }}" class="btn btn-primary">Tambah+</a>
-                        </div>
-                    </div>
-                </div>
-              </div>
-            </div>
-          </div> --}}
-
     </div>
 @endsection
 

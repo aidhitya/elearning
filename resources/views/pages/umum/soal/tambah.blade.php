@@ -102,64 +102,27 @@
                 </div>
               </div>
             </div>
-
-            <!-- Pie Chart -->
-            {{-- <div class="col-xl-3 col-lg-4">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Action Siswa</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                   
-                </div>
-              </div>
-            </div> --}}
           </div>
     </div>
 @endsection
 
 @push('addon-script')
-    @if ($layout == 'guru')
-        <script>
-            $(document).ready(function(){
-                $(document).on('change', '#kelas', function(){
-                    $('#zonk').hide();
-                    var kelas = $(this).val();
-                    $.ajax({
-                        url:`{{ route('post.materi.soal') }}`,
-                        type: 'POST',
-                        data: {
-                            kelas_materi: kelas,
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success:function(data)
-                        {$('#materi').html(data)}
-                    });
-                })
+    <script>
+        $(document).ready(function(){
+            $(document).on('change', '#kelas', function(){
+                $('#zonk').hide();
+                var kelas = $(this).val();
+                $.ajax({
+                    url:`{{ route('post.materi.soal') }}`,
+                    type: 'POST',
+                    data: {
+                        kelas_materi: kelas,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success:function(data)
+                    {$('#materi').html(data)}
+                });
             })
-        
-        </script>
-    @else
-        {{-- <script>
-            $(document).ready(function(){
-                $(document).on('change', '#kelas', function(){
-                    $('#zonk').hide();
-                    var kelas = $(this).val();
-                    $.ajax({
-                        url:`{{ route('post.materi.soal') }}`,
-                        type: 'POST',
-                        data: {
-                            kelas_id: kelas,
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success:function(data)
-                        {$('#materi').html(data)}
-                    });
-                })
-            })
-        
-        </script> --}}
-    @endif
+        })
+    </script>
 @endpush

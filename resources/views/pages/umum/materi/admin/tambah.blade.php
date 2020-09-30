@@ -34,24 +34,7 @@
                   @endif
                   <form class="user pt-2" method="POST" action="{{ route('materi.store') }}" enctype="multipart/form-data">
                     @csrf
-                    <div class="form-group row">
-                      <div class="col-md-6 mb-3 mb-sm-0">
-                        <select name="kelas" id="" class="form-control" required>
-                          <option value="">Kelas</option>
-                          @foreach ($kelas as $item)
-                          <option value="{{ $item->kelas }}">Kelas {{ $item->kelas }}</option>
-                          @endforeach
-                        </select>
-                      </div>
-                      <div class="col-md-6 mb-3 mb-sm-0">
-                        <select name="mapel" id="" class="form-control" required>
-                          <option value="">Mata Pelajaran</option>
-                          @foreach ($mapel as $item)
-                          <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                          @endforeach
-                        </select>
-                      </div>
-                    </div>
+                    @include('pages.umum.materi.admin.includes.selects')
                     <div class="form-group">
                       <input type="text" name="judul" class="form-control form-control-user" value="{{ old('judul') }}" placeholder="Judul Materi" required>
                     </div>

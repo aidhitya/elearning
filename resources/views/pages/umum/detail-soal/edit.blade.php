@@ -24,9 +24,6 @@
                       </div>
                   @endif
                   @if ($errors->any())
-                  @php
-                    //   dd($errors);
-                  @endphp
                       <div class="alert alert-danger">
                           <ul>
                               @foreach ($errors->all() as $error)
@@ -38,8 +35,7 @@
                 <form class="user" name="detailsoal" action="{{ route('detail.update', $detail->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf @method('PUT')
                     <div class="form-group">
-                        {{-- <input type="text" name="soal" style="width: 95%" class="form-control form-control-user d-inline" value="{{ $detail->isi }}" placeholder="Soal" required> --}}
-                        <textarea name="soal" id="soal" cols="30" class="form-control form-control-user d-inline" required>{{ $detail->isi }}</textarea>
+                      <textarea name="soal" id="soal" cols="30" class="form-control form-control-user d-inline" required>{{ $detail->isi }}</textarea>
                     </div>
 
                     <div class="form-group row">
@@ -67,20 +63,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- Pie Chart -->
-            {{-- <div class="col-xl-2 col-lg-3">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Action Siswa</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                   
-                </div>
-              </div>
-            </div> --}}
           </div>
     </div>
 @endsection

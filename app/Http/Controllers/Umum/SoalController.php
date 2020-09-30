@@ -10,9 +10,7 @@ use App\Models\Mapel;
 use App\Models\Materi;
 use App\Models\Soal;
 use App\Models\Jawaban;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class SoalController extends Controller
 {
