@@ -70,38 +70,7 @@
                         <div class="tab-pane fade show active" id="mapelkelas" role="tabpanel" aria-labelledby="mapel-kelas">
                             <form class="user pt-2" method="POST" action="{{ route('mapel.update', $edit->id) }}">
                                 @csrf @method('PUT')
-                                <div class="form-group row">
-                                    <div class="col-sm-4 mb-3 mb-sm-0">
-                                    <label for="parent">Mapel</label>
-                                    <select name="parent" id="parent" class="form-control">
-                                        <option value="{{ $edit->parent_id }}">{{ $edit->nama }}</option>
-                                        <option value="">-</option>
-                                        @foreach ($mapel as $item)
-                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                        @endforeach
-                                    </select>
-                                    </div>
-                                    <div class="col-sm-4 mb-3 mb-sm-0">
-                                    <label for="kelas">Kelas</label>
-                                        <select name="kelas" id="kelas" class="form-control">
-                                        <option value="{{ $edit->kelas->id }}">{{ $edit->kelas->kelas }} {{ $edit->kelas->kode_kelas }}</option>
-                                        <option value="">-</option>
-                                        @foreach ($kelas as $item)
-                                        <option value="{{ $item->id }}">{{ $item->kelas }} {{ $item->kode_kelas }}</option>
-                                        @endforeach
-                                    </select>
-                                    </div>
-                                    <div class="col-sm-4 mb-3 mb-sm-0">
-                                    <label for="guru">Guru</label>
-                                        <select name="guru" id="guru" class="form-control">
-                                        <option value="{{ $edit->guru->id }}">{{ $edit->guru->nama }} {{ $edit->guru->guru->pendidikan }}</option>
-                                        <option value="">-</option>
-                                        @foreach ($guru as $item)
-                                        <option value="{{ $item->id }}">{{ $item->nama }} {{ $item->guru->pendidikan }}</option>
-                                        @endforeach
-                                    </select>
-                                    </div>
-                                </div>
+                                @include('pages.admin.mapel.includes.selects')
                                 <div class="form-group row">
                                 <div class="col-md-8"></div>
                                 <div class="col-md-4 mb-sm-0">

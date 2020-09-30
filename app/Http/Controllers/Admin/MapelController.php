@@ -25,14 +25,8 @@ class MapelController extends Controller
 
     public function create()
     {
-        $kelas = Kelas::all();
-        $guru = User::has('guru')->get();
-        $mapel = Mapel::getParent()->get();
-        return view('pages.admin.mapel.tambah', [
-            'kelas' => $kelas,
-            'guru' => $guru,
-            'mapel' => $mapel
-        ]);
+        // DATA BERADA DI VIEW COMPOSERS
+        return view('pages.admin.mapel.tambah');
     }
 
     public function store(MapelRequest $request)
@@ -71,17 +65,12 @@ class MapelController extends Controller
         $edit = Mapel::findOrFail($id);
 
         if ($edit->parent_id !== null) {
-            $kelas = Kelas::all();
-            $guru = User::has('guru')->get();
-            $mapel = Mapel::getParent()->get();
 
             $edit->load(['kelas', 'guru']);
-
+            
+            // DATA BERADA DI VIEW COMPOSERS
             return view('pages.admin.mapel.edit', [
-                'edit' => $edit,
-                'kelas' => $kelas,
-                'guru' => $guru,
-                'mapel' => $mapel
+                'edit' => $edit
             ]);
         }
 

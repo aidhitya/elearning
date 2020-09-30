@@ -35,14 +35,7 @@
                   <form class="user" method="POST" action="{{ route('kelas.update', $kelas->id) }}">
                     @csrf @method('PATCH')
                     <div class="form-group">
-                        <div class="mb-3 mb-sm-0">
-                            <select name="guru_id" id="wali_kelas" class="form-control">
-                              <option value="{{ $kelas->wali_kelas }}">{{ $kelas->wali_kelas->nama }}</option>
-                              @foreach ($guru as $item)
-                                <option value="{{ $item->id }}">{{ $item->nama }} {{ $item->guru->pendidikan }}</option>
-                              @endforeach
-                            </select>
-                        </div>
+                        @include('pages.admin.kelas.includes.select')
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">

@@ -10,11 +10,12 @@
           <div class="row">
 
             <!-- Index Siswa -->
-            <div class="col-xl-9 col-lg-8">
+            <div class="col-xl-11 col-lg-10">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">List Mapel</h6>
+                  <a href="{{ route('mapel.create') }}" class="m-0 font-weight-bold btn btn-sm btn-primary">Tambah Mapel</a>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -108,20 +109,6 @@
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Pie Chart -->
-            <div class="col-xl-3 col-lg-4">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Action Kelas</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <a href="{{ route('mapel.create') }}" class="btn btn-primary">Tambah Mapel</a>
                 </div>
               </div>
             </div>

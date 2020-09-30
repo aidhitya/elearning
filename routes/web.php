@@ -67,5 +67,3 @@ Route::prefix('assets')->namespace('Umum')->middleware(['auth', 'verified', 'rol
 });
 
 Auth::routes(['verify' => true, 'register' => false]);
-
-Route::get('/home', 'HomeController@index')->name('home');
