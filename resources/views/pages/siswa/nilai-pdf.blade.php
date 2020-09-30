@@ -19,44 +19,6 @@
     <div id="wrapper" class="mt-3">
         <div class="container">
             <div class="d-flex align-items-center justify-content-center">
-                {{-- <ul class="list-group list-group-flush" style="width: 450px">
-                    <li class="list-group-item bg-light">
-                        <span class="font-weight-bold">NIS
-                            <span style="padding-left: 100px">:</span>
-                        </span>
-                        <span class="text-uppercase ml-3">{{ $checker->murid->murid->nis }}</span>
-                    </li>
-                    <li class="list-group-item">
-                        <span class="font-weight-bold">NAMA
-                            <span style="padding-left: 77px">:</span>
-                        </span>
-                        <span class="text-uppercase ml-3">{{ $checker->murid->nama }}</span>
-                    </li>
-                    <li class="list-group-item bg-light">
-                        <span class="font-weight-bold">KELAS
-                            <span style="padding-left: 82px">:</span>
-                        </span>
-                        <span class="text-uppercase ml-3">{{ $checker->murid->murid->kelas->kelas }}{{ $checker->murid->murid->kelas->kode_kelas }}</span>
-                    </li>
-                    <li class="list-group-item">
-                        <span class="font-weight-bold">TANGGAL
-                            <span style="padding-left: 55px">:</span>
-                        </span>
-                        <span class="text-uppercase ml-3">{{ now() }}</span>
-                    </li>
-                    <li class="list-group-item bg-light">
-                        <span class="font-weight-bold">UJIAN
-                            <span style="padding-left: 84px">:</span>
-                        </span>
-                        <span class="text-uppercase ml-3">{{ $checker->nilaiable->judul }}</span>
-                    </li>
-                    <li class="list-group-item">
-                        <span class="font-weight-bold">JUMLAH SOAL
-                            <span style="padding-left: 20px">:</span>
-                        </span>
-                        <span class="text-uppercase ml-3">{{ $checker->nilaiable->detail_soal_count }}</span>
-                    </li>
-                </ul> --}}
                 <table class="table-striped none" cellspacing="0" cellpadding="0" style="width: 550px">
                     <tr>
                         <td>
