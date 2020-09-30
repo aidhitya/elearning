@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\User;
+use App\Models\KumpulTugas;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -27,5 +28,10 @@ class Tugas extends Model
     public function mapel()
     {
         return $this->belongsTo(Mapel::class);
+    }
+
+    public function kumpultugas()
+    {
+        return $this->hasMany(KumpulTugas::class);
     }
 }

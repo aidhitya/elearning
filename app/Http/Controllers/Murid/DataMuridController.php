@@ -64,6 +64,8 @@ class DataMuridController extends Controller
             })->where(function ($e) {
                 $e->whereDate('selesai', '>=', Carbon::now())->whereTime('selesai', '>', Carbon::now());
             });
+        })->whereDoesntHave('kumpultugas', function($m){
+            $m->where('murid_id', Auth::id());
         })->get();
         
         return view('pages.siswa.mapel', [

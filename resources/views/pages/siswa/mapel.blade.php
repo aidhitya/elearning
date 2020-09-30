@@ -19,6 +19,11 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
+                  @if (session('berhasil'))
+                      <div class="alert alert-success">
+                          {{ session('berhasil') }}
+                      </div>
+                  @endif
                   <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                     <li class="nav-item">
                       <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Utama</a>

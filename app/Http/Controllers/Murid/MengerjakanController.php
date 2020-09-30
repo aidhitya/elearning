@@ -114,4 +114,30 @@ class MengerjakanController extends Controller
             'tugas' => $tugas
         ]);
     }
+    
+    public function kumpultugas(Request $request, Tugas $tugas, $judul)
+    {
+        $this->validate($request,[
+            'file' => 'required|max:2048|file|mimes:doc,pdf,docx,zip,rar'
+        ]);
+
+        if ($tugas->mulai > now() || $tugas->selesai < now()) {
+            abort(403);
+        }
+
+        if ($judul !== Str::slug($tugas->judul_tugas) || $tugas->kelas_id !== Auth::user()->murid->kelas_id) {
+            abort(404);
+        }
+
+        $data =  $request->all();
+
+        $data['murid_id'] = Auth::id();
+        $data['file'] = $request->file('file')->store('tugas/kumpul/' . $tugas->kelas_id, 'public');
+
+        $tugas->kumpultugas()->create($data);
+
+        return redirect(route('murid.mapel', Str::slug($tugas->mapel->nama)))->with([
+            'berhasil' => 'Tugas Berhasil Dikumpulkan'
+        ]);
+    }
 }

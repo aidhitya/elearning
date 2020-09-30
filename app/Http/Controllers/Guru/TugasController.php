@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\TugasRequest;
+use App\Models\KumpulTugas;
 use App\Models\Mapel;
 use App\Models\Tugas;
 
@@ -16,6 +17,16 @@ class TugasController extends Controller
         $tugas = Tugas::where('guru_id', Auth::id())->with(['kelas', 'mapel'])->get();
 
         return view('pages.guru.tugas.tugas',[
+            'tugas' => $tugas
+        ]);
+    }
+
+    public function show($id)
+    {
+        $tugas = Tugas::findOrFail($id);
+        $tugas->load(['kumpultugas.murid']);
+
+        return view('pages.guru.tugas.detail',[
             'tugas' => $tugas
         ]);
     }
@@ -82,6 +93,8 @@ class TugasController extends Controller
     public function destroy($id)
     {
         $tugas = Tugas::findOrFail($id);
+        $kumpul = KumpulTugas::where('tugas_id', $tugas->id);
+        $kumpul->delete();
         $tugas->delete();
 
         return redirect(route('tugas.index'))->with('berhasil', 'Tugas Berhasil Dihapus');
