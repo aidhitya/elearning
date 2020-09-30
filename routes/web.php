@@ -33,6 +33,8 @@ Route::namespace('Murid')->middleware(['auth', 'verified', 'roles:2'])->group(fu
     Route::post('soal/{soal}/selesai', 'NilaiController@selesai')->name('soal.selesai');
 
     Route::get('soal/{kategori}/{mapel}/{soal}/nilai/{try}', 'NilaiController@nilaipdf')->name('get.nilai.pdf');
+
+    Route::get('tugas/detail/{tugas}/{judul}', 'MengerjakanController@tugas')->name('murid.tugas');
 });
 
 Route::namespace('Guru')->prefix('guru')->middleware(['auth', 'verified', 'roles:1'])->group(function () {

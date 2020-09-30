@@ -7,6 +7,7 @@ use App\Models\Checker;
 use Illuminate\Http\Request;
 use App\Models\Soal;
 use App\Models\Nilai;
+use App\Models\Tugas;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
@@ -95,5 +96,22 @@ class MengerjakanController extends Controller
         }
 
         return redirect($request->fullUrl());
+    }
+
+    public function tugas(Tugas $tugas, $judul)
+    {
+        if ($tugas->mulai > now() || $tugas->selesai < now()) {
+            abort(403);
+        }
+
+        if ($judul !== Str::slug($tugas->judul_tugas) || $tugas->kelas_id !== Auth::user()->murid->kelas_id) {
+            abort(404);
+        }
+
+        $tugas->load('mapel');
+
+        return view('pages.siswa.tugas',[
+            'tugas' => $tugas
+        ]);
     }
 }

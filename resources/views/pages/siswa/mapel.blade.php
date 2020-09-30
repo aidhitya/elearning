@@ -78,6 +78,23 @@
                   </ul>
                 </div>
               </div>
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Tugas</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <ul class="list-group list-group-flush">
+                    @foreach ($tugas as $item)
+                    <li class="list-group-item list-group-item-action">
+                      {{ $item->judul_tugas }} <br> <small class="ml-2 text-muted overflow-hidden">{{ $item->deskripsi }}</small>
+                      <a href="{{ route('murid.tugas', [$item->id, \Str::slug($item->judul_tugas)]) }}" class="float-right btn btn-sm btn-primary">Kumpulkan</a>
+                    </li>
+                    @endforeach
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
 

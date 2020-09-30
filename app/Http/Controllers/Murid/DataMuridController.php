@@ -10,6 +10,7 @@ use App\Models\Kelas;
 use App\Models\Materi;
 use App\Models\Soal;
 use App\Models\Nilai;
+use App\Models\Tugas;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
@@ -53,10 +54,22 @@ class DataMuridController extends Controller
                 ]);
             });
         })->get();
+
+        $tugas = Tugas::where([
+            'kelas_id' => $userKelas->id,
+            'mapel_id' => $search->parent_id
+        ])->where(function ($que) {
+            $que->where(function ($s) {
+                $s->whereDate('mulai', '<=', Carbon::now())->whereTime('mulai', '<', Carbon::now());
+            })->where(function ($e) {
+                $e->whereDate('selesai', '>=', Carbon::now())->whereTime('selesai', '>', Carbon::now());
+            });
+        })->get();
         
         return view('pages.siswa.mapel', [
             'search' => $search,
-            'soal' => $soal
+            'soal' => $soal,
+            'tugas' => $tugas
         ]);
     }
 
