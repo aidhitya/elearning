@@ -39,6 +39,7 @@ Route::namespace('Guru')->prefix('guru')->middleware(['auth', 'verified', 'roles
     Route::view('/', 'pages.guru.main')->name('home.guru'); 
     Route::resource('guru', 'GuruController');
     Route::get('kelas/{kelas}', 'DataKelasController@index')->name('data.kelas.guru');
+    Route::resource('tugas', 'TugasController');
 });
 
 Route::namespace('Admin')->prefix('admin')->middleware(['auth', 'verified', 'roles:0'])->group(function () {

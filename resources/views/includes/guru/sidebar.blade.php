@@ -45,6 +45,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="{{ route('soal.index') }}">Soal</a>
             <a class="collapse-item" href="{{ route('materi.index') }}">Materi</a>
+            <a class="collapse-item" href="{{ route('tugas.index') }}">Tugas</a>
           </div>
         </div>
       </li>
