@@ -64,7 +64,7 @@
                                         <td>{{ $item->selesai }}</td>
                                         <td>
                                             <a href="{{ route('tugas.show', $item->id) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></i></a>
-                                            @if ($item->mulai > now())
+                                            @if ($item->selesai > now())
                                             <a href="{{ route('tugas.edit', $item->id) }}" class="btn btn-sm btn-info"><i class="fas fa-pencil-alt"></i></a>
                                             @endif
                                             <form action="{{ route('tugas.destroy', $item->id) }}" method="POST" class="d-inline ml-2">

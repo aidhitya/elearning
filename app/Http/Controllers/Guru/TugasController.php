@@ -41,6 +41,11 @@ class TugasController extends Controller
 
     public function store(TugasRequest $request)
     {
+        $this->validate($request,[
+            'mulai' => 'required|after:now|date',
+            'selesai' => 'required|date|after:mulai'
+        ]);
+
         $data = $request->all();
 
         if ($request->hasFile('file')) {
@@ -75,6 +80,11 @@ class TugasController extends Controller
 
     public function update(TugasRequest $request, $id)
     {
+        $this->validate($request, [
+            'mulai' => 'required|date|before:selesai|before:now',
+            'selesai' => 'required|date|after:mulai|after:now'
+        ]);
+
         $data = $request->all();
         $tugas = Tugas::findOrFail($id);
 

@@ -51,7 +51,7 @@ class SoalController extends Controller
                     ])->get();
                 })->get();
 
-                return view('pages.umum.soal.materi')->with([
+                return view('pages.umum.soal.includes.ajax-materi')->with([
                     'layout' => 'guru',
                     'materi' => $materi
                 ])->render();
@@ -66,12 +66,9 @@ class SoalController extends Controller
         }
 
         // ADMIN
-        $mapel = Mapel::getParent()->get();
-        $kelas = Kelas::select('kelas')->distinct()->orderBy('kelas')->get();
+        // Data Berada di View Composer
         return view('pages.umum.soal.tambah', [
-            'layout' => 'admin',
-            'kelas' => $kelas,
-            'mapel' => $mapel
+            'layout' => 'admin'
         ]);
     }
 
@@ -120,7 +117,7 @@ class SoalController extends Controller
 
     public function edit(Soal $soal)
     {
-        if ($soal->mulai < now()) {
+        if ($soal->selesai < now()) {
             return redirect(route('soal.index'))->withErrors('Soal ' . $soal->judul . ' telah dikerjakan, tidak bisa diedit');
         }
 
@@ -131,13 +128,21 @@ class SoalController extends Controller
 
             if (request()->ajax()) {
 
-                $k = Kelas::where('id', request('kelas_id'))->first();
+                $mat = explode('-', request('kelas_materi'));
+                $k = Kelas::where('id', $mat[0])->first();
 
-                $materi = Materi::where('kelas', $k->kelas)->where(function ($q) {
-                    $q->WhereNull('kelas_id')->orWhere('kelas_id', request('kelas_id'));
+                $materi = Materi::where([
+                    'kelas' => $k->kelas,
+                    'mapel_id' => $mat[1],
+                    'kelas_id' => null
+                ])->orWhere(function ($q) use ($mat) {
+                    $q->where([
+                        'kelas_id' => $mat[0],
+                        'guru_id' => Auth::id()
+                    ])->get();
                 })->get();
 
-                return view('pages.umum.soal.edit-materi')->with([
+                return view('pages.umum.soal.includes.ajax-materi')->with([
                     'layout' => 'guru',
                     'materi' => $materi
                 ])->render();
@@ -153,13 +158,10 @@ class SoalController extends Controller
         }
 
         // ADMIN
-        $mapel = Mapel::getParent()->get();
-        $kelas = Kelas::select('kelas')->distinct()->orderBy('kelas')->get();
+        // Data Berada Di View Composer
         return view('pages.umum.soal.edit', [
             'soal' => $soal,
-            'layout' => 'admin',
-            'kelas' => $kelas,
-            'mapel' => $mapel
+            'layout' => 'admin'
         ]);
     }
 

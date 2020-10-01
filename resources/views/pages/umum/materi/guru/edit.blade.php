@@ -35,23 +35,7 @@
                   @endif
                   <form class="user pt-2" method="POST" action="{{ route('materi.update', $materi->id) }}" enctype="multipart/form-data">
                     @csrf @method('PUT')
-                    <input type="hidden" name="kelas" value="{{ $materi->kelas_spec->id }}">
-                    <input type="hidden" name="kode" value="{{ $materi->kelas_spec->kode_kelas }}">
-                    <div class="form-group">
-                      <input type="text" name="judul" class="form-control form-control-user" value="{{ $materi->judul }}" placeholder="Judul Materi" required>
-                    </div>
-                    <div class="form-group">
-                      <input type="text" name="url" class="form-control form-control-user" value="{{ $materi->url }}" placeholder="URL Materi">
-                    </div>
-                    <div class="form-group">
-                      <input type="file" name="file" class="form-control mb-2" value="{{ old('file') }}" placeholder="File Materi (pdf)">
-                      @if (!is_null($materi->file))
-                        <iframe src="{{ asset('storage/'.$materi->file) }}" width="100%" height="500px"></iframe>
-                      @endif
-                    </div>
-                    <div class="form-group">
-                      <input type="text" name="keterangan" class="form-control form-control-user" value="{{ $materi->keterangan }}" placeholder="Keterangan">
-                    </div>
+                    @include('pages.umum.materi.guru.includes.form')
                     <div class="form-group row">
                       <div class="col-md-8"></div>
                       <div class="col-md-4 mb-sm-0">

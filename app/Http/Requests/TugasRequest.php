@@ -28,8 +28,6 @@ class TugasRequest extends FormRequest
             'judul_tugas' => 'required|string',
             'deskripsi' => 'required|string',
             'file' => 'nullable|file|max:2048',
-            'mulai' => 'required|after:now|date',
-            'selesai' => 'required|date|after:mulai'
         ];
     }
 }
