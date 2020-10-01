@@ -35,12 +35,11 @@ class DataMuridController extends Controller
             $q->where('kelas', $userKelas->kelas)->orWhere('kelas_id', $userKelas->id);
         }, 'guru.guru:user_id,pendidikan'])->first();
 
+        // $s->whereDate('mulai', '<=', Carbon::now())->whereTime('mulai', '<', Carbon::now());
+        // $e->whereDate('selesai', '>=', Carbon::now())->whereTime('selesai', '>', Carbon::now());
+
         $soal = Soal::where(function($que){
-            $que->where(function($s){
-                $s->whereDate('mulai', '<=', Carbon::now())->whereTime('mulai', '<', Carbon::now());
-            })->where(function ($e) {
-                $e->whereDate('selesai', '>=', Carbon::now())->whereTime('selesai', '>', Carbon::now());
-            });
+            $que->where('mulai', '<=', Carbon::now())->where('selesai', '>=', Carbon::now());
         })->whereHas('nilais', function ($q) {
             $q->where('user_id', Auth::id());
         }, '<', 2)->has('detail_soal')->with('mapel:id,nama')->where(function($q) use ($userKelas, $search){
