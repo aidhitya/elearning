@@ -50,8 +50,7 @@
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade first show active" id="soal_1" role="tabpanel" aria-labelledby="soal-tab">
                                 <div class="form-group">
-                                    {{-- <input type="text" name="soal[]" style="width: 95%" class="form-control form-control-user d-inline" value="{{ old('soal[]') }}" placeholder="Soal" required> --}}
-                                    <textarea name="soal[]" id="soal" cols="30" style="width: 95%" class="form-control d-inline" placeholder="Soal" required>{{ old('soal[]') }}</textarea>
+                                    <textarea name="soal[]" id="summernote" required>{{ old('soal[]') }}</textarea>
                                 </div>
 
                                 <div class="form-group row">
@@ -80,7 +79,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-user btn-block">Proses</button>
+                    <button type="submit" class="btn btn-primary btn-user btn-block" id="submit">Proses</button>
                 </form>
                 </div>
               </div>
@@ -113,10 +112,33 @@
           </div>
     </div>
 @endsection
+@push('addon-style')
+    <link rel="stylesheet" href="{{ asset('assets/libraries/summernote/summernote.bs4.css ') }}">
+@endpush
 
 @push('addon-script')
+<script src="{{ asset('assets/libraries/summernote/summernote.bs4.js') }}"></script>
     <script>
         $(document).ready(function () {
+            $('#summernote').summernote({
+                placeholder: 'Soal..',
+                height: 200,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['fontname', ['fontname', 'fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['view', ['fullscreen']],
+                ]
+            });
+
+            $('#submit').on('click', function(){
+                if ($('#summernote').summernote('isEmpty')) {
+                    alert('editor content is empty');
+                }
+            })
+
             var count = 2;
             var t;
 
@@ -189,9 +211,10 @@
 
                 $('#pills-tabContent').append(`
                     <div class="tab-pane fade" id="soal_`+t+`" role="tabpanel" aria-labelledby="soal-tab_`+t+`">
-                            <a href="#" id="remove" class="btn btn-sm btn-danger float-right mb-4 my-2">X</a>
+                            <a href="#" id="remove" class="btn btn-sm btn-danger float-right mb-4 my-2 ml-1">X</a>
                         <div class="form-group">
-                            <textarea name="soal[]" style="width: 95%" id="soal" cols="30" class="form-control d-inline" placeholder="Soal" required>{{ old('soal[]') }}</textarea>
+                            <div class="summer-container">
+                            </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-5 mb-0 mb-sm-0">
@@ -219,6 +242,21 @@
                     </div>
                 `);
 
+                $(`<textarea name="soal[]" required>{{ old('soal[]') }}</textarea>`)
+                    .appendTo('.summer-container')
+                    .summernote({
+                    placeholder: 'Soal..',
+                    height: 200,
+                    toolbar: [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['fontname', ['fontname', 'fontsize']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['view', ['fullscreen']],
+                    ]
+                });
+                    
                 t++
             })
 

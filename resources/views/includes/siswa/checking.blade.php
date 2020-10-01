@@ -9,7 +9,7 @@
                     <div class="m-2">
                         <label for="soal">
                             <input type="hidden" value="{{ $item->id }}" id="soal" name="soal[]" required>
-                            <h5 class="text-justify text-dark font-weight-bold">{{ $item->isi }}</h5>
+                            <h5 class="text-justify text-dark font-weight-bold">{!! $item->isi !!}</h5>
                         </label>
                         @foreach ($item->jawabans as $jwb)
                             <div class="ml-3">

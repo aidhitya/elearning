@@ -35,7 +35,7 @@
                 <form class="user" name="detailsoal" action="{{ route('detail.update', $detail->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf @method('PUT')
                     <div class="form-group">
-                      <textarea name="soal" id="soal" cols="30" class="form-control form-control-user d-inline" required>{{ $detail->isi }}</textarea>
+                      <textarea name="soal" id="summernote" required>{{ $detail->isi }}</textarea>
                     </div>
 
                     <div class="form-group row">
@@ -66,3 +66,33 @@
           </div>
     </div>
 @endsection
+@push('addon-style')
+    <link rel="stylesheet" href="{{ asset('assets/libraries/summernote/summernote.bs4.css ') }}">
+@endpush
+
+@push('addon-script')
+<script src="{{ asset('assets/libraries/summernote/summernote.bs4.js') }}"></script>
+<script>
+    $(document).ready(function(){
+        $('#summernote').summernote({
+            placeholder: 'Soal..',
+            height: 200,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['fontname', ['fontname', 'fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['view', ['fullscreen']],
+            ]
+        });
+        $('#summernote').summernote()
+
+        $('#submit').on('click', function(){
+            if ($('#summernote').summernote('isEmpty')) {
+                alert('editor content is empty');
+            }
+        })
+    })
+</script>
+@endpush

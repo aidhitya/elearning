@@ -51,7 +51,7 @@
                                 @foreach ($complete->detail_soal as $key => $item)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
-                                        <td class="text-wrap w-75 text-justify">{{ $item->isi }}</td>
+                                        <td class="text-wrap w-75 text-justify">{!! $item->isi !!}</td>
                                         <td>
                                             @if ($item->gambar !== null)
                                             @if (\File::exists('storage/'. $item->gambar))
