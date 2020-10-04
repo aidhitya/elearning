@@ -32,6 +32,11 @@ class Materi extends Model
         return $this->belongsTo(Kelas::class, 'kelas_id');
     }
 
+    public function soals()
+    {
+        return $this->hasMany(Soal::class);
+    }
+
     public function author()
     {
         return $this->belongsTo(User::class, 'guru_id', 'id');

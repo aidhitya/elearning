@@ -27,11 +27,9 @@ class SoalRequest extends FormRequest
             'judul' => 'required|string',
             'mapel_id' => 'sometimes|required|integer|exists:mapels,id',
             'kelas' => 'sometimes|required|integer|exists:kelas,kelas',
-            'kelas_id' => 'sometimes|required|integer|exists:kelas,id',
+            'kelas_materi' => 'sometimes|required',
             'materi_id' => 'sometimes|required|integer|exists:materis,id',
-            'kategori' => 'required|string|in:Harian,UAS,UTS,Quiz',
-            'mulai' => 'required|date|after:now',
-            'selesai' => 'required|date|after:mulai'
+            'kategori' => 'required|string|in:Harian,UAS,UTS,Quiz'
         ];
     }
 }

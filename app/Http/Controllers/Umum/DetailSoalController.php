@@ -69,7 +69,7 @@ class DetailSoalController extends Controller
             Jawaban::insert($answers[$i]);
         }
 
-        return redirect()->back()->with('berhasil', 'Soal Berhasil Dibuat');
+        return redirect()->back()->with('success', 'Soal Berhasil Dibuat');
     }
 
     public function edit(DetailSoal $detail)
@@ -123,11 +123,16 @@ class DetailSoalController extends Controller
             ]);
         }
 
-        return redirect(route('soal.show', $detail->soal_id))->with('berhasil', 'Detail soal berhasil diupdate');
+        return redirect(route('soal.show', $detail->soal_id))->with('success', 'Detail soal berhasil diupdate');
     }
 
     public function destroy(DetailSoal $detail)
     {
+        $soal = Soal::findOrFail($detail->soal_id);
+        if ($soal->nilais()->exists()) {
+            return redirect(route('soal.show', $detail->soal_id))->with('errors', 'Detail Soal Mempunyai Relasi');
+        }
+
         $jwb = Jawaban::where('detail_soal_id', $detail->id);
         $jwb->delete();
         if ($detail->gambar != null) {
@@ -135,7 +140,7 @@ class DetailSoalController extends Controller
         }
         $detail->delete();
 
-        return redirect(route('soal.show', $detail->soal_id))->with('berhasil', 'Detail soal berhasil dihapus');
+        return redirect(route('soal.show', $detail->soal_id))->with('info', 'Detail soal berhasil dihapus');
     }
 
     public function excel(Request $request, $id)
@@ -152,6 +157,6 @@ class DetailSoalController extends Controller
         Excel::import(new SoalImport($id), $excel);
         Storage::delete('public/' . $data['excel']);
 
-        return redirect()->back()->with('berhasil', 'Detail soal berhasil diupload');
+        return redirect()->back()->with('success', 'Detail soal berhasil diupload');
     }
 }

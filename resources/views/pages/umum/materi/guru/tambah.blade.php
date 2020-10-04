@@ -12,20 +12,6 @@
             <h6 class="m-0 font-weight-bold text-primary">{{ $mapel->nama }}</h6>
           </div>
           <div class="card-body">
-            @if (session('berhasil'))
-                <div class="alert alert-success">
-                    {{ session('berhasil') }}
-                </div>
-            @endif
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
             <form class="user pt-2" method="POST" action="{{ route('materi.store') }}" enctype="multipart/form-data">
               @csrf
               @include('pages.umum.materi.guru.includes.form')

@@ -19,23 +19,6 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                   @if (session('berhasil'))
-                      <div class="alert alert-success">
-                          {{ session('berhasil') }}
-                      </div>
-                  @endif
-                  @if ($errors->any())
-                  @php
-                    //   dd($errors);
-                  @endphp
-                      <div class="alert alert-danger">
-                          <ul>
-                              @foreach ($errors->all() as $error)
-                                  <li>{{ $error }}</li>
-                              @endforeach
-                          </ul>
-                      </div>
-                  @endif
                 <form class="user" name="detailsoal" action="{{ route('detail.store', $soal->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="float-right">

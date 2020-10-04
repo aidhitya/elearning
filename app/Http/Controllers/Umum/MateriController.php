@@ -84,7 +84,7 @@ class MateriController extends Controller
                 'keterangan' => $data['keterangan']
             ]);
 
-            return redirect(route('materi.create'))->with('berhasil', 'Materi Baru Untuk Kelas ' . $data['kelas'] . ' Berhasil Ditambahkan');
+            return redirect(route('materi.create'))->with('success', 'Materi Baru Untuk Kelas ' . $data['kelas'] . ' Berhasil Ditambahkan');
         }
 
 
@@ -112,7 +112,7 @@ class MateriController extends Controller
             'keterangan' => $data['keterangan']
         ]);
 
-        return redirect(route('materi.create', $data['kelas'] . '-' . $data['kode']))->with('berhasil', 'Materi Baru Kelas ' . $data['kelas'] . $data['kode'] . ' Berhasil Ditambahkan');
+        return redirect(route('materi.create', $data['kelas'] . '-' . $data['kode']))->with('success', 'Materi Baru Kelas ' . $data['kelas'] . $data['kode'] . ' Berhasil Ditambahkan');
     }
 
     public function show(Kelas $kelas, Materi $materi = null)
@@ -170,7 +170,7 @@ class MateriController extends Controller
                 ]);
             }
 
-            return redirect(route('materi.show', $data['kelas']))->with('berhasil', 'Materi Untuk Kelas ' . $materi->kelas . $data['kode'] . ' Berhasil Diupdate');
+            return redirect(route('materi.show', $data['kelas']))->with('success', 'Materi Untuk Kelas ' . $materi->kelas . $data['kode'] . ' Berhasil Diupdate');
         }
 
         // ADMIN
@@ -198,18 +198,23 @@ class MateriController extends Controller
             ]);
         }
 
-        return redirect(route('materi.index'))->with('berhasil', 'Materi Baru Untuk Kelas ' . $data['kelas'] . ' Berhasil Diupdate');
+        return redirect(route('materi.index'))->with('success', 'Materi Baru Untuk Kelas ' . $data['kelas'] . ' Berhasil Diupdate');
     }
 
     public function destroy(Materi $materi)
     {
         // Storage::delete('public/' . $materi->file);
+
+        if ($materi->soals()->exists()) {
+            return redirect()->back()->with('errors', 'Materi Mempunyai Relasi Soal');
+        }
+
         $materi->delete();
 
         if (Auth::user()->role == 1) {
-            return redirect()->back()->with('berhasil', 'Materi Berhasil Dihapus');
+            return redirect()->back()->with('info', 'Materi Berhasil Dihapus');
         }
 
-        return redirect(route('materi.index'))->with('berhasil', 'Materi Berhasil Dihapus');
+        return redirect(route('materi.index'))->with('info', 'Materi Berhasil Dihapus');
     }
 }

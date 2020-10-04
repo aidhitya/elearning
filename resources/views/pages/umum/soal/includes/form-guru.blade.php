@@ -10,7 +10,7 @@
 </div>
 <div class="form-group row">
     <div class="col-md-6 mb-3 mb-sm-0">
-        <select name="kelas_id" class="form-control" id="kelas" required>
+        <select name="kelas_materi" class="form-control" id="kelas" required>
             <option value="{{ $soal->kelas_id ?? '0' }}" id="zonk">Kelas {{ $soal->speckelas->kelas ?? '' }}  {{ $soal->speckelas->kode_kelas ?? '' }} - {{ $soal->mapel->nama ?? '' }}</option>
             @isset($soal)
                 <option value="">-</option>

@@ -19,11 +19,6 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  @if (session('berhasil'))
-                      <div class="alert alert-success">
-                          {{ session('berhasil') }}
-                      </div>
-                  @endif
                   <h6 class="mb-2 font-weight-bold text-dark">Search Materi</h6>
                     <div class="form-group row">
                       <div class="col-md-6 mb-3 mb-sm-0">
@@ -75,9 +70,9 @@
                             <td>{{ $item->keterangan }}</td>
                             <td>
                               <a href="{{ route('materi.edit', $item->id) }}" class="btn btn-md btn-primary"><i class="fas fa-pencil-alt"></i></a>
-                              <form action="{{ route('materi.destroy', $item->id) }}" method="POST" class="d-inline">
+                              <form id="delete-materi{{ $item->id }}" action="{{ route('materi.destroy', $item->id) }}" method="POST" class="d-inline">
                                 @csrf @method('DELETE')
-                                <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                                <button data-id="{{ $item->id }}" class="btn btn-sm btn-danger rm-materi"><i class="fa fa-trash"></i></button>
                               </form>
                             </td>
                           </tr>
@@ -114,6 +109,25 @@
       $('#filter-mapel').on('change', function(){
         table.column(4).search(this.value).draw();   
       });
+
+      $('.rm-materi').on('click', function(e){
+        e.preventDefault();
+        var id_materi = $(this).attr('data-id');
+
+        Swal.fire({
+          title: 'Konfirmasi Hapus',
+          text: 'Soal Yang Mempunyai Relasi Tidak Dapat Dihapus',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: "Hapus",
+          cancelButtonText: "Batal",
+        }).then((isConfirm) => {
+          if (isConfirm.isConfirmed == true) {
+            $('#delete-materi'+id_materi).submit();
+          }
+        });
+      })
+
     });
   </script>
 @endpush

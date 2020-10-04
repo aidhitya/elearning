@@ -74,6 +74,11 @@ class SoalController extends Controller
 
     public function store(SoalRequest $request)
     {
+        $this->validate($request, [
+            'mulai' => 'required|after:now|date',
+            'selesai' => 'required|date|after:mulai'
+        ]);
+
         $data = $request->all();
         if (Auth::user()->role == 1) {
             $mat = explode('-', $data['kelas_materi']);
@@ -89,7 +94,7 @@ class SoalController extends Controller
         }
         $soal = Soal::create($data);
 
-        return redirect(route('soal.create'))->with('berhasil', 'Soal ' . $soal->judul . ' berhasil dibuat');
+        return redirect(route('soal.create'))->with('success', 'Soal ' . $soal->judul . ' berhasil dibuat');
     }
 
     public function show(Soal $soal)
@@ -167,11 +172,22 @@ class SoalController extends Controller
 
     public function update(SoalRequest $request, Soal $soal)
     {
+        $this->validate($request, [
+            'mulai' => 'required|date|before:selesai',
+            'selesai' => 'required|date|after:mulai|after:now'
+        ]);
+        
         if ($soal->mulai < now()) {
             return redirect(route('soal.index'))->withErrors('Soal ' . $soal->judul . ' telah dikerjakam, tidak bisa diedit');
         }
 
         $data = $request->all();
+        if (Auth::user()->role == 1) {
+            $mat = explode('-', $data['kelas_materi']);
+            $data['kelas_id'] = $mat[0];
+            unset($data['kelas_materi']);
+        }
+        
         $data['guru_id'] = Auth::id();
         if (!$request->has('mapel_id')) {
             $mapel = Materi::where('id', $data['materi_id'])->first();
@@ -180,11 +196,14 @@ class SoalController extends Controller
         }
         $soal->update($data);
 
-        return redirect(route('soal.index'))->with('berhasil', 'Soal ' . $soal->judul . ' berhasil diupdate');
+        return redirect(route('soal.index'))->with('success', 'Soal ' . $soal->judul . ' berhasil diupdate');
     }
 
     public function destroy(Soal $soal)
     {
+        if ($soal->nilais()->exists()) {
+            return redirect(route('soal.index'))->with('errors', 'Soal Mempunyai Relasi');
+        }
         $detail = DetailSoal::where('soal_id', $soal->id)->get();
         foreach ($detail as $value) {
             $jawaban = Jawaban::where('detail_soal_id', $value->id);
@@ -193,6 +212,6 @@ class SoalController extends Controller
         }
         $soal->delete();
 
-        return redirect(route('soal.index'))->with('berhasil', 'Soal berhasil dihapus');
+        return redirect(route('soal.index'))->with('info', 'Soal berhasil dihapus');
     }
 }
