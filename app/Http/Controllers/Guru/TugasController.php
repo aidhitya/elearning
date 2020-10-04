@@ -63,7 +63,7 @@ class TugasController extends Controller
 
         Tugas::create($data);
 
-        return redirect()->back()->with('berhasil', 'Tugas Berhasil Dibuat');
+        return redirect()->back()->with('toast_success', 'Tugas Berhasil Dibuat');
     }
 
     public function edit($id)
@@ -81,7 +81,7 @@ class TugasController extends Controller
     public function update(TugasRequest $request, $id)
     {
         $this->validate($request, [
-            'mulai' => 'required|date|before:selesai|before:now',
+            'mulai' => 'required|date|before:selesai',
             'selesai' => 'required|date|after:mulai|after:now'
         ]);
 
@@ -97,16 +97,18 @@ class TugasController extends Controller
 
         $tugas->update($data);
 
-        return redirect(route('tugas.index'))->with('berhasil', 'Tugas Berhasil Diupdate');
+        return redirect(route('tugas.index'))->with('toast_success', 'Tugas Berhasil Diupdate');
     }
 
     public function destroy($id)
     {
         $tugas = Tugas::findOrFail($id);
-        $kumpul = KumpulTugas::where('tugas_id', $tugas->id);
-        $kumpul->delete();
+
+        if ($tugas->kumpultugas()->exists()) {
+            return redirect(route('tugas.index'))->with('errors', 'Tugas Mempunyai Relasi');
+        }
         $tugas->delete();
 
-        return redirect(route('tugas.index'))->with('berhasil', 'Tugas Berhasil Dihapus');
+        return redirect(route('tugas.index'))->with('info', 'Tugas Berhasil Dihapus');
     }
 }

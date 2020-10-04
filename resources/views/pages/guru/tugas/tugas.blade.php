@@ -4,36 +4,16 @@
 
 @section('content')
     <div class="container-fluid">
-          <!-- Content Row -->
-
-          <div class="row">
-
-            <!-- Area Chart -->
+        <div class="row">
             <div class="col-xl-12 col-lg-11">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
+                <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">List Tugas</h6>
-                  <a href="{{ route('tugas.create') }}" class="btn btn-primary">Tambah+</a>
+                    <h6 class="m-0 font-weight-bold text-primary">List Tugas</h6>
+                    <a href="{{ route('tugas.create') }}" class="btn btn-primary">Tambah+</a>
                 </div>
-                <!-- Card Body -->
                 <div class="card-body">
-                  @if (session('berhasil'))
-                      <div class="alert alert-success">
-                          {{ session('berhasil') }}
-                      </div>
-                  @endif
-                  @if ($errors->any())
-                      <div class="alert alert-danger">
-                          <ul>
-                              @foreach ($errors->all() as $error)
-                                  <li>{{ $error }}</li>
-                              @endforeach
-                          </ul>
-                      </div>
-                  @endif
-                  <div class="table-responsive">
-                    <table class="table table-bordered display nowrap" id="dataTable" width="100%" cellspacing="0">
+                    <div class="table-responsive">
+                        <table class="table table-bordered display nowrap" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                 <th>No</th>
@@ -67,19 +47,19 @@
                                             @if ($item->selesai > now())
                                             <a href="{{ route('tugas.edit', $item->id) }}" class="btn btn-sm btn-info"><i class="fas fa-pencil-alt"></i></a>
                                             @endif
-                                            <form action="{{ route('tugas.destroy', $item->id) }}" method="POST" class="d-inline ml-2">
-                                            @csrf @method('DELETE')
-                                            <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                                            <form id="delete-tugas{{ $item->id }}" action="{{ route('tugas.destroy', $item->id) }}" method="POST" class="d-inline ml-2">
+                                                @csrf @method('DELETE')
+                                                <button data-id="{{ $item->id }}" class="btn btn-sm btn-danger rm-tugas"><i class="fa fa-trash"></i></button>
                                             </form>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                  </div>
+                    </div>
                 </div>
-              </div>
             </div>
+        </div>
     </div>
 @endsection
 
@@ -89,6 +69,24 @@
           $('#dataTable').DataTable( {
               scrollX: true
           } );
+
+          $('.rm-tugas').on('click', function(e){
+          e.preventDefault();
+          var id_tugas = $(this).attr('data-id');
+
+          Swal.fire({
+            title: 'Konfirmasi Hapus',
+            text: 'Tugas Yang Mempunyai Relasi Tidak Dapat Dihapus',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: "Hapus",
+            cancelButtonText: "Batal",
+          }).then((isConfirm) => {
+            if (isConfirm.isConfirmed == true) {
+              $('#delete-tugas'+id_tugas).submit();
+            }
+          });
+        })
       });
     </script>
 @endpush

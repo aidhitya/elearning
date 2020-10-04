@@ -11,20 +11,6 @@
             <h6 class="m-0 font-weight-bold text-primary">Detail Tugas {{ $tugas->judul_tugas }}</h6>
           </div>
           <div class="card-body">
-            @if (session('berhasil'))
-                <div class="alert alert-success">
-                    {{ session('berhasil') }}
-                </div>
-            @endif
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
             <div class="table-responsive">
               <table class="table table-bordered display nowrap" id="dataTable" width="100%" cellspacing="0">
                 <thead>

@@ -22,6 +22,9 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
+    <!-- Sweet Alert -->
+    @include('sweetalert::alert')
+    
     <!-- Sidebar -->
     @include('includes.guru.sidebar')
     <!-- End of Sidebar -->
