@@ -53,11 +53,11 @@ class MapelController extends Controller
                 'guru_id' => $data['guru']
             ]);
 
-            return redirect(route('mapel.create'))->with('berhasil', 'Kelas Berhasil Menambahkan Mapel');
+            return redirect(route('mapel.create'))->with('toast_success', 'Kelas Berhasil Menambahkan Mapel');
         }
         Mapel::create($data);
 
-        return redirect(route('mapel.create'))->with('berhasil', 'Mapel Baru Berhasil Ditambahkan');
+        return redirect(route('mapel.create'))->with('toast_success', 'Mapel Baru Berhasil Ditambahkan');
     }
 
     public function edit($id)
@@ -111,19 +111,19 @@ class MapelController extends Controller
             ]);
         }
 
-        return redirect(route('mapel.index'))->with('berhasil', 'Mapel Baru Berhasil Diupdate');
+        return redirect(route('mapel.index'))->with('toast_success', 'Mapel Berhasil Diupdate');
     }
 
     public function destroy($id)
     {
         $del = Mapel::findOrFail($id);
-
-        if ($del->parent_id == null) {
-            return redirect(route('mapel.index'));
-        }
+        // return $del;
+        if ($del->child()->exists() || $del->materi()->exists() || $del->materis()->exists()) {
+            return redirect(route('mapel.index'))->with('errors', 'Mapel Mempunyai Relasi');
+        } 
 
         $del->delete();
 
-        return redirect(route('mapel.index'))->with('berhasil', "<h6>Data Mapel Berhasil<span style='color: red;'> Dihapus</span></h6>");
+        return redirect(route('mapel.index'))->with('info', "Data Mapel Berhasil Dihapus");
     }
 }

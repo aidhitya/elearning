@@ -11,20 +11,6 @@
             <h6 class="m-0 font-weight-bold text-primary">Tambah Mapel</h6>
           </div>
           <div class="card-body">
-            @if (session('berhasil'))
-                <div class="alert alert-success">
-                    {{ session('berhasil') }}
-                </div>
-            @endif
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
             <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item">
                 <a class="nav-link active" id="new-mapel" data-toggle="tab" href="#mapel" role="tab" aria-controls="mapel" aria-selected="true">Mapel Baru</a>

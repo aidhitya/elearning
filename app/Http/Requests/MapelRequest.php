@@ -24,7 +24,7 @@ class MapelRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama' => 'sometimes|required|string',
+            'nama' => 'sometimes|required|string|unique:mapels,nama,'. $this->mapels,
             'parent' => 'sometimes|required|integer|exists:mapels,id',
             'guru' => 'sometimes|required|integer|exists:users,id',
             'kelas' => 'sometimes|required|integer|exists:kelas,id'

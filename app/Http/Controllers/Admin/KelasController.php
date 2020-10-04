@@ -7,6 +7,7 @@ use App\Http\Requests\KelasRequest;
 use App\Models\Kelas;
 use App\User;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class KelasController extends Controller
 {
@@ -48,7 +49,7 @@ class KelasController extends Controller
 
         Kelas::create($data);
 
-        return redirect(route('kelas.create'))->with('berhasil', 'Kelas Berhasil Dibuat');
+        return redirect()->back()->with('toast_success', 'Kelas Berhasil Dibuat');
     }
 
     /**
@@ -91,7 +92,7 @@ class KelasController extends Controller
         $data = $request->all();
         $kelas->update($data);
 
-        return redirect(route('kelas.index'))->with('berhasil', 'Kelas Berhasil Diupdate');
+        return redirect(route('kelas.index'))->with('toast_success', 'Kelas Berhasil Diupdate');
     }
 
     /**
@@ -102,8 +103,15 @@ class KelasController extends Controller
      */
     public function destroy($id)
     {
-        Kelas::destroy($id);
+        $kelas = Kelas::findOrFail($id);
 
-        return back()->withErrors(['errors' => 'Kelas Berhasil Dihapus']);
+        if ($kelas->murids()->exists() || $kelas->mapels()->exists()) {
+            Alert::error('Error', 'Tidak Dapat Dihapus, Kelas Memiliki Relasi Mapel/Murid');
+            return back();
+        }
+
+        $kelas->delete();
+
+        return back()->withErrors('Kelas Berhasil Dihapus');
     }
 }

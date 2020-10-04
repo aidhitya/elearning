@@ -26,7 +26,7 @@ class KelasRequest extends FormRequest
         return [
             'kelas' => 'required|integer',
             'kode_kelas' => 'required|string',
-            'guru_id' => 'required|integer|exists:users,id|unique:kelas,guru_id'
+            'guru_id' => 'required|integer|exists:users,id|unique:kelas,guru_id,'. $this->kelas
         ];
     }
 }

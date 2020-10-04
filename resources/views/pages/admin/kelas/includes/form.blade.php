@@ -1,7 +1,7 @@
 <div class="form-group">
     <div class="mb-3 mb-sm-0">
         <select name="guru_id" id="wali_kelas" class="form-control" required>
-            <option value="{{ $kelas->wali_kelas ?? '' }}">{{ $kelas->wali_kelas->nama ?? 'Wali Kelas' }}</option>
+            <option value="{{ $kelas->wali_kelas->id ?? '' }}">{{ $kelas->wali_kelas->nama ?? 'Wali Kelas' }}</option>
             @isset($kelas)
                 <option value="">-</option>
             @endisset
