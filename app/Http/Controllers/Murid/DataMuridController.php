@@ -58,11 +58,7 @@ class DataMuridController extends Controller
             'kelas_id' => $userKelas->id,
             'mapel_id' => $search->parent_id
         ])->where(function ($que) {
-            $que->where(function ($s) {
-                $s->whereDate('mulai', '<=', Carbon::now())->whereTime('mulai', '<', Carbon::now());
-            })->where(function ($e) {
-                $e->whereDate('selesai', '>=', Carbon::now())->whereTime('selesai', '>', Carbon::now());
-            });
+            $que->where('mulai', '<=', Carbon::now())->where('selesai', '>=', Carbon::now());
         })->whereDoesntHave('kumpultugas', function($m){
             $m->where('murid_id', Auth::id());
         })->get();
