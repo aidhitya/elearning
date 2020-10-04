@@ -73,7 +73,7 @@ class MuridController extends Controller
             'foto' => $data['foto']
         ]);
 
-        return redirect(route('siswa.create'))->with('berhasil', 'Siswa Berhasil Dibuat');
+        return redirect(route('siswa.create'))->with('success', 'Siswa Berhasil Dibuat');
     }
 
     /**

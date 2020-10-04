@@ -21,6 +21,9 @@
 
   <!-- Page Wrapper -->
   <div id="wrapper">
+    
+    <!-- Sweet Alert -->
+    @include('sweetalert::alert')
 
     <!-- Sidebar -->
     @include('includes.siswa.sidebar')

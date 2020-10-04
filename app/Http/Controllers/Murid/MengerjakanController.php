@@ -136,8 +136,6 @@ class MengerjakanController extends Controller
 
         $tugas->kumpultugas()->create($data);
 
-        return redirect(route('murid.mapel', Str::slug($tugas->mapel->nama)))->with([
-            'berhasil' => 'Tugas Berhasil Dikumpulkan'
-        ]);
+        return redirect(route('murid.mapel', Str::slug($tugas->mapel->nama)))->with('success', 'Tugas Berhasil Dikumpulkan');
     }
 }
