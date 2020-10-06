@@ -7,80 +7,33 @@
 
           <!-- Content Row -->
           <div class="row">
-
             @foreach ($mapel->mapels as $key => $item)
-              @if ($key < 4)
-                <div class="col-xl-3 col-md-6 mb-4">
-                  <div class="card border-left-info shadow h-100 py-2">
-                    <a href="{{ route('murid.mapel', strtolower(\Str::slug($item->nama))) }}" class="text-decoration-none">
-                      <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                          <div class="col mr-2">
-                            <div class="text-info text-uppercase mb-1"><h6 class="font-weight-bold">{{ $item->nama }}</h6></div>
-                            <div class="row no-gutters align-items-center">
-                              <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                              </div>
-                              <div class="col">
-                                <div class="progress progress-sm mr-2">
-                                  <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                              </div>
+              <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <a href="{{ route('murid.mapel', strtolower(\Str::slug($item->nama))) }}" class="text-decoration-none">
+                    <div class="card-body">
+                      @isset($item->tugas_count)
+                        <span class="badge badge-info float-right ml-1">{{ $item->tugas_count }}</span>
+                      @endisset
+                      @isset($item->soals_count)
+                        <span class="badge badge-danger float-right">{{ $item->soals_count }}</span>
+                      @endisset
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                          <div class="text-info text-uppercase mb-1"><h6 class="font-weight-bold">{{ $item->nama }}</h6></div>
+                          <div class="row no-gutters align-items-center">
+                            <div class="col-auto w-100">
+                              <p class="m-0 font-weight-bold text-dark">{{ $item->guru->nama }} {{ $item->guru->guru->pendidikan }}</p>
                             </div>
-                          </div>
-                          <div class="col-auto">
-                            <i class="fas fa-spinner fa-2x text-gray-300"></i>
                           </div>
                         </div>
                       </div>
-                    </a>
-                  </div>
+                    </div>
+                  </a>
                 </div>
-              @endif
+              </div>
             @endforeach
           </div>
-
-          <div class="collapse" id="sisaMapel">
-            <div class="row">
-              @foreach ($mapel->mapels as $key => $item)
-                @if ($key > 3)
-                  <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-info shadow h-100 py-2">
-                      <a href="{{ route('murid.mapel', strtolower(\Str::slug($item->nama))) }}" class="text-decoration-none">
-                        <div class="card-body">
-                          <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                              <div class="text-info text-uppercase mb-1"><h6 class="font-weight-bold">{{ $item->nama }}</h6></div>
-                              <div class="row no-gutters align-items-center">
-                                <div class="col-auto">
-                                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                </div>
-                                <div class="col">
-                                  <div class="progress progress-sm mr-2">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50"
-                                      aria-valuemin="0" aria-valuemax="100"></div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-auto">
-                              <i class="fas fa-spinner fa-2x text-gray-300"></i>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                @endif
-              @endforeach
-            </div>
-          </div>
-          <span data-toggle="tooltip" data-placement="left" title="Show All Mapel">
-            <button class="btn btn-sm btn-primary float-right" type="button" data-toggle="collapse" data-target="#sisaMapel" aria-expanded="false" aria-controls="sisaMapel">
-              <i class="fas fa-angle-down"></i>
-            </button>
-          </span>
 
           <!-- Content Row -->
 

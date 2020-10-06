@@ -5,6 +5,8 @@ namespace App\Models;
 use App\User;
 use App\Models\Kelas;
 use App\Models\Materi;
+use App\Models\Soal;
+use App\Models\Tugas;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -34,6 +36,16 @@ class Mapel extends Model
     public function materi() // mapel parent
     {
         return $this->hasMany(Materi::class);
+    }
+
+    public function soals()
+    {
+        return $this->hasMany(Soal::class, 'mapel_id', 'parent_id');
+    }
+
+    public function tugas()
+    {
+        return $this->hasMany(Tugas::class, 'mapel_id', 'parent_id');
     }
 
     // Mapel Parent

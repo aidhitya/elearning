@@ -11,6 +11,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 
 class MuridController extends Controller
 {
@@ -21,14 +23,25 @@ class MuridController extends Controller
      */
     public function index()
     {
-        // $userKelas = Kelas::select('id', 'kelas')->find(Auth::user()->murid->kelas_id);
-        // $mapel = Kelas::where('id', $userKelas->id)->with(['mapels' => function($q) use ($userKelas){
-        //     $q->withCount(['materis' => function($query) use ($userKelas) {
-        //         $query->where('kelas', $userKelas->kelas)->orWhere('kelas_id', $userKelas->id);
-        //     }]);
-        // }])->get();
-        $mapel = Kelas::where('id', Auth::user()->murid->kelas_id)->with('mapels')->first();
         
+        $soal = function ($t) {
+            $t->whereDoesntHave('nilais', function($que){
+                $que->where('user_id', Auth::id());
+            })->where('mulai', '<=', Carbon::now())->where('selesai', '>=', Carbon::now())->has('detail_soal');
+        };
+
+        $tugas = function ($q) {
+            $q->whereDoesntHave('kumpultugas', function ($m) {
+                $m->where('murid_id', Auth::id());
+            })->where('mulai', '<=', Carbon::now())->where('selesai', '>=', Carbon::now());
+        };
+
+        $mapel = Kelas::where('id', Auth::user()->murid->kelas_id)->with(['mapels' => function ($q) use ($soal) {
+            $q->withCount(['soals' => $soal])->whereHas('soals', $soal)->with(['guru.guru']);
+        }, 'mapels' => function($tug) use ($tugas) {
+            $tug->withCount(['tugas' => $tugas])->whereHas('tugas', $tugas);
+        }])->first();
+
         return view('pages.siswa.main',[
             'mapel' => $mapel
         ]);

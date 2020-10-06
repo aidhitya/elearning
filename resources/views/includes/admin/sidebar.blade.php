@@ -12,7 +12,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    <li class="nav-item {{ \Route::currentRouteName() == 'home.admin' ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('home.admin') }}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Home</span></a>
@@ -40,21 +40,21 @@
     </li>
 
     <!-- Nav Item - Charts -->
-    <li class="nav-item">
+    <li class="nav-item {{ \Route::currentRouteName() == 'kelas.index' ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('kelas.index') }}">
         <i class="fas fa-chalkboard-teacher"></i>
         <span>Kelas</span></a>
     </li>
 
     <!-- Nav Item - Mapel -->
-    <li class="nav-item">
+    <li class="nav-item {{ \Route::currentRouteName() == 'mapel.index' ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('mapel.index') }}">
         <i class="fas fa-book-open"></i>
         <span>Mapel</span></a>
     </li>
 
     <!-- Nav Item - Assets -->
-    <li class="nav-item">
+    <li class="nav-item {{ \Route::currentRouteName() == 'mapel.index' ? 'active' : (\Route::currentRouteName() == 'mapel.index' ? 'active' : '') }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAssets" aria-expanded="true" aria-controls="collapseAssets">
             <i class="fas fa-scroll"></i>
             <span>Assets</span>
@@ -65,13 +65,6 @@
             <a class="collapse-item" href="{{ route('soal.index') }}">Soal</a>
             </div>
         </div>
-    </li>
-
-    <!-- Nav Item - Tables -->
-    <li class="nav-item">
-    <a class="nav-link" href="tables.html">
-        <i class="fas fa-fw fa-table"></i>
-        <span>Tables</span></a>
     </li>
 
     <!-- Divider -->

@@ -12,21 +12,21 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item {{ \Route::currentRouteName() == 'murid.index' ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('murid.index') }}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Home</span></a>
       </li>
 
       <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="#">
+      <li class="nav-item {{ request()->is('mapel') ? 'active' : (request()->is('mapel/*') ? 'active' : '') }}">
+        <a class="nav-link" href="{{ route('list.mapel') }}">
           <i class="fas fa-book-open"></i>
-          <span>Materi</span></a>
+          <span>Mata Pelajaran</span></a>
       </li>
 
-      <li class="nav-item">
-        <a class="nav-link" href="#">
+      <li class="nav-item {{ request()->is('tugas') ? 'active' : (request()->is('tugas/*') ? 'active' : '') }}">
+        <a class="nav-link" href="{{ route('list.tugas') }}">
           <i class="fas fa-swatchbook"></i>
           <span>Tugas</span></a>
       </li>

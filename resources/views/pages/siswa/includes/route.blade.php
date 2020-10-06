@@ -1,0 +1,1 @@
+<a href="{{ $route }}" class="text-decoration-none">

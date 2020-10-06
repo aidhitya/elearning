@@ -18,6 +18,36 @@ use Illuminate\Support\Str;
 
 class DataMuridController extends Controller
 {
+    public function listmapel()
+    {
+        // Data Berada Di View Composer
+        return view('pages.siswa.mapel.list');
+    }
+
+    public function listtugas()
+    {
+        // Data Berada Di View Composer
+        return view('pages.siswa.tugas.list');
+    }
+
+    public function detailtugas(Mapel $mapel, $slug)
+    {
+        if (Str::slug($mapel->nama) !== $slug) {
+            abort(404);
+        }
+
+        $tugas = $mapel->load(['tugas' => function ($q) {
+            $q->where('kelas_id', Auth::user()->murid->kelas_id)->get();
+        }, 'tugas.kumpultugas' => function ($que) {
+            $que->where('murid_id', Auth::id());
+        }]);
+        // return $tugas;
+
+        return view('pages.siswa.tugas.detail',[
+            'tugas' => $tugas
+        ]);
+    }
+
     public function mapel($mapel)
     {
         $m = $mapel;
@@ -33,7 +63,7 @@ class DataMuridController extends Controller
             'nama' => $m
         ])->with(['materis' => function ($q) use ($userKelas) {
             $q->where('kelas', $userKelas->kelas)->orWhere('kelas_id', $userKelas->id);
-        }, 'guru.guru:user_id,pendidikan'])->first();
+        }, 'guru.guru:user_id,pendidikan'])->firstOrFail();
 
         // $s->whereDate('mulai', '<=', Carbon::now())->whereTime('mulai', '<', Carbon::now());
         // $e->whereDate('selesai', '>=', Carbon::now())->whereTime('selesai', '>', Carbon::now());
@@ -63,7 +93,7 @@ class DataMuridController extends Controller
             $m->where('murid_id', Auth::id());
         })->get();
         
-        return view('pages.siswa.mapel', [
+        return view('pages.siswa.mapel.mapel', [
             'search' => $search,
             'soal' => $soal,
             'tugas' => $tugas

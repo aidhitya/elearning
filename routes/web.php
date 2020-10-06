@@ -21,8 +21,9 @@ Route::get('/', function () {
 
 Route::namespace('Murid')->middleware(['auth', 'verified', 'roles:2'])->group(function(){
     Route::resource('murid', 'MuridController');
-    Route::get('murid/mapel/{mapel}', 'DataMuridController@mapel')->name('murid.mapel');
-    Route::get('murid/mapel/{mapel}/{materi}', 'DataMuridController@materi')->name('murid.materi');
+    Route::get('mapel', 'DataMuridController@listmapel')->name('list.mapel');
+    Route::get('mapel/{mapel}', 'DataMuridController@mapel')->name('murid.mapel');
+    Route::get('mapel/{mapel}/{materi}', 'DataMuridController@materi')->name('murid.materi');
 
     Route::get('soal/{kategori}/{mapel}/{soal}', 'MengerjakanController@soal')->name('murid.soal');
     Route::post('soal/{kategori}/{mapel}/{soal}', 'MengerjakanController@slide')->name('murid.slide');
@@ -34,6 +35,8 @@ Route::namespace('Murid')->middleware(['auth', 'verified', 'roles:2'])->group(fu
 
     Route::get('soal/{kategori}/{mapel}/{soal}/nilai/{try}', 'NilaiController@nilaipdf')->name('get.nilai.pdf');
 
+    Route::get('tugas', 'DataMuridController@listtugas')->name('list.tugas');
+    Route::get('tugas/{mapel}/{slug}', 'DataMuridController@detailtugas')->name('detail.tugas');
     Route::get('tugas/detail/{tugas}/{judul}', 'MengerjakanController@tugas')->name('murid.tugas');
     Route::post('tugas/detail/{tugas}/{judul}', 'MengerjakanController@kumpultugas')->name('murid.kumpul.tugas');
 });

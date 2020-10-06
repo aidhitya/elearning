@@ -18,12 +18,16 @@
                     <tr>
                     <th>ID</th>
                     <th>Judul</th>
-                    <th>Kelas</th>
+                    @if (Auth::user()->role == 0)
+                      <td>Kelas</td>
+                    @endif
                     <th>Kelas (s)</th>
                     <th>Kategori</th>
                     <th>Mapel</th>
                     <th>Materi</th>
-                    <th>Author</th>
+                    @if (Auth::user()->role == 0)
+                      <td>Author</td>
+                    @endif
                     <th>Mulai</th>
                     <th>Selesai</th>
                     <th>Action</th>
@@ -34,13 +38,15 @@
                     <tr>
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $item->judul }}</td>
-                    <td>
-                      @if ($item->speckelas !== null)
-                        {{ $item->speckelas->kelas }}
-                      @else
-                        {{ $item->kelas }}
-                      @endif
-                    </td>
+                    @if (Auth::user()->role == 0)
+                      <td>
+                        @if ($item->speckelas !== null)
+                          {{ $item->speckelas->kelas }}
+                        @else
+                          {{ $item->kelas }}
+                        @endif
+                      </td>
+                    @endif
                     <td>
                       @if ($item->speckelas !== null)
                           {{ $item->speckelas->kelas }} {{ $item->speckelas->kode_kelas }}
@@ -52,12 +58,14 @@
                     <td>{{ $item->mapel->nama }}</td>
                     <td>
                       @if ($item->materi !== null)
-                          {{ $item->materi->judul }}
+                        {{ $item->materi->judul }}
                       @else
                       -
                       @endif
                     </td>
-                    <td>{{ $item->author->nama }}</td>
+                      @if (Auth::user()->role == 0)
+                        <td>{{ $item->author->nama }}</td>
+                      @endif
                     <td>{{ $item->mulai }}</td>
                     <td>{{ $item->selesai }}</td>
                     <td>

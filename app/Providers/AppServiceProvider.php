@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Http\View\Composers\MapelComposer;
 use App\Http\View\Composers\DataKelasComposer;
+use App\Http\View\Composers\ListMapelComposer;
 use App\Http\View\Composers\MateriComposer;
 use App\Http\View\Composers\SoalComposer;
 use Illuminate\Support\Facades\View;
@@ -32,5 +33,6 @@ class AppServiceProvider extends ServiceProvider
         View::composer('pages.admin.mapel.includes.selects', MapelComposer::class);
         View::composer('pages.umum.materi.admin.includes.form', MateriComposer::class);
         View::composer('pages.umum.soal.includes.form-admin', SoalComposer::class);
+        View::composer('pages.siswa.includes.list.*', ListMapelComposer::class);
     }
 }

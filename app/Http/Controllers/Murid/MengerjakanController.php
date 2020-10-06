@@ -110,7 +110,7 @@ class MengerjakanController extends Controller
 
         $tugas->load('mapel');
 
-        return view('pages.siswa.tugas',[
+        return view('pages.siswa.tugas.tugas',[
             'tugas' => $tugas
         ]);
     }
