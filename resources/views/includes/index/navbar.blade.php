@@ -1,6 +1,6 @@
 <div class="container">
     <nav class="row navbar navbar-expand-lg navbar-light bg-white con-navbar">
-      <a href="#" class="navbar-brand">
+      <a href="{{ route('home') }}" class="navbar-brand">
         <i class="fas fa-book-open" style="font-size: 1.5em"> Elearning</i>
       </a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navNomads">
@@ -8,7 +8,7 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navNomads">
-        <ul class="navbar-nav ml-auto mr-3">
+        {{-- <ul class="navbar-nav ml-auto mr-3">
           <li class="nav-item mx-md-2"><a href="#" class="nav-link active">Home</a></li>
           <li class="nav-item mx-md-2"><a href="#" class="nav-link">Paket Travel</a></li>
           <li class="nav-item dropdown mx-md-2"><a href="#" class="nav-link dropdown-toggle" id="navbarDrop"
@@ -20,11 +20,11 @@
             </div>
           </li>
           <li class="nav-item mx-md-2"><a href="#" class="nav-link">Testimonial</a></li>
-        </ul>
+        </ul> --}}
 
         <!-- Desktop Button  -->
         @guest
-          <a class="btn btn-link form-inline my-2 my-lg-0 d-md-block d-none text-decoration-none" href="{{ route('login') }}">
+          <a class="ml-auto btn btn-link form-inline my-2 my-lg-0 d-md-block d-none text-decoration-none" href="{{ route('login') }}">
               {{ __('Log In') }}
           </a>
           {{-- <form action="{{ route('login') }}" class="form-inline my-2 my-lg-0 d-md-block d-none">

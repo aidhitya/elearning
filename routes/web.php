@@ -17,7 +17,7 @@ use App\User;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::namespace('Murid')->middleware(['auth', 'verified', 'roles:2'])->group(function(){
     Route::resource('murid', 'MuridController');

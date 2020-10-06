@@ -21,7 +21,7 @@ class CreateMaterisTable extends Migration
             $table->string('judul');
             $table->text('url')->nullable();
             $table->text('file')->nullable();
-            $table->integer('pertemuan')->nullable();
+            $table->integer('pertemuan')->unique()->nullable();
             $table->unsignedBigInteger('guru_id');
             $table->string('keterangan')->nullable();
             $table->softDeletes();
