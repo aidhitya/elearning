@@ -52,7 +52,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function murid()
     {
-        return $this->hasOne(Murid::class);
+        return $this->hasOne(Murid::class, 'user_id', 'id');
     }
 
     public function mengajar()

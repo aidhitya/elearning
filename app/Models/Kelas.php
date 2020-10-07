@@ -47,4 +47,14 @@ class Kelas extends Model
     {
         return $this->hasMany(Tugas::class);
     }
+
+    public function soal()
+    {
+        return $this->hasMany(Soal::class);
+    }
+
+    public function soals()
+    {
+        return $this->hasMany(Soal::class, 'kelas', 'kelas');
+    }
 }

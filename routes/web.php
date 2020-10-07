@@ -47,6 +47,9 @@ Route::namespace('Guru')->prefix('guru')->middleware(['auth', 'verified', 'roles
     Route::view('/', 'pages.guru.main')->name('home.guru'); 
     Route::resource('guru', 'GuruController');
     Route::get('kelas/{kelas}', 'DataKelasController@index')->name('data.kelas.guru');
+    Route::get('soal', 'DataKelasController@soal')->name('data.soal.guru');
+    Route::get('soal/{kelas}/{soal}/detail/{judul}', 'DataKelasController@detailmurid')->name('detail.soal.murid');
+    Route::get('soal/{kelas}/{m}/{mapel}', 'DataKelasController@detailsoal')->name('detail.soal.guru');
     Route::resource('tugas', 'TugasController');
 });
 

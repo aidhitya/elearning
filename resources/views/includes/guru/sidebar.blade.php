@@ -51,10 +51,10 @@
       </li>
 
       <!-- Nav Item - Pengumuman -->
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fas fa-star-half-alt"></i>
-          <span>Nilai</span></a>
+      <li class="nav-item {{ request()->is('guru/soal/*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('data.soal.guru') }}">
+          <i class="fas fa-book-open"></i>
+          <span>Detail Soal</span></a>
       </li>
 
       <!-- Nav Item - Pengumuman -->

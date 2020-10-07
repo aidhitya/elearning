@@ -30,6 +30,11 @@ class Soal extends Model
         return $this->belongsTo(Kelas::class, 'kelas_id');
     }
 
+    public function parentkelas()
+    {
+        return $this->belongsTo(Kelas::class, 'kelas', 'kelas');
+    }
+
     public function author()
     {
         return $this->belongsTo(User::class, 'guru_id', 'id');
