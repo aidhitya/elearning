@@ -8,6 +8,7 @@ use App\Models\Mapel;
 use App\Models\Materi;
 use App\Models\DetailSoal;
 use App\Models\Nilai;
+use App\Scopes\SelesaiScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -16,6 +17,11 @@ class Soal extends Model
     use SoftDeletes;
 
     protected $guarded = [];
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new SelesaiScope);
+    }
 
     // Relathionship
 

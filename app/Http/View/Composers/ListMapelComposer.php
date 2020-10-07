@@ -8,16 +8,17 @@ use Illuminate\Support\Facades\Auth;
 
 class ListMapelComposer
 {
-
+// ->whereIn('kategori', ['Harian', 'Quiz'])
+// ->whereIn('kategori', ['Harian', 'Quiz'])
     public function compose(View $view)
     {
         $view->with('list', $list = Kelas::where('id', Auth::user()->murid->kelas_id)->with(['mapels' => function ($q) {
             $q->withCount(['soals as soal_belum' => function ($d) {
-                $d->whereIn('kategori', ['Harian', 'Quiz'])->has('detail_soal')->whereDoesntHave('nilais', function($r) {
+                $d->has('detail_soal')->whereDoesntHave('nilais', function($r) {
                     $r->where('user_id', Auth::id());
                 });
             }, 'soals as soal_sudah' => function ($d) {
-                $d->whereIn('kategori', ['Harian', 'Quiz'])->has('detail_soal')->whereHas('nilais', function($r) {
+                $d->has('detail_soal')->whereHas('nilais', function($r) {
                     $r->where('user_id', Auth::id());
                 });
             }, 'tugas as tugas_belum' => function ($d) {

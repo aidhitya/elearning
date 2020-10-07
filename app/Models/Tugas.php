@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\User;
 use App\Models\KumpulTugas;
+use App\Scopes\SelesaiScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -12,6 +13,11 @@ class Tugas extends Model
     use SoftDeletes;
 
     protected $guarded = [];
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new SelesaiScope);
+    }
 
     // Relationship
 

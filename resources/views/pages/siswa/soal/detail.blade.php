@@ -1,6 +1,6 @@
 @extends('layouts.siswa')
 
-@section('title', 'Dashboard Siswa - Tugas')
+@section('title', 'Dashboard Siswa - Soal')
 
 @section('content')
   <div class="container-fluid">
@@ -8,7 +8,7 @@
       <div class="col-xl-11 col-lg-10">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">List Tugas {{ $tugas->nama }}</h6>
+                <h6 class="m-0 font-weight-bold text-primary">List Soal {{ $soal->nama }}</h6>
             </div>
             <div class="justif-content-center m-3">
                 <div class="table-responsive">
@@ -16,27 +16,28 @@
                         <thead>
                             <tr>
                             <th>No</th>
-                            <th>Tugas</th>
-                            <th>Deskripsi</th>
-                            <th>File</th>
-                            <th>Mengumpulkan</th>
+                            <th>Soal</th>
+                            <th>Kategori</th>
+                            <th>Mengerjakan</th>
                             <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($tugas->tugas as $key => $item)
+                            @foreach ($soal->soals as $key => $item)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $item->judul_tugas }}</td>
-                                    <td class="overflow-hidden">{{ $item->deskripsi }}</td>
-                                    <td>
-                                        @isset($item->file)
-                                            <a href="{{ asset('storage/', $item->file) }}" class="btn btn-md btn-primary"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
-                                        @endisset
+                                    <td>{{ $item->judul }}</td>
+                                    <td>{{ $item->kategori }}</td>
+                                    <td class="justify-content-between">
+                                        @foreach ($item->nilais as $t)
+                                            <p class="m-0">{{ $t->created_at }}</p>
+                                        @endforeach
                                     </td>
-                                    <td>{{ $item->kumpultugas[0]->created_at ?? '-' }}</td>
                                     <td>
-                                    <a href="{{ route('murid.tugas', [$item->id, \Str::slug($item->judul_tugas)]) }}" class="btn btn-sm btn-primary {{ $item->selesai < now() ? 'disabled' : '' }}">{{ isset($item->kumpultugas[0]->created_at) ? 'Update' : 'Submit' }}</a>
+                                      @if (count($item->nilais) >= 2)
+                                      <a href="{{ route('murid.soal', [strtolower($item->kategori), \Str::slug($soal->nama), $item->id]) }}" class="btn btn-sm btn-primary">Nilai</a>
+                                      @endif
+                                    <a href="{{ route('murid.soal', [strtolower($item->kategori), \Str::slug($soal->nama), $item->id]) }}" class="btn btn-sm btn-primary {{ $item->selesai < now() ? 'disabled' : (count($item->nilais) >= 2 ? 'disabled' : '') }}">Kerjakan</a>
                                     </td>
                                 </tr>
                             @endforeach

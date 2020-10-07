@@ -25,6 +25,9 @@ Route::namespace('Murid')->middleware(['auth', 'verified', 'roles:2'])->group(fu
     Route::get('mapel/{mapel}', 'DataMuridController@mapel')->name('murid.mapel');
     Route::get('mapel/{mapel}/{materi}', 'DataMuridController@materi')->name('murid.materi');
 
+    Route::get('soal', 'DataMuridController@listsoal')->name('list.soal');
+    Route::get('soal/{mapel}/{slug}', 'DataMuridController@detailsoal')->name('detail.soal');
+
     Route::get('soal/{kategori}/{mapel}/{soal}', 'MengerjakanController@soal')->name('murid.soal');
     Route::post('soal/{kategori}/{mapel}/{soal}', 'MengerjakanController@slide')->name('murid.slide');
 
@@ -32,7 +35,6 @@ Route::namespace('Murid')->middleware(['auth', 'verified', 'roles:2'])->group(fu
     Route::get('soal/{kategori}/{mapel}/{soal}/checking', 'CheckerController')->name('soal.check');
 
     Route::post('soal/{soal}/selesai', 'NilaiController@selesai')->name('soal.selesai');
-
     Route::get('soal/{kategori}/{mapel}/{soal}/nilai/{try}', 'NilaiController@nilaipdf')->name('get.nilai.pdf');
 
     Route::get('tugas', 'DataMuridController@listtugas')->name('list.tugas');

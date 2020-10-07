@@ -30,6 +30,31 @@ class DataMuridController extends Controller
         return view('pages.siswa.tugas.list');
     }
 
+    public function listsoal()
+    {
+        // Data Berada Di View Composer
+        return view('pages.siswa.soal.list');
+    }
+
+    public function detailsoal(Mapel $mapel, $slug)
+    {
+        if (Str::slug($mapel->nama) !== $slug) {
+            abort(404);
+        }
+
+        $kelas = Kelas::findOrFail(Auth::user()->murid->kelas_id);
+
+        $soal = $mapel->load(['soals' => function($q) use ($kelas) {
+            $q->has('detail_soal')->where('kelas_id', $kelas->id)->orWhere('kelas', $kelas->kelas)->get();
+        }, 'soals.nilais' => function($que) {
+            $que->where('user_id', Auth::id());
+        }]);
+        // return $soal;
+        return view('pages.siswa.soal.detail', [
+            'soal' => $soal
+        ]);
+    }
+
     public function detailtugas(Mapel $mapel, $slug)
     {
         if (Str::slug($mapel->nama) !== $slug) {

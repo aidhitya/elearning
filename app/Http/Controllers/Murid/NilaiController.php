@@ -94,13 +94,21 @@ class NilaiController extends Controller
 
         Checker::whereNull('nilai_id')->update(['nilai_id' => $nilai->id]);
 
+        $checker  = Nilai::where([
+            'user_id' => Auth::user()->id,
+            'nilaiable_type' => 'App\Models\Soal',
+            'nilaiable_id' => $soal->id,
+            'percobaan' => $try
+        ])->get();
+
         session()->forget(['soal', 'jawaban', 'sort', 'by']);
 
         // return $nilai;
 
         return view('pages.siswa.nilai', [
             'soal' => $soal,
-            'nilai' => $nilai
+            'nilai' => $nilai,
+            'checker' => $checker
         ]);
     }
 
@@ -118,7 +126,7 @@ class NilaiController extends Controller
         ])->with(['nilaiable' => function(MorphTo $morphTo) {
             $morphTo->morphWithCount([Soal::class => ['detail_soal']]);
         }])->with(['checker.jawaban', 'murid.murid.kelas'])->first();
-
+        
         $pdf = PDF::loadView('pages.siswa.nilai-pdf',[
             'checker' => $checker
         ])->setWarnings(false);

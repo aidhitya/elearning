@@ -36,12 +36,11 @@ class MuridController extends Controller
             })->where('mulai', '<=', Carbon::now())->where('selesai', '>=', Carbon::now());
         };
 
-        $mapel = Kelas::where('id', Auth::user()->murid->kelas_id)->with(['mapels' => function ($q) use ($soal) {
-            $q->withCount(['soals' => $soal])->whereHas('soals', $soal)->with(['guru.guru']);
-        }, 'mapels' => function($tug) use ($tugas) {
-            $tug->withCount(['tugas' => $tugas])->whereHas('tugas', $tugas);
+        $mapel = Kelas::where('id', Auth::user()->murid->kelas_id)->with(['mapels' => function ($q) use ($soal, $tugas) {
+            $q->withCount(['soals' => $soal])->whereHas('soals', $soal);
+            $q->withCount(['tugas' => $tugas])->whereHas('tugas', $tugas);
         }])->first();
-
+        // return $mapel;
         return view('pages.siswa.main',[
             'mapel' => $mapel
         ]);

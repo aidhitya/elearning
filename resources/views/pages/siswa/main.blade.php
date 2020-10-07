@@ -12,13 +12,15 @@
                 <div class="card border-left-info shadow h-100 py-2">
                   <a href="{{ route('murid.mapel', strtolower(\Str::slug($item->nama))) }}" class="text-decoration-none">
                     <div class="card-body">
-                      @isset($item->tugas_count)
-                        <span class="badge badge-info float-right ml-1">{{ $item->tugas_count }}</span>
-                      @endisset
-                      @isset($item->soals_count)
-                        <span class="badge badge-danger float-right">{{ $item->soals_count }}</span>
-                      @endisset
-                      <div class="row no-gutters align-items-center">
+                      <div class="float-right">
+                        @isset($item->tugas_count)
+                        <span class="badge badge-info ml-1">{{ $item->tugas_count }} Tugas</span>
+                        @endisset
+                        @isset($item->soals_count)
+                          <span class="badge badge-danger">{{ $item->soals_count }} Soal</span>
+                        @endisset
+                      </div>
+                      <div class="row no-gutters align-items-center w-100">
                         <div class="col mr-2">
                           <div class="text-info text-uppercase mb-1"><h6 class="font-weight-bold">{{ $item->nama }}</h6></div>
                           <div class="row no-gutters align-items-center">

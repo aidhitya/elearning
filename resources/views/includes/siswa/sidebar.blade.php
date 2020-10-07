@@ -32,17 +32,10 @@
       </li>
 
       <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fas fa-pencil-alt"></i>
-          <span>Kuis</span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
+      <li class="nav-item {{ request()->is('soal') ? 'active' : (request()->is('soal/*') ? 'active' : '') }}">
+        <a class="nav-link" href="{{ route('list.soal') }}">
+          <i class="fas fa-tasks"></i>
+          <span>Soal</span></a>
       </li>
 
       <!-- Divider -->

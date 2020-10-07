@@ -19,15 +19,6 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                  @endif
                     <div class="py-3 d-flex flex-row align-items-center justify-content-between">
                         <h5 class="m-0 font-weight-bold text-dark">{{ $tugas->judul_tugas }}</h5>
                         <form action="{{ route('murid.kumpul.tugas', [$tugas->id, \Str::slug($tugas->judul_tugas)]) }}" class="form-inline" method="POST" enctype="multipart/form-data">
