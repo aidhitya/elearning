@@ -51,7 +51,7 @@
       </li>
 
       <!-- Nav Item - Pengumuman -->
-      <li class="nav-item {{ request()->is('guru/soal/*') ? 'active' : '' }}">
+      <li class="nav-item {{ request()->is('guru/soal') ? 'active' : (request()->is('guru/soal/*') ? 'active' : '') }}">
         <a class="nav-link" href="{{ route('data.soal.guru') }}">
           <i class="fas fa-book-open"></i>
           <span>Detail Soal</span></a>

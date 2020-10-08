@@ -40,21 +40,21 @@
     </li>
 
     <!-- Nav Item - Charts -->
-    <li class="nav-item {{ \Route::currentRouteName() == 'kelas.index' ? 'active' : '' }}">
+    <li class="nav-item {{ request()->is('admin/kelas') ? 'active' : (request()->is('admin/kelas/*') ? 'active' : '') }}">
     <a class="nav-link" href="{{ route('kelas.index') }}">
         <i class="fas fa-chalkboard-teacher"></i>
         <span>Kelas</span></a>
     </li>
 
     <!-- Nav Item - Mapel -->
-    <li class="nav-item {{ \Route::currentRouteName() == 'mapel.index' ? 'active' : '' }}">
+    <li class="nav-item {{ request()->is('admin/mapel') ? 'active' : (request()->is('admin/mapel/*') ? 'active' : '') }}">
     <a class="nav-link" href="{{ route('mapel.index') }}">
         <i class="fas fa-book-open"></i>
         <span>Mapel</span></a>
     </li>
 
     <!-- Nav Item - Assets -->
-    <li class="nav-item {{ \Route::currentRouteName() == 'mapel.index' ? 'active' : (\Route::currentRouteName() == 'mapel.index' ? 'active' : '') }}">
+    <li class="nav-item {{ request()->is('assets/*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAssets" aria-expanded="true" aria-controls="collapseAssets">
             <i class="fas fa-scroll"></i>
             <span>Assets</span>
@@ -67,6 +67,12 @@
         </div>
     </li>
 
+<!-- Nav Item - Nilai -->
+    <li class="nav-item {{ request()->is('admin/nilai') ? 'active' : (request()->is('admin/nilai/*') ? 'active' : '') }}">
+    <a class="nav-link" href="{{ route('nilai.admin') }}">
+        <i class="fas fa-star-half-alt"></i>
+        <span>Nilai</span></a>
+    </li>
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

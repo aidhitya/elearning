@@ -57,6 +57,10 @@ Route::namespace('Admin')->prefix('admin')->middleware(['auth', 'verified', 'rol
     Route::view('/', 'pages.admin.main')->name('home.admin');
     Route::resource('kelas', 'KelasController');
     Route::resource('mapel', 'MapelController')->except('show');
+    Route::get('nilai', 'DataAdminController@kelas')->name('nilai.admin');
+    Route::get('nilai/{kelas}/{kel}', 'DataAdminController@detailkelas')->name('nilai.mapel');
+    Route::get('nilai/{kelas}/{kel}/{map}/{mapel}', 'DataAdminController@detailmapel')->name('nilai.soal');
+    Route::get('nilai/{kelas}/{kel}/{map}/{mapel}/{so}/{soal}', 'DataAdminController@detailsoal')->name('nilai.murid');
 });
 
 Route::prefix('assets')->namespace('Umum')->middleware(['auth', 'verified', 'roles:0,1'])->group(function () {
