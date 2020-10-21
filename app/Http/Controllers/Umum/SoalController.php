@@ -173,11 +173,11 @@ class SoalController extends Controller
     public function update(SoalRequest $request, Soal $soal)
     {
         $this->validate($request, [
-            'mulai' => 'required|date|before:selesai',
+            'mulai' => 'required|date|before:selesai|after_or_equal:'.$soal->mulai,
             'selesai' => 'required|date|after:mulai|after:now'
         ]);
         
-        if ($soal->mulai < now()) {
+        if ($soal->mulai < now() && $soal->selesai < now()) {
             return redirect(route('soal.index'))->withErrors('Soal ' . $soal->judul . ' telah dikerjakam, tidak bisa diedit');
         }
 

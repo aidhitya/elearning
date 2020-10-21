@@ -57,4 +57,9 @@ class Kelas extends Model
     {
         return $this->hasMany(Soal::class, 'kelas', 'kelas');
     }
+
+    public function pengumuman()
+    {
+        return $this->belongsToMany(Pengumuman::class, 'kelas_pengumuman');
+    }
 }

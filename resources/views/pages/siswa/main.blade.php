@@ -46,11 +46,17 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Pengumuman</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-
+                  <div class="container border border-primary rounded">
+                    <ul class="list-group list-group-flush m-4">
+                      @foreach ($pengumuman as $item)
+                        <li class="list-group-item list-group-item-action"><a href="{{ route('pengumuman.murid', [$item->id, \Str::slug($item->judul)]) }}"  class="font-weight-bold text-primary">{{ $item->judul }}</a> - <span class="text-muted">{{ $item->created_at }}</span></li>
+                      @endforeach
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>

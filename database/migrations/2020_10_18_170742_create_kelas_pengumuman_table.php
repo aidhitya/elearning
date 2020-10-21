@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMapelsTable extends Migration
+class CreateKelasPengumumanTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateMapelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('mapels', function (Blueprint $table) {
+        Schema::create('kelas_pengumuman', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->unsignedBigInteger('parent_id')->nullable();
-            $table->unsignedBigInteger('guru_id')->nullable();
-            $table->unsignedBigInteger('kelas_id')->nullable();
-            $table->softDeletes();
+            $table->unsignedBigInteger('kelas_id');
+            $table->unsignedBigInteger('pengumuman_id');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateMapelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mapels');
+        Schema::dropIfExists('kelas_pengumuman');
     }
 }

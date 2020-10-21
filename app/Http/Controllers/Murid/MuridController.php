@@ -7,6 +7,7 @@ use App\Http\Requests\MuridRequest;
 use App\Models\Kelas;
 use App\Models\Mapel;
 use App\Models\Murid;
+use App\Models\Pengumuman;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,7 @@ class MuridController extends Controller
      */
     public function index()
     {
+        $kelas = Auth::user()->murid->kelas_id;
         
         $soal = function ($t) {
             $t->whereDoesntHave('nilais', function($que){
@@ -36,13 +38,18 @@ class MuridController extends Controller
             })->where('mulai', '<=', Carbon::now())->where('selesai', '>=', Carbon::now());
         };
 
-        $mapel = Kelas::where('id', Auth::user()->murid->kelas_id)->with(['mapels' => function ($q) use ($soal, $tugas) {
+        $mapel = Kelas::where('id', $kelas)->with(['mapels' => function ($q) use ($soal, $tugas) {
             $q->withCount(['soals' => $soal])->whereHas('soals', $soal);
             $q->withCount(['tugas' => $tugas])->whereHas('tugas', $tugas);
         }])->first();
-        // return $mapel;
+
+        $pengumuman = Pengumuman::whereHas('kelas', function($q) use ($kelas){
+            $q->where('kelas_id', $kelas);
+        })->get();
+        // return $pengumuman;
         return view('pages.siswa.main',[
-            'mapel' => $mapel
+            'mapel' => $mapel,
+            'pengumuman' => $pengumuman
         ]);
     }
 

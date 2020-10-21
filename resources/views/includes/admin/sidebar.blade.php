@@ -19,8 +19,8 @@
     </li>
 
     <!-- Nav Item - Charts -->
-    <li class="nav-item">
-    <a class="nav-link" href="#">
+    <li class="nav-item {{ request()->is('pengumuman') ? 'active' : (request()->is('pengumuman/*') ? 'active' : '') }}">
+    <a class="nav-link" href="{{ route('pengumuman.index') }}">
         <i class="fas fa-bullhorn"></i>
         <span>Pengumuman</span></a>
     </li>

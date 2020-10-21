@@ -41,6 +41,8 @@ Route::namespace('Murid')->middleware(['auth', 'verified', 'roles:2'])->group(fu
     Route::get('tugas/{mapel}/{slug}', 'DataMuridController@detailtugas')->name('detail.tugas');
     Route::get('tugas/detail/{tugas}/{judul}', 'MengerjakanController@tugas')->name('murid.tugas');
     Route::post('tugas/detail/{tugas}/{judul}', 'MengerjakanController@kumpultugas')->name('murid.kumpul.tugas');
+    
+    Route::get('pengumuman/{pengumuman}/{judul}', 'DataMuridController@pengumuman')->name('pengumuman.murid');
 });
 
 Route::namespace('Guru')->prefix('guru')->middleware(['auth', 'verified', 'roles:1'])->group(function () {
@@ -63,19 +65,24 @@ Route::namespace('Admin')->prefix('admin')->middleware(['auth', 'verified', 'rol
     Route::get('nilai/{kelas}/{kel}/{map}/{mapel}/{so}/{soal}', 'DataAdminController@detailsoal')->name('nilai.murid');
 });
 
-Route::prefix('assets')->namespace('Umum')->middleware(['auth', 'verified', 'roles:0,1'])->group(function () {
-    Route::resource('materi', 'MateriController')->except('show', 'create');
-    Route::resource('soal', 'SoalController');
-    Route::resource('soal/detail', 'DetailSoalController')->except('create', 'store');
+Route::namespace('Umum')->middleware(['auth', 'verified', 'roles:0,1'])->group(function () {
+    Route::prefix('assets')->group(function(){
+        Route::resource('materi', 'MateriController')->except('show', 'create');
+        Route::resource('soal', 'SoalController');
+        Route::resource('soal/detail', 'DetailSoalController')->except('create', 'store');
 
-    Route::get('materi/create/{kelas?}', 'MateriController@create')->name('materi.create');
-    Route::get('materi/{kelas}/{materi?}', 'MateriController@show')->name('materi.show');
-    Route::post('soal/{soal}/excel/store', 'DetailSoalController@excel')->name('detail.excel');
-    Route::post('soal/{soal}/detail/store', 'DetailSoalController@store')->name('detail.store');
-    Route::get('soal/detail/{soal}/create', 'DetailSoalController@create')->name('detail.create');
+        Route::get('materi/create/{kelas?}', 'MateriController@create')->name('materi.create');
+        Route::get('materi/{kelas}/{materi?}', 'MateriController@show')->name('materi.show');
+        Route::post('soal/{soal}/excel/store', 'DetailSoalController@excel')->name('detail.excel');
+        Route::post('soal/{soal}/detail/store', 'DetailSoalController@store')->name('detail.store');
+        Route::get('soal/detail/{soal}/create', 'DetailSoalController@create')->name('detail.create');
 
-    Route::post('soal/create', 'SoalController@create')->name('post.materi.soal');
-    Route::post('soal/{soal}/edit', 'SoalController@create')->name('post.edit.soal');
+        Route::post('soal/create', 'SoalController@create')->name('post.materi.soal');
+        Route::post('soal/{soal}/edit', 'SoalController@create')->name('post.edit.soal');
+    });
+
+    Route::resource('pengumuman', 'PengumumanController');
 });
+
 
 Auth::routes(['verify' => true, 'register' => false]);

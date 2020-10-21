@@ -11,6 +11,7 @@ use App\Models\Materi;
 use App\Models\Soal;
 use App\Models\Nilai;
 use App\Models\Tugas;
+use App\Models\Pengumuman;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,6 +19,18 @@ use Illuminate\Support\Str;
 
 class DataMuridController extends Controller
 {
+    public function pengumuman(Pengumuman $pengumuman, $judul)
+    {
+        if ($judul !== Str::slug($pengumuman->judul)) {
+            abort(404);
+        }
+        $pengumuman->load('author.mengajarspec');
+        return view('pages.umum.pengumuman.detail',[
+            'pengumuman' => $pengumuman,
+            'layout' => 'siswa'
+        ]);
+    }
+
     public function listmapel()
     {
         // Data Berada Di View Composer
