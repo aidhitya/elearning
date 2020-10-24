@@ -56,7 +56,7 @@ Route::namespace('Guru')->prefix('guru')->middleware(['auth', 'verified', 'roles
 });
 
 Route::namespace('Admin')->prefix('admin')->middleware(['auth', 'verified', 'roles:0'])->group(function () {
-    Route::view('/', 'pages.admin.main')->name('home.admin');
+    Route::get('/', 'AdminController')->name('home.admin');
     Route::resource('kelas', 'KelasController');
     Route::resource('mapel', 'MapelController')->except('show');
     Route::get('nilai', 'DataAdminController@kelas')->name('nilai.admin');

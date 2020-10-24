@@ -36,3 +36,7 @@
         </div>
     </main>
 @endsection
+
+@push('addon-style')
+    <link rel="stylesheet" href="{{ asset('assets/styles/main.css') }}">
+@endpush

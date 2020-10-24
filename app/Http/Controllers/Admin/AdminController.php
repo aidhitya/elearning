@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kelas;
+use App\Models\Mapel;
+use App\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -15,6 +18,16 @@ class AdminController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('pages.admin.main');
+        $murid = User::has('murid')->count();
+        $guru = User::has('guru')->count();
+        $kelas = Kelas::count();
+        $mapel = Mapel::getParent()->count();
+
+        return view('pages.admin.main',[
+            'murid' => $murid,
+            'guru' => $guru,
+            'kelas' => $kelas,
+            'mapel' => $mapel
+        ]);
     }
 }

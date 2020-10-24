@@ -1,0 +1,106 @@
+.box {
+  border-radius: 15px;
+  overflow: auto;
+  width: 100% !important;
+}
+
+.box-header {
+  background: #2F4C6F;
+  color: #fff;
+}
+
+.box-header .prevMonth {
+  cursor: pointer;
+}
+
+.box-header .nextMonth {
+  cursor: pointer;
+}
+
+.box-body {
+  background: #f1acb7;
+}
+
+.box-body .days span {
+  background: #e27586;
+  color: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  height: 30px;
+  width: 100%;
+  line-height: 30px;
+  cursor: pointer;
+}
+
+.box-body .days span:hover {
+  background: #f7899a;
+}
+
+.box-body .dates span {
+  background: #f4bdc6;
+  color: #000;
+  border-radius: 50%;
+  display: inline-block;
+  height: 30px;
+  width: 100%;
+  line-height: 30px;
+  cursor: pointer;
+}
+
+.box-body .dates span.active, .box-body .dates span:hover {
+  background: #ffeef0;
+  color: #000;
+}
+
+.box-body .dates span.ntMonth {
+  color: #938e8e;
+  background: #ffd8de;
+}
+
+.box-body .dates span.ntMonth:hover {
+  background: #ffeef0;
+  color: #000;
+}
+
+.box#event .box-header .close {
+  color: #fff;
+  opacity: 1;
+}
+
+.box#event .box-body .events-today {
+  height: 210px;
+  overflow-x: hidden;
+}
+
+.box#event .box-body .events-input .data-invalid {
+  border-color: red;
+}
+
+.box#event .box-body .events-input .error {
+  font-size: 12px;
+  color: red;
+  position: absolute;
+  top: 100%;
+}
+
+@media (max-width: 767px) {
+  html body .pa-sm {
+    position: absolute;
+  }
+  html body .box-body .days span {
+    height: 38px;
+    width: 38px;
+    line-height: 38px;
+    font-size: .5rem;
+  }
+  html body .box-body .dates span {
+    height: 38px;
+    width: 38px;
+    line-height: 38px;
+    font-size: .5rem;
+  }
+  html body .box#event .box-body .events-today {
+    height: 188px;
+  }
+}
+/*# sourceMappingURL=calendar.css.map */

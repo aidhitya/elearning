@@ -17,6 +17,7 @@
                             @endif
                         @endforeach
                     </div>
+                    @if (count($pengumuman) > 4)
                     <div class="col-md-5 m-2 border border-primary rounded-lg">
                         @foreach ($pengumuman as $key => $item)
                             @if ($key > 4)
@@ -26,6 +27,7 @@
                             @endif
                         @endforeach
                     </div>
+                    @endif
                 </div>
                 <div class="mx-auto text-center m-3">
                     <a href="{{ route('home.pengumuman') }}" class="text-center btn btn-info btn-sm rounded">View All</a>
@@ -79,6 +81,10 @@
         </div>
     </main>
 @endsection
+
+@push('addon-style')
+    <link rel="stylesheet" href="{{ asset('assets/styles/main.css') }}">
+@endpush
 
 @push('addon-script')
     <script>
