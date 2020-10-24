@@ -1,0 +1,80 @@
+nav {
+    background-color: transparent !important;
+    border: none;
+    color: white;
+    z-index: 100;
+    bottom: 0;
+    
+    .navbar-brand {
+        img {
+            max-height: 100vh;
+        }
+    }
+
+    .text-navbar {
+        color: #FFFFFF;
+        font-weight: 600;
+
+        &:hover {
+            color: #00ACEA;
+        }
+    }
+
+    .active {
+        color: #00ACEA;
+    }
+}
+
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background: rgba(47, 76, 111, 0.7);
+        top: 120px;
+        position: absolute !important;
+        width: 100%;
+        border-radius: 10px;
+        margin-left: auto !important;
+    }
+
+    .break-tog {
+        margin-left: 15px !important;
+    }
+}
+
+@media (max-width: 374px) {
+    .b-xs {
+        display: none !important;
+    }
+}
+
+header {
+    padding: 50px 0 115px;
+    margin-top: -150px;
+    background-image: url('../images/bg.png');
+    background-size: 100% 100%;
+}
+
+main {
+    .section-pengumuman {
+        margin: 50px 0px;
+    }
+
+    .section-panduan {
+        padding: 100px 0 15px;
+        background-image: url('../images/panduan@2x.png');
+        background-repeat:no-repeat;
+        background-size: cover;
+        background-position:center;
+    }
+
+    .section-kontak {
+        margin: 50px 0px;
+    }
+}
+
+footer {
+    padding: 235px 0 15px;
+    background-image: url('../images/footer.png') !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}

@@ -13,15 +13,16 @@
   @stack('addon-style')
 </head>
 
-<body>
+<body id="page-top">
 
   <!-- Navbar -->
-  @include('includes.index.navbar')
+  @include('includes.main.navbar')
 
     <!-- Main Content -->
     @yield('content')
 
-    @include('includes.index.footer')
+    @include('includes.main.footer')
+    @include('includes.modal')
 
     <!-- Script -->
     @stack('prepend-script')

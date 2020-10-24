@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home.guru') }}">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-user-graduate"></i>
         </div>
@@ -60,7 +60,7 @@
       <!-- Nav Item - Pengumuman -->
       <li class="nav-item {{ request()->is('pengumuman') ? 'active' : (request()->is('pengumuman/*') ? 'active' : '') }}">
         <a class="nav-link" href="{{ route('pengumuman.index') }}">
-          <i class="fas fa-scroll"></i>
+          <i class="fas fa-bullhorn"></i>
           <span>Pengumuman</span></a>
       </li>
 

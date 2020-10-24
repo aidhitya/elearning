@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'LOGIN')
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center mt-5">
@@ -7,8 +9,7 @@
             <div class="card-group">
                 <div class="card p-4">
                     <div class="card-body">
-                        <h1>Login</h1>
-                        <form action="{{ route('login') }}" method="post">
+                        <form action="{{ route('login') }}" method="post" class="mt-5">
                             @csrf
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -20,7 +21,7 @@
                                 <input class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" 
                                     type="text" 
                                     name="email"
-                                    placeholder="Email Address" 
+                                    placeholder="Email/Nomor Induk" 
                                     value="{{ old('email') }}" 
                                     autofocus 
                                     required>
@@ -81,9 +82,9 @@
                         </form>
                     </div>
                 </div>
-                <div class="card text-white bg-primary py-5">
+                <div class="card text-white bg-gradient-light py-5">
                     <div class="card-body text-center">
-                        
+                        <img src="{{ asset('assets/images/login.png') }}" alt="login" class="img-fluid rounded">
                     </div>
                 </div>
             </div>

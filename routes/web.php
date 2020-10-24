@@ -15,9 +15,9 @@ use App\User;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/all/pengumuman', 'HomeController@pengumuman')->name('home.pengumuman');
+Route::get('/p/{pengumuman}/{judul}', 'HomeController@detail')->name('detail.pengumuman');
 
 Route::namespace('Murid')->middleware(['auth', 'verified', 'roles:2'])->group(function(){
     Route::resource('murid', 'MuridController');
@@ -42,7 +42,7 @@ Route::namespace('Murid')->middleware(['auth', 'verified', 'roles:2'])->group(fu
     Route::get('tugas/detail/{tugas}/{judul}', 'MengerjakanController@tugas')->name('murid.tugas');
     Route::post('tugas/detail/{tugas}/{judul}', 'MengerjakanController@kumpultugas')->name('murid.kumpul.tugas');
     
-    Route::get('pengumuman/{pengumuman}/{judul}', 'DataMuridController@pengumuman')->name('pengumuman.murid');
+    Route::get('detail/pengumuman/{pengumuman}/{judul}', 'DataMuridController@pengumuman')->name('pengumuman.murid');
 });
 
 Route::namespace('Guru')->prefix('guru')->middleware(['auth', 'verified', 'roles:1'])->group(function () {
