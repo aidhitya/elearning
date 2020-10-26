@@ -58,7 +58,7 @@ class DataMuridController extends Controller
         $kelas = Kelas::findOrFail(Auth::user()->murid->kelas_id);
 
         $soal = $mapel->load(['soals' => function($q) use ($kelas) {
-            $q->has('detail_soal')->where('kelas_id', $kelas->id)->orWhere('kelas', $kelas->kelas)->get();
+            $q->where('kelas_id', $kelas->id)->orWhere('kelas', $kelas->kelas)->has('detail_soal')->get();
         }, 'soals.nilais' => function($que) {
             $que->where('user_id', Auth::id());
         }]);

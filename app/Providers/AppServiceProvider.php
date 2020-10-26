@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('includes.guru.*', DataKelasComposer::class);
+        View::composer('includes.guru.sidebar', DataKelasComposer::class);
         View::composer('pages.admin.mapel.includes.selects', MapelComposer::class);
         View::composer('pages.umum.materi.admin.includes.form', MateriComposer::class);
         View::composer('pages.umum.soal.includes.form-admin', SoalComposer::class);

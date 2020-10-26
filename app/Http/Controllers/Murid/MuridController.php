@@ -40,13 +40,13 @@ class MuridController extends Controller
 
         $mapel = Kelas::where('id', $kelas)->with(['mapels' => function ($q) use ($soal, $tugas) {
             $q->withCount(['soals' => $soal])->whereHas('soals', $soal);
-            $q->withCount(['tugas' => $tugas])->whereHas('tugas', $tugas);
+            $q->withCount(['tugas' => $tugas])->orWhereHas('tugas', $tugas);
         }])->first();
 
         $pengumuman = Pengumuman::whereHas('kelas', function($q) use ($kelas){
             $q->where('kelas_id', $kelas);
         })->get();
-        // return $pengumuman;
+        // return $mapel;
         return view('pages.siswa.main',[
             'mapel' => $mapel,
             'pengumuman' => $pengumuman

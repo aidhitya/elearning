@@ -6,6 +6,7 @@
               <i class="fa fa-bars"></i>
             </button>
           @endif
+          <span class="navbar-brand"><h3 class="text-primary font-weight-bold text-uppercase">E-LEARNING - SMPN 4 PEMALANG</h3></span>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
