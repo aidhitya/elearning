@@ -4,11 +4,9 @@
                 <img src="{{ url('https://www.smpn4pemalang.sch.id/upload/imagecache/72798512logo-97x100.png') }}" alt="elearning" class="rounded w-50 h-50">
                 <h6>SMPN 4 PEMALANG</h6>
             </a>
-            @if (\Route::currentRouteName() == 'home')
-              <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navelearning">
-                  <i class="fas fa-bars" style="color:#FFFFFF; font-size: 28px;"></i>
-              </button>
-            @endif
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navelearning">
+              <i class="fas fa-bars" style="color:#FFFFFF; font-size: 28px;"></i>
+            </button>
 
             <div class="collapse navbar-collapse" id="navelearning">
               <ul class="navbar-nav mx-auto break-tog">
