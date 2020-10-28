@@ -46,8 +46,8 @@ Route::namespace('Murid')->middleware(['auth', 'verified', 'roles:2'])->group(fu
 });
 
 Route::namespace('Guru')->prefix('guru')->middleware(['auth', 'verified', 'roles:1'])->group(function () {
-    Route::view('/', 'pages.guru.main')->name('home.guru'); 
-    Route::resource('guru', 'GuruController');
+    Route::get('/', 'GuruController@index')->name('home.guru'); 
+    Route::resource('guru', 'GuruController')->except('index');
     Route::get('kelas/{kelas}', 'DataKelasController@index')->name('data.kelas.guru');
     Route::get('soal', 'DataKelasController@soal')->name('data.soal.guru');
     Route::get('soal/{kelas}/{soal}/detail/{judul}', 'DataKelasController@detailmurid')->name('detail.soal.murid');

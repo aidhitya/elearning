@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Guru;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GuruRequest;
 use App\Models\Guru;
-use App\Models\Kelas;
+use App\Models\Mapel;
+use App\Models\Soal;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -20,7 +22,27 @@ class GuruController extends Controller
      */
     public function index()
     {
-        //
+        $mapel = Mapel::where('guru_id', Auth::id())->with('kelas')->get();
+
+        $parent = $mapel->pluck('parent_id');
+        $kelas = $mapel->pluck('kelas.kelas');
+        $kelas_id = $mapel->pluck('kelas.id');
+
+        $soal = Soal::where(function($q) use($kelas, $kelas_id, $parent){
+            $q->where([
+                'kelas' => $kelas,
+                'mapel_id' => $parent
+            ])->orWhere([
+                'kelas_id' => $kelas_id,
+                'mapel_id' => $parent
+            ]);
+        })->where(function($r){
+            $r->where('mulai', '<=', Carbon::now())->where('selesai', '>=', Carbon::now());
+        })->withCount('detail_soal')->get();
+        // return $soal;
+        return view('pages.guru.main',[
+            'soal' => $soal
+        ]);
     }
 
     /**
