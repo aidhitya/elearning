@@ -71,4 +71,15 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Kelas::class, 'guru_id', 'id');
     }
+
+    // Attribute
+    public function getIsAdminAttribute()
+    {
+        return $this->role == 0;
+    }
+
+    public function getIsGuruAttribute()
+    {
+        return $this->role == 1;
+    }
 }

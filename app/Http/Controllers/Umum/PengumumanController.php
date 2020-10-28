@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\Umum;
+
+use App\Events\PengumumanEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PengumumanRequest;
 use App\Models\Kelas;
 use App\Models\Mapel;
 use App\Models\Pengumuman;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,11 +20,11 @@ class PengumumanController extends Controller
         if (Auth::user()->role == 1) {
             $layout = 'guru';
             $kelas = Mapel::where('guru_id', Auth::id())->with('kelas')->get();
-            $pengumuman = Pengumuman::with(['kelas', 'author'])->where('user_id', Auth::id())->get();
+            $pengumuman = Pengumuman::with(['kelas', 'author'])->where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
         } else {
             $layout = 'admin';
             $kelas = Kelas::all();
-            $pengumuman = Pengumuman::with(['kelas', 'author'])->get();
+            $pengumuman = Pengumuman::with(['kelas', 'author'])->orderBy('created_at', 'desc')->get();
         }
 
         return view('pages.umum.pengumuman.index',[
@@ -81,10 +84,17 @@ class PengumumanController extends Controller
             'isi' => $data['isi'],
             'user_id' => Auth::id()
         ]);
+            
         if (Auth::user()->role == 1) {
             $kelas = Kelas::find($data['kelas']);
             $pengumuman->kelas()->attach($kelas);
+            $email = User::select('email')->whereHas('murid', function($q) use($data){
+                $q->whereIn('kelas_id', $data['kelas']);
+            })->get()->pluck('email');
+        } else {
+            $email = User::select('email')->has('murid')->get()->pluck('email');
         }
+        event(new PengumumanEvent($pengumuman, $email));
 
         return redirect(route('pengumuman.index'))->with('success', 'Pengumuman Berhasil Dibuat');
     }
