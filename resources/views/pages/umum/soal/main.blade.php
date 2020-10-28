@@ -18,14 +18,14 @@
                     <tr>
                     <th>ID</th>
                     <th>Judul</th>
-                    @if (Auth::user()->role == 0)
+                    @if (Auth::user()->is_admin)
                       <td>Kelas</td>
                     @endif
                     <th>Kelas (s)</th>
                     <th>Kategori</th>
                     <th>Mapel</th>
                     <th>Materi</th>
-                    @if (Auth::user()->role == 0)
+                    @if (Auth::user()->is_admin)
                       <td>Author</td>
                     @endif
                     <th>Mulai</th>
@@ -38,7 +38,7 @@
                     <tr>
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $item->judul }}</td>
-                    @if (Auth::user()->role == 0)
+                    @if (Auth::user()->is_admin)
                       <td>
                         @if ($item->speckelas !== null)
                           {{ $item->speckelas->kelas }}
@@ -63,7 +63,7 @@
                       -
                       @endif
                     </td>
-                      @if (Auth::user()->role == 0)
+                      @if (Auth::user()->is_admin)
                         <td>{{ $item->author->nama }}</td>
                       @endif
                     <td>{{ $item->mulai }}</td>

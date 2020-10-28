@@ -46,4 +46,10 @@ class Materi extends Model
     {
         return $this->belongsTo(Mapel::class);
     }
+
+    // Attributes
+    public function setJudulAttribute($value)
+    {
+        $this->attributes['judul'] = ucwords($value);
+    }
 }

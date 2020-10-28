@@ -20,7 +20,7 @@ class DetailSoalController extends Controller
     {
         $layout = 'admin';
 
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->is_guru) {
             $layout = 'guru';
         }
 
@@ -78,7 +78,7 @@ class DetailSoalController extends Controller
 
         $layout = 'admin';
 
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->is_guru) {
             $layout = 'guru';
         }
 

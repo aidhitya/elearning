@@ -40,4 +40,10 @@ class Tugas extends Model
     {
         return $this->hasMany(KumpulTugas::class);
     }
+
+    // Attributes
+    public function setJudulTugasAttribute($value)
+    {
+        $this->attributes['judul_tugas'] = ucwords($value);
+    }
 }

@@ -62,4 +62,10 @@ class Kelas extends Model
     {
         return $this->belongsToMany(Pengumuman::class, 'kelas_pengumuman');
     }
+
+    // Atributes
+    public function setKodeKelasAttribute($value)
+    {
+        $this->attributes['kode_kelas'] = ucwords($value);
+    }
 }

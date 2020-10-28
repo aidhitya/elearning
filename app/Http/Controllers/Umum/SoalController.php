@@ -17,7 +17,7 @@ class SoalController extends Controller
     public function index()
     {
         $layout = 'admin';
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->is_guru) {
             $soal = Soal::where('guru_id', Auth::id())->with(['materi', 'mapel', 'author', 'speckelas'])->get();
             $layout = 'guru';
         } else {
@@ -33,7 +33,7 @@ class SoalController extends Controller
     public function create()
     {
         // GURU
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->is_guru) {
             $kelas = Mapel::where('guru_id', Auth::id())->with('kelas')->get();
 
             if (request()->ajax()) {
@@ -80,7 +80,7 @@ class SoalController extends Controller
         ]);
 
         $data = $request->all();
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->is_guru) {
             $mat = explode('-', $data['kelas_materi']);
             $data['kelas_id'] = $mat[0];
             unset($data['kelas_materi']);
@@ -110,7 +110,7 @@ class SoalController extends Controller
 
         $layout = 'admin';
 
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->is_guru) {
             $layout = 'guru';
         }
 
@@ -128,7 +128,7 @@ class SoalController extends Controller
 
         $soal->load(['speckelas', 'mapel', 'materi']);
 
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->is_guru) {
             $kelas = Mapel::where('guru_id', Auth::id())->with('kelas')->get();
 
             if (request()->ajax()) {
@@ -182,7 +182,7 @@ class SoalController extends Controller
         }
 
         $data = $request->all();
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->is_guru) {
             $mat = explode('-', $data['kelas_materi']);
             $data['kelas_id'] = $mat[0];
             unset($data['kelas_materi']);

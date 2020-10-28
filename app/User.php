@@ -82,4 +82,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->role == 1;
     }
+
+    public function setNamaAttribute($value)
+    {
+        $this->attributes['nama'] = ucwords($value);
+    }
 }

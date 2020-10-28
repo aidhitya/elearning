@@ -59,4 +59,10 @@ class Soal extends Model
     {
         return $this->morphMany(Nilai::class, 'nilaiable');
     }
+
+    // Attributes
+    public function setJudulAttribute($value)
+    {
+        $this->attributes['judul'] = ucwords($value);
+    }
 }

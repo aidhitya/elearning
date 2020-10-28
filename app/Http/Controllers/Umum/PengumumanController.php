@@ -17,7 +17,7 @@ class PengumumanController extends Controller
 
     public function index()
     {
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->is_guru) {
             $layout = 'guru';
             $kelas = Mapel::where('guru_id', Auth::id())->with('kelas')->get();
             $pengumuman = Pengumuman::with(['kelas', 'author'])->where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
@@ -37,7 +37,7 @@ class PengumumanController extends Controller
     public function show(Pengumuman $pengumuman)
     {
         $layout = 'admin';
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->is_guru) {
             $layout = 'guru';
         } elseif (Auth::user()->role == 2) {
             $layout = 'murid';
@@ -52,7 +52,7 @@ class PengumumanController extends Controller
     public function create()
     {
         $layout = 'admin';
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->is_guru) {
             $kelas = Mapel::where('guru_id', Auth::id())->with('kelas')->get();
             $layout = 'guru';
             // return $kelas;
@@ -85,7 +85,7 @@ class PengumumanController extends Controller
             'user_id' => Auth::id()
         ]);
             
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->is_guru) {
             $kelas = Kelas::find($data['kelas']);
             $pengumuman->kelas()->attach($kelas);
             $email = User::select('email')->whereHas('murid', function($q) use($data){
@@ -102,7 +102,7 @@ class PengumumanController extends Controller
     public function edit(Pengumuman $pengumuman)
     {
         $layout = 'admin';
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->is_guru) {
             $pengumuman->load('kelas');
             $kelas = Mapel::where('guru_id', Auth::id())->with('kelas')->get();
             $layout = 'guru';
@@ -140,7 +140,7 @@ class PengumumanController extends Controller
             ]);
         }
 
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->is_guru) {
             $kelas = Kelas::find($data['kelas']);
             $pengumuman->kelas()->attach($kelas);
         }
@@ -150,7 +150,7 @@ class PengumumanController extends Controller
 
     public function destroy(Pengumuman $pengumuman)
     {
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->is_guru) {
             $k = [];
 
             foreach ($pengumuman->kelas as $kelas) {

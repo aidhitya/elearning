@@ -17,7 +17,7 @@
                 @auth
                   <div class="mb-1 d-lg-none d-block">
                     <li class="nav-item mt-3 mb-2">
-                      <a class="text-navbar" href="{{ Auth::user()->role == 0 ? route('home.admin') : (Auth::user()->role == 1 ? route('home.guru') : route('murid.index'))  }}">
+                      <a class="text-navbar" href="{{ Auth::user()->is_admin ? route('home.admin') : (Auth::user()->is_guru ? route('home.guru') : route('murid.index'))  }}">
                         Dashboard
                       </a>
                     </li>
@@ -50,7 +50,7 @@
                       </a>
                     <!-- Dropdown - User Information -->
                       <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="{{ Auth::user()->role == 0 ? route('home.admin') : (Auth::user()->role == 1 ? route('home.guru') : route('murid.index'))  }}">
+                        <a class="dropdown-item" href="{{ Auth::user()->is_admin ? route('home.admin') : (Auth::user()->is_guru ? route('home.guru') : route('murid.index'))  }}">
                             <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                             Dashboard
                         </a>

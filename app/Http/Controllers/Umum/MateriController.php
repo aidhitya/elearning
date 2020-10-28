@@ -16,7 +16,7 @@ class MateriController extends Controller
 {
     public function index()
     {
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->is_guru) {
             $materi = User::select('id')->where('id', Auth::id())->with(['mengajar.kelas' => function ($q) {
                 $q->with('wali_kelas:id,nama')->withCount(['materi', 'materis'])->orderBy('kelas')->get();
             }])->first();
@@ -40,7 +40,7 @@ class MateriController extends Controller
     public function create($kel = null)
     {
 
-        if (!is_null($kel) && Auth::user()->role == 1) {
+        if (!is_null($kel) && Auth::user()->is_guru) {
 
             $set = array_pad(explode('-', $kel), 2, null);
             if (count($set) > 2 || $set[1] == null) {
@@ -54,7 +54,7 @@ class MateriController extends Controller
                 'kelas' => $kelas,
                 'mapel' => $mapel
             ]);
-        } elseif ((is_null($kel) && Auth::user()->role == 1) || (!is_null($kel) && Auth::user()->role == 0)) {
+        } elseif ((is_null($kel) && Auth::user()->is_guru) || (!is_null($kel) && Auth::user()->is_admin)) {
             abort(404);
         }
 
@@ -64,7 +64,7 @@ class MateriController extends Controller
 
     public function store(MateriRequest $request)
     {
-        if (Auth::user()->role == 0) {
+        if (Auth::user()->is_admin) {
 
             $this->validate($request, [
                 'file' => 'required|mimetypes:application/pdf|max:5120'
@@ -126,7 +126,7 @@ class MateriController extends Controller
 
     public function edit(Materi $materi)
     {
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->is_guru) {
             $materi->load(['kelas_spec', 'mapel:id,nama']);
             // return $materi;
             return view('pages.umum.materi.guru.edit', [
@@ -144,7 +144,7 @@ class MateriController extends Controller
     {
         $data = $request->all();
 
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->is_guru) {
 
             $this->validate($request, [
                 'file' => 'required_without:url|mimetypes:application/pdf|max:5120',
@@ -211,7 +211,7 @@ class MateriController extends Controller
 
         $materi->delete();
 
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->is_guru) {
             return redirect()->back()->with('info', 'Materi Berhasil Dihapus');
         }
 
