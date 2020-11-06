@@ -9,6 +9,7 @@ use App\Models\Kelas;
 use App\Models\Mapel;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class MapelController extends Controller
 {
@@ -86,8 +87,16 @@ class MapelController extends Controller
 
         $mapel = Mapel::findOrFail($id);
 
-
         if ($mapel->parent_id == null) {
+
+            $this->validate($request, [
+                'nama' => [
+                    'sometimes',
+                    'required',
+                    'string',
+                    Rule::unique('mapels')->whereNull('parent_id')->ignore($id),
+                ]
+            ]);
 
             $mapel->update($data);
 

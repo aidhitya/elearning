@@ -5,7 +5,7 @@
                 <div class="card-body" style="margin: -10px; padding: -10px">
                     
                     <div class="row no-gutters align-items-center">
-                        <div class="col mr-2"><span class="badge badge-info float-right">{{ $item->tugas_sudah }}/{{ ($item->tugas_sudah + $item->tugas_belum) }} Tugas</span>
+                        <div class="col mr-2"><span class="badge badge-warning float-right">{{ $item->tugas_sudah }}/{{ ($item->tugas_sudah + $item->tugas_belum) }} Tugas</span>
                             <div class="text-info text-uppercase mb-1">
                                 <h6 class="font-weight-bold">{{ $item->nama }}</h6>
                             </div>

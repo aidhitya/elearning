@@ -5,10 +5,10 @@
 @section('content')
   <div class="container-fluid">
     <div class="row">
-      <div class="col-xl-10 col-lg-9">
-        <div class="card shadow mb-4">
-          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">List Detail Soal Kelas {{ $data->kelas }}{{ $data->kode_kelas }}</h6>
+      <div class="col-xl-12 col-lg-9">
+        <div class="card shadow mb-4 border-info">
+          <div class="card-header bg-info py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-white">List Detail Soal Kelas {{ $data->kelas }}{{ $data->kode_kelas }}</h6>
           </div>
           <div class="card-body">
             <div class="table-responsive pt-3">

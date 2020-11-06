@@ -6,9 +6,9 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-xl-11 col-lg-10">
-        <div class="card shadow mb-4">
-          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">List Mapel</h6>
+        <div class="card shadow mb-4 border-info">
+          <div class="card-header bg-info py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-white">List Mapel</h6>
             <a href="{{ route('mapel.create') }}" class="m-0 font-weight-bold btn btn-sm btn-primary">Tambah Mapel</a>
           </div>
           <div class="card-body">

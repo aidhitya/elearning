@@ -14,9 +14,9 @@
               <div class="row">
                 @foreach ($kelas as $item)
                     <div class="col-md-6 col-xl-3 col-lg-4">
-                        <div class="card mb-4 rounded-lg border-primary">
-                            <div class="card-header py-3 d-flex flew-row align-items-center justify-content-center border-primary">
-                                <h6 class="m-0 font-weight-bold text-dark">Kelas {{ $item->kelas }}{{ $item->kode_kelas }}</h6>
+                        <div class="card mb-4 rounded-lg border-info">
+                            <div class="card-header bg-info py-3 d-flex flew-row align-items-center justify-content-center border-primary">
+                                <h6 class="m-0 font-weight-bold text-white">Kelas {{ $item->kelas }}{{ $item->kode_kelas }}</h6>
                             </div>
                             <div class="card-body">
                                 <div class="align-items-center justify-content-center text-center">

@@ -6,14 +6,14 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-xl-12 col-lg-11">
-        <div class="card shadow mb-4">
-          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">List Pengumuman</h6>
-            <a href="{{ route('pengumuman.create') }}" class="btn btn-primary">Tambah <i class="far fa-plus-square"></i></a>
+        <div class="card shadow mb-4 border-info">
+          <div class="card-header bg-info py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-white">List Pengumuman</h6>
+            <a href="{{ route('pengumuman.create') }}" class="btn btn-primary border-white">Tambah <i class="far fa-plus-square"></i></a>
           </div>
           <div class="card-body">
             <h6 class="mb-2 font-weight-bold text-dark">Pengumuman Per Kelas</h6>
-            <div class="form-group row" style="margin-bottom: -30px">
+            <div class="form-group row" style="margin-bottom: -10px">
               <div class="col-md-6 mb-3 mb-sm-0">
                 <select name="kelas" id="filter-kelas" class="form-control" required>
                   <option value="">Kelas</option>
@@ -79,8 +79,6 @@
     $(document).ready(function (){
       var table = $('#pengumumanTable').removeAttr('width').DataTable({
         scrollY:        "300px",
-        scrollCollapse: true,
-        paging:         false,
         columnDefs: [
             { width: 60, targets: 0 }
         ],

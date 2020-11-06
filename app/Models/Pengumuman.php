@@ -2,12 +2,18 @@
 
 namespace App\Models;
 
+use App\Scopes\PengumumanScope;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Pengumuman extends Model
 {
     protected $table = 'pengumuman', $guarded = [];
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new PengumumanScope);
+    }
 
     // Relationship
 

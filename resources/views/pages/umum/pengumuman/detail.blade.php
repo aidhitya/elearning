@@ -7,11 +7,11 @@
     <div class="row">
       <div class="col-xl-11 col-lg-10">
         <div class="card shadow mb-4">
-          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">{{ $pengumuman->judul }}</h6>
-            <h6 class="m-0 font-weight-bold text-primary">{{ $pengumuman->author->nama }}</h6>
+          <div class="card-header bg-info py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-white">{{ $pengumuman->judul }}</h6>
+            <h6 class="m-0 font-weight-bold text-white">{{ $pengumuman->author->nama }}</h6>
             @if ($layout == 'siswa')
-              <h6 class="m-0 font-weight-bold text-primary">{{ $pengumuman->author->mengajarspec->nama }}</h6>
+              <h6 class="m-0 font-weight-bold text-white">{{ $pengumuman->author->mengajarspec->nama }}</h6>
             @endif
           </div>
           <div class="card-body">
