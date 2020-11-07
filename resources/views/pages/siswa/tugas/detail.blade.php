@@ -20,6 +20,7 @@
                             <th>Deskripsi</th>
                             <th>File</th>
                             <th>Mengumpulkan</th>
+                            <th>Nilai & Catatan</th>
                             <th>Action</th>
                             </tr>
                         </thead>
@@ -35,8 +36,9 @@
                                         @endisset
                                     </td>
                                     <td>{{ $item->kumpultugas[0]->created_at ?? '-' }}</td>
+                                    <td class="text-nowrap"><span class="font-weight-bold text-primary">{{ $item->nilais[0]->nilai . '/100' ?? '-' }}</span>{{ ' - ' . $item->nilais[0]->keterangan ?? ''  }}</td>
                                     <td>
-                                    <a href="{{ route('murid.tugas', [$item->id, \Str::slug($item->judul_tugas)]) }}" class="btn btn-sm btn-primary {{ $item->selesai < now() ? 'disabled' : '' }}">{{ isset($item->kumpultugas[0]->created_at) ? 'Update' : 'Submit' }}</a>
+                                    <a href="{{ route('murid.tugas', [$item->id, \Str::slug($item->judul_tugas)]) }}" class="btn btn-sm btn-primary {{ $item->selesai < now() ? 'disabled' : ($item->nilais[0] !== NULL ? 'disabled' : '') }}">{{ isset($item->kumpultugas[0]->created_at) ? 'Update' : 'Submit' }}</a>
                                     </td>
                                 </tr>
                             @endforeach

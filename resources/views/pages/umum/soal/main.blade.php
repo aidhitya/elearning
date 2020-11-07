@@ -16,7 +16,7 @@
               <table class="table table-bordered display nowrap" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                    <th>ID</th>
+                    <th>No</th>
                     <th>Judul</th>
                     @if (Auth::user()->is_admin)
                       <td>Kelas</td>

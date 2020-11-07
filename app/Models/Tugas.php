@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\User;
 use App\Models\KumpulTugas;
+use App\Models\Nilai;
 use App\Scopes\SelesaiScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -39,6 +40,11 @@ class Tugas extends Model
     public function kumpultugas()
     {
         return $this->hasMany(KumpulTugas::class);
+    }
+
+    public function nilais()
+    {
+        return $this->morphMany(Nilai::class, 'nilaiable');
     }
 
     // Attributes

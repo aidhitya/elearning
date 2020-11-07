@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
 use App\Models\Checker;
+use App\Models\KumpulTugas;
 use Illuminate\Http\Request;
 use App\Models\Soal;
 use App\Models\Nilai;
@@ -11,6 +12,7 @@ use App\Models\Tugas;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class MengerjakanController extends Controller
 {
@@ -108,7 +110,9 @@ class MengerjakanController extends Controller
             abort(404);
         }
 
-        $tugas->load('mapel');
+        $tugas->load(['mapel', 'nilais' => function($q){
+            $q->where('user_id', Auth::id());
+        }]);
 
         return view('pages.siswa.tugas.tugas',[
             'tugas' => $tugas
@@ -133,8 +137,19 @@ class MengerjakanController extends Controller
 
         $data['murid_id'] = Auth::id();
         $data['file'] = $request->file('file')->store('tugas/kumpul/' . $tugas->kelas_id, 'public');
+        $kumpul = KumpulTugas::where([
+            'murid_id' => $data['murid_id'],
+            'tugas_id' => $tugas->id
+        ])->first();
 
-        $tugas->kumpultugas()->create($data);
+        if ($kumpul !== NULL) {
+            Storage::delete('public/'. $kumpul->file);
+            $tugas->kumpultugas()->update([
+                'file' => $data['file']
+            ]);
+        } else {
+            $tugas->kumpultugas()->create($data);
+        }
 
         return redirect(route('murid.mapel', Str::slug($tugas->mapel->nama)))->with('success', 'Tugas Berhasil Dikumpulkan');
     }

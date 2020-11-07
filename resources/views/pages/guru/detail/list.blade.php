@@ -5,17 +5,16 @@
 @section('content')
   <div class="container-fluid">
     <div class="row">
-      <div class="col-xl-8 col-lg-7">
-        <div class="card shadow mb-4">
-          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">List Detail Soal Kelas {{ $data->kelas }}{{ $data->kode_kelas }}</h6>
+      <div class="col-xl-10 col-lg-9">
+        <div class="card shadow mb-4 border-info">
+          <div class="card-header bg-info py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-white">List Detail Soal Kelas {{ $data->kelas }}{{ $data->kode_kelas }}</h6>
           </div>
           <div class="card-body">
             <div class="table-responsive pt-3">
               <table class="table table-bordered" id="table-soal" width="100%" cellspacing="0">
                 <thead>
                   <tr>
-                  <th>No</th>
                   <th>Judul</th>
                   <th>Kategori</th>
                   <th>Jumlah</th>
@@ -25,7 +24,6 @@
                 <tbody>
                   @foreach ($data->soals as $key => $item)
                     <tr>
-                      <td>{{ $key + 1 }}</td>
                       <td>{{ $item->judul }}</td>
                       <td>{{ $item->kategori }}</td>
                       <td>{{ $item->nilais_count }}</td>
@@ -36,7 +34,6 @@
                   @endforeach
                   @foreach ($data->soal as $key => $item)
                     <tr>
-                      <td>{{ $key + 1 }}</td>
                       <td>{{ $item->judul }}</td>
                       <td>{{ $item->kategori }}</td>
                       <td>{{ $item->nilais_count }}</td>

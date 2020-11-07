@@ -24,8 +24,13 @@ class TugasController extends Controller
     public function show($id)
     {
         $tugas = Tugas::findOrFail($id);
-        $tugas->load(['kumpultugas.murid']);
-
+        $tugas->load(['kumpultugas.murid.nilais' => function($q) use ($tugas){
+            $q->where([
+                'nilaiable_id' => $tugas->id,
+                'nilaiable_type' => 'App\Models\Tugas'
+                ])->get();
+        }]);
+        // return $tugas;
         return view('pages.guru.tugas.detail',[
             'tugas' => $tugas
         ]);
@@ -110,5 +115,27 @@ class TugasController extends Controller
         $tugas->delete();
 
         return redirect(route('tugas.index'))->with('info', 'Tugas Berhasil Dihapus');
+    }
+
+    public function nilai(Request $request, $id)
+    {
+        $this->validate($request,[
+            'murid' => 'required|integer|exists:users,id',
+            'nilai' => 'required|integer|digits_between:0,100',
+            'keterangan' => 'nullable|string'
+        ]);
+
+        $data = $request->all();
+        $tugas = Tugas::findOrFail($id);
+
+        $tugas->nilais()->updateOrCreate([
+            'user_id' => $data['murid']
+        ], [
+            'nilai' => $data['nilai'],
+            'status' => $data['nilai'] >= 75 ? 1 : 0,
+            'keterangan' => $data['keterangan'],
+        ]);
+
+        return redirect(route('tugas.show',  $id))->with('success', 'Nilai Tugas Berhasil Diinput');
     }
 }

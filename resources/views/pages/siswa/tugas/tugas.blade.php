@@ -28,7 +28,7 @@
                                 <input type="file" name="file" class="form-control form-control-file mb-2 mr-sm-2" id="file">
                             </div>
 
-                            <button type="submit" class="btn btn-sm btn-primary mb-2">Upload</button>
+                            <button type="submit" class="btn btn-sm btn-primary mb-2" {{ $tugas->selesai < now() ? 'disabled' : ($tugas->nilais[0] !== NULL ? 'disabled' : '') }}>Upload</button>
                         </form>
                     </div>
                     <div class="card mt-3">
@@ -37,8 +37,8 @@
                         </p>
                     @if ($tugas->file !== null)
                     <p class="text-dark text-justify">
-                        Download File Tugas : 
-                        <a href="{{ asset('storage/'. $tugas->file) }}" class="btn btn-sm btn-primary"><i class="fas fa-arrow-alt-circle-down"></i></a>
+                      Download File Tugas : 
+                      <a href="{{ asset('storage/'. $tugas->file) }}" class="btn btn-sm btn-primary"><i class="fas fa-arrow-alt-circle-down"></i></a>
                     </p>
                     @endif
                     </div>

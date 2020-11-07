@@ -53,6 +53,7 @@ Route::namespace('Guru')->prefix('guru')->middleware(['auth', 'verified', 'roles
     Route::get('soal/{kelas}/{soal}/detail/{judul}', 'DataKelasController@detailmurid')->name('detail.soal.murid');
     Route::get('soal/{kelas}/{m}/{mapel}', 'DataKelasController@detailsoal')->name('detail.soal.guru');
     Route::resource('tugas', 'TugasController');
+    Route::post('tugas/nilai/{tugas}', 'TugasController@nilai')->name('nilai.tugas');
 });
 
 Route::namespace('Admin')->prefix('admin')->middleware(['auth', 'verified', 'roles:0'])->group(function () {

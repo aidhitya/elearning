@@ -78,6 +78,8 @@ class DataMuridController extends Controller
             $q->where('kelas_id', Auth::user()->murid->kelas_id)->get();
         }, 'tugas.kumpultugas' => function ($que) {
             $que->where('murid_id', Auth::id());
+        }, 'tugas.nilais' => function($q){
+            $q->where('user_id', Auth::id());
         }]);
         // return $tugas;
 

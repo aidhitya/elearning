@@ -24,4 +24,9 @@ class KumpulTugas extends Model
     {
         return $this->belongsTo(Tugas::class);
     }
+
+    public function nilais()
+    {
+        return $this->tugas()->morphMany(Nilai::class, 'nilaiable');
+    }
 }

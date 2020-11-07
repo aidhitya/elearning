@@ -6,6 +6,7 @@ use App\Models\Guru;
 use App\Models\Kelas;
 use App\Models\Mapel;
 use App\Models\Murid;
+use App\Models\Nilai;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -64,6 +65,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function mengajarspec()
     {
         return $this->hasOne(Mapel::class, 'guru_id', 'id')->where('kelas_id', Auth::user()->murid->kelas_id);
+    }
+
+    public function nilais()
+    {
+        return $this->hasOne(Nilai::class);
     }
 
     // Wali Kelas => Guru

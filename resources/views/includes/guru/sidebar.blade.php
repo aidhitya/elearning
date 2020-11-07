@@ -35,7 +35,7 @@
       </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item  {{ request()->is('assets/*') ? 'active' : (\Route::currentRouteName() == 'tugas.index' ? 'active' : '') }}">
+      <li class="nav-item  {{ request()->is('assets/*') ? 'active' : (\Route::currentRouteName() == 'tugas.index' ? 'active' : (request()->is('guru/tugas/*') ? 'active' : '')) }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
           aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-tasks"></i>
