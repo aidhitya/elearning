@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers\Guru;
 
+use App\Exports\NilaiSoalExport;
+use App\Exports\NilaiTugasExport;
+use App\Exports\NilaiMapelExport;
 use App\Http\Controllers\Controller;
 use App\Models\Kelas;
 use App\Models\Mapel;
 use App\User;
 use App\Models\Soal;
+use App\Models\Tugas;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 class DataKelasController extends Controller
 {
@@ -26,7 +31,7 @@ class DataKelasController extends Controller
             $data = Mapel::with(['kelas' => function ($q) use ($set) {
                 $q->where(['kelas' => $set[0], 'kode_kelas' => $set[1]])->with(['murids.user:id,nama', 'wali_kelas.guru:user_id,pendidikan'])->first();
             }])->where(['guru_id' => Auth::id(), 'kelas_id' => $kelas->id])->first();
-
+            // return $data;
             return view('pages.guru.kelas.kelas', [
                 'data' => $data
             ]);
@@ -73,7 +78,7 @@ class DataKelasController extends Controller
             };
 
             $data = $kelas->load(['soal.mapel', 'soals.mapel', 'soal' => $map, 'soals' => $map]);
-            // return $data;
+            
             return view('pages.guru.detail.list',[
                 'data' => $data
             ]);
@@ -97,5 +102,27 @@ class DataKelasController extends Controller
          return view('pages.guru.detail.nilai',[
              'nilai' => $nilai
          ]);
+    }
+
+    public function exportNilai($id, $kelas)
+    {
+        switch (Route::currentRouteName()) {
+            case 'soal.nilai.export':
+                $s = Soal::findOrFail($id);
+                return (new NilaiSoalExport)->soalKelas($id, $kelas)->download('Soal - ' . $s->judul . '.xlsx');
+            break;
+            case 'tugas.nilai.export':
+                $t = Tugas::findOrfail($id);
+                return (new NilaiTugasExport)->soalKelas($id, $kelas)->download('Tugas - ' . $t->judul_tugas . '.xlsx');
+            break;
+            default:
+                $m = Mapel::where([
+                    'parent_id' => $id,
+                    'guru_id' => Auth::id(),
+                    'kelas_id' => $kelas
+                    ])->firstOrFail();
+                return (new NilaiMapelExport)->soalKelas($id, $kelas)->download('Nilai - '. $m->nama .'.xlsx');
+            break;
+        }
     }
 }

@@ -41,7 +41,8 @@ class GuruController extends Controller
         })->withCount('detail_soal')->get();
         // return $soal;
         return view('pages.guru.main',[
-            'soal' => $soal
+            'soal' => $soal,
+            'mapel' => $mapel
         ]);
     }
 

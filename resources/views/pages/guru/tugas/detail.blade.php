@@ -7,8 +7,9 @@
     <div class="row">
       <div class="col-xl-12 col-lg-11">
         <div class="card shadow mb-4">
-          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Detail Tugas {{ $tugas->judul_tugas }}</h6>
+          <div class="card-header bg-info py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-white">Detail Tugas {{ $tugas->judul_tugas }}</h6>
+            <a href="{{ route('tugas.nilai.export',[$tugas->id, $tugas->kelas->id]) }}" class="btn btn-md btn-primary m-0 font-weight-bold text-white border-white">Nilai <i class="fas fa-arrow-circle-down"></i></a>
           </div>
           <div class="card-body">
             <div class="table-responsive">

@@ -28,7 +28,8 @@
                       <td>{{ $item->kategori }}</td>
                       <td>{{ $item->nilais_count }}</td>
                       <td>
-                        <a href="{{ route('detail.soal.murid', [$data->id, $item->id, \Str::slug($item->judul)]) }}" class="btn btn-sm btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <a href="{{ route('detail.soal.murid', [$data->id, $item->id, \Str::slug($item->judul)]) }}" class="btn btn-sm btn-primary"><i class="fa fa-eye" aria-hidden="true"> Detail</i></a>
+                        <a href="{{ route('soal.nilai.export', [$item->id, $data->id]) }}" class="btn btn-sm btn-info"><i class="far fa-arrow-alt-circle-down"></i> Nilai</a>
                       </td>
                     </tr>
                   @endforeach
@@ -38,7 +39,8 @@
                       <td>{{ $item->kategori }}</td>
                       <td>{{ $item->nilais_count }}</td>
                       <td>
-                        <a href="{{ route('detail.soal.murid', [$data->id, $item->id, \Str::slug($item->judul)]) }}" class="btn btn-sm btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <a href="{{ route('detail.soal.murid', [$data->id, $item->id, \Str::slug($item->judul)]) }}" class="btn btn-sm btn-primary"><i class="fa fa-eye" aria-hidden="true"> Detail</i></a>
+                        <a href="{{ route('soal.nilai.export', [$item->id, $data->id]) }}" class="btn btn-sm btn-info"><i class="far fa-arrow-alt-circle-down"></i> Nilai</a>
                       </td>
                     </tr>
                   @endforeach

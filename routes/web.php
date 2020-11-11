@@ -54,6 +54,9 @@ Route::namespace('Guru')->prefix('guru')->middleware(['auth', 'verified', 'roles
     Route::get('soal/{kelas}/{m}/{mapel}', 'DataKelasController@detailsoal')->name('detail.soal.guru');
     Route::resource('tugas', 'TugasController');
     Route::post('tugas/nilai/{tugas}', 'TugasController@nilai')->name('nilai.tugas');
+    Route::get('nilai/export/soal/{soal}/{kelas}', 'DataKelasController@exportNilai')->name('soal.nilai.export');
+    Route::get('nilai/export/tugas/{tugas}/{kelas}', 'DataKelasController@exportNilai')->name('tugas.nilai.export');
+    Route::get('nilai/export/mapel/{mapel}/{kelas}', 'DataKelasController@exportNilai')->name('mapel.nilai.export');
 });
 
 Route::namespace('Admin')->prefix('admin')->middleware(['auth', 'verified', 'roles:0'])->group(function () {

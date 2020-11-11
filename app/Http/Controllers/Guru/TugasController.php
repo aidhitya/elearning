@@ -24,7 +24,7 @@ class TugasController extends Controller
     public function show($id)
     {
         $tugas = Tugas::findOrFail($id);
-        $tugas->load(['kumpultugas.murid.nilais' => function($q) use ($tugas){
+        $tugas->load(['kelas', 'kumpultugas.murid.nilais' => function($q) use ($tugas){
             $q->where([
                 'nilaiable_id' => $tugas->id,
                 'nilaiable_type' => 'App\Models\Tugas'

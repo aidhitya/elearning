@@ -20,6 +20,31 @@
                     @endforeach
                   </ul>
                 </div>
+                <div class="card-header bg-primary py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-white">Mata Pelajaran</h6>
+                </div>
+                <div class="row m-2">
+                  @foreach ($mapel as $item)
+                    <div class="col-xl-4 col-md-6">
+                      <div class="card border-left-warning shadow h-100 py-2">
+                        <a href="{{ route('data.kelas.guru', $item->kelas->kelas .'-'. $item->kelas->kode_kelas) }}" class="text-decoration-none">
+                          <div class="card-body p-2">
+                            <div class="row no-gutters align-items-center w-100">
+                              <div class="col mr-2">
+                                <div class="text-warning text-uppercase mb-1"><h6 class="font-weight-bold">{{ $item->nama }}</h6></div>
+                                <div class="row no-gutters align-items-center">
+                                  <div class="col-auto w-100">
+                                    <p class="m-0 font-weight-bold text-dark">Kelas {{ $item->kelas->kelas }}{{ $item->kelas->kode_kelas }}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  @endforeach
+                </div>
               </div>
             </div>
 
