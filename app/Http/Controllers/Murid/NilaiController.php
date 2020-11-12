@@ -26,6 +26,15 @@ class NilaiController extends Controller
             'nilaiable_type' => 'App\Models\Soal',
             'nilaiable_id' => $soal->id
         ])->get();
+
+        if ($soal->kategori == 'UAS' || $soal->kategori == 'UTS') {
+            if (count($percobaan) >= 1) {
+                return view('pages.siswa.nilai', [
+                    'checker' => $percobaan,
+                    'soal' => $soal
+                ]);
+            }
+        }
         
         $try = 2;
         if (count($percobaan) >= 2) {
@@ -35,6 +44,10 @@ class NilaiController extends Controller
             ]);
         } elseif (count($percobaan) == 0) {
             $try = 1;
+        }
+
+        if ($soal->kategori == 'UAS' || $soal->kategori == 'UTS') {
+            $try = null;
         }
 
         if (!$request->has('jawaban')) {

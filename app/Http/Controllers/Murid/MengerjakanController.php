@@ -34,6 +34,15 @@ class MengerjakanController extends Controller
             'nilaiable_id' => $soal->id
         ])->get();
 
+        if ($soal->kategori == 'UAS' || $soal->kategori == 'UTS') {
+            if (count($percobaan) >= 1) {
+                return view('pages.siswa.nilai', [
+                    'checker' => $percobaan,
+                    'soal' => $soal
+                ]);
+            }
+        }
+
         if (count($percobaan) >= 2) {
 
             return view('pages.siswa.nilai',[

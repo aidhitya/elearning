@@ -34,10 +34,14 @@
                                         @endforeach
                                     </td>
                                     <td>
-                                      @if (count($item->nilais) >= 2)
+                                      @if (count($item->nilais) == 2)
                                       <a href="{{ route('murid.soal', [strtolower($item->kategori), \Str::slug($soal->nama), $item->id]) }}" class="btn btn-sm btn-primary">Nilai</a>
+                                      @elseif (count($item->nilais) == 1)
+                                        @foreach ($item->nilais as $s)
+                                            <a href="{{ route('get.nilai.pdf', [strtolower($item->kategori), \Str::slug($item->mapel->nama), $item->id, $s->percobaan]) }}" class="m-2 btn btn-sm btn-primary">Nilai {{ $s->percobaan }}</a>
+                                        @endforeach
                                       @endif
-                                    <a href="{{ route('murid.soal', [strtolower($item->kategori), \Str::slug($soal->nama), $item->id]) }}" class="btn btn-sm btn-primary {{ $item->selesai < now() ? 'disabled' : (count($item->nilais) >= 2 ? 'disabled' : '') }}">Kerjakan</a>
+                                    <a href="{{ route('murid.soal', [strtolower($item->kategori), \Str::slug($soal->nama), $item->id]) }}" class="btn btn-sm btn-primary {{ $item->selesai < now() ? 'disabled' : (($item->kategori == 'UAS' || $item->kategori == 'UTS') ? (count($item->nilais) >= 1 ? 'disabled' : '') : (count($item->nilais) >= 2 ? 'disabled' : '' )) }}">Kerjakan</a>
                                     </td>
                                 </tr>
                             @endforeach

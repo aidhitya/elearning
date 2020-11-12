@@ -14,6 +14,7 @@ use App\Models\Tugas;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 class DataKelasController extends Controller
@@ -71,14 +72,33 @@ class DataKelasController extends Controller
 
             $map = function($q) use ($mapel, $kelas) {
                 $q->withCount(['nilais' => function($q) use ($kelas) {
-                    $q->where('percobaan', 1)->whereHas('murid.murid', function ($q) use ($kelas) {
+                    $q->where('percobaan', 1)->orWhere('percobaan', null)->whereHas('murid.murid', function ($q) use ($kelas) {
                         $q->where('kelas_id', $kelas->id)->with('murid');
-                    });;
+                    });
                 }])->where('mapel_id', $mapel->parent_id);
             };
 
-            $data = $kelas->load(['soal.mapel', 'soals.mapel', 'soal' => $map, 'soals' => $map]);
-            
+            // $data = $kelas->load(['soal.mapel', 'soals.mapel', 'soal' => $map, 'soals' => $map]);
+            $data = $kelas->load([
+                'mapels' => function ($q) use ($kelas, $mapel) {
+                    $q->where([
+                        'guru_id' => Auth::id(),
+                        'parent_id' => $mapel->parent_id
+                    ])->with([
+                        'soals' => function ($q) use ($kelas) {
+                            $q->where(function ($r) use ($kelas) {
+                                $r->where([
+                                    'kelas_id' => $kelas->id,
+                                    'guru_id' => Auth::id()
+                                ]);
+                            })->orWhere('kelas', $kelas->kelas)->withCount(['nilais' => function ($q) use($kelas) {
+                                $q->where('percobaan', null)->Orwhere('percobaan', 1);
+                            }]);
+                        }
+                    ]);
+                }
+            ]);
+            // return $data;
             return view('pages.guru.detail.list',[
                 'data' => $data
             ]);
@@ -94,11 +114,11 @@ class DataKelasController extends Controller
         }
 
         $nilai =  $soal->load(['speckelas', 'nilais'  => function ($q) use ($kelas) {
-            $q->whereHas('murid.murid', function($q) use ($kelas) {
-                $q->where('kelas_id', $kelas->id)->with('murid');
-            });
+            $q->with('murid.murid')->whereHas('murid.murid', function($q) use ($kelas) {
+                $q->where('kelas_id', $kelas->id);
+            })->selectRaw('nilaiable_type, nilaiable_id, max(nilai) as nilai, user_id')->groupBy('user_id', 'nilaiable_id', 'nilaiable_type');
         }]);
-
+        // return $nilai;
          return view('pages.guru.detail.nilai',[
              'nilai' => $nilai
          ]);

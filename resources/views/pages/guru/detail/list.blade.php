@@ -22,27 +22,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($data->soals as $key => $item)
-                    <tr>
-                      <td>{{ $item->judul }}</td>
-                      <td>{{ $item->kategori }}</td>
-                      <td>{{ $item->nilais_count }}</td>
-                      <td>
-                        <a href="{{ route('detail.soal.murid', [$data->id, $item->id, \Str::slug($item->judul)]) }}" class="btn btn-sm btn-primary"><i class="fa fa-eye" aria-hidden="true"> Detail</i></a>
-                        <a href="{{ route('soal.nilai.export', [$item->id, $data->id]) }}" class="btn btn-sm btn-info"><i class="far fa-arrow-alt-circle-down"></i> Nilai</a>
-                      </td>
-                    </tr>
-                  @endforeach
-                  @foreach ($data->soal as $key => $item)
-                    <tr>
-                      <td>{{ $item->judul }}</td>
-                      <td>{{ $item->kategori }}</td>
-                      <td>{{ $item->nilais_count }}</td>
-                      <td>
-                        <a href="{{ route('detail.soal.murid', [$data->id, $item->id, \Str::slug($item->judul)]) }}" class="btn btn-sm btn-primary"><i class="fa fa-eye" aria-hidden="true"> Detail</i></a>
-                        <a href="{{ route('soal.nilai.export', [$item->id, $data->id]) }}" class="btn btn-sm btn-info"><i class="far fa-arrow-alt-circle-down"></i> Nilai</a>
-                      </td>
-                    </tr>
+                  @foreach ($data->mapels as $mapel)
+                      @foreach ($mapel->soals as $item)
+                        <tr>
+                          <td>{{ $item->judul }}</td>
+                          <td>{{ $item->kategori }}</td>
+                          <td>{{ $item->nilais_count }}</td>
+                          <td>
+                            <a href="{{ route('detail.soal.murid', [$data->id, $item->id, \Str::slug($item->judul)]) }}" class="btn btn-sm btn-primary"><i class="fa fa-eye" aria-hidden="true"> Detail</i></a>
+                            <a href="{{ route('soal.nilai.export', [$item->id, $data->id]) }}" class="btn btn-sm btn-info"><i class="far fa-arrow-alt-circle-down"></i> Nilai</a>
+                          </td>
+                        </tr>
+                      @endforeach
                   @endforeach
                 </tbody>
               </table>

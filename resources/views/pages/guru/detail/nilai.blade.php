@@ -15,19 +15,17 @@
               <table class="table table-bordered" id="table-nilai" width="100%" cellspacing="0">
                 <thead>
                   <tr>
-                  <th>No</th>
+                  <th>NIS</th>
                   <th>Nama</th>
-                  <th>Percobaan</th>
                   <th>Nilai</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($nilai->nilais as $key => $item)
+                  @foreach ($nilai->nilais as $item)
                     <tr>
-                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $item->murid->murid->nis }}</td>
                         <td>{{ $item->murid->nama }}</td>
-                        <td>{{ $item->percobaan }}</td>
-                        <td>{{ $item->nilai }}</td>
+                        <td class="font-weight-bold text-primary">{{ $item->nilai }}</td>
                       </tr>
                   @endforeach
                 </tbody>
