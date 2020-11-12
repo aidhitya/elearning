@@ -34,28 +34,60 @@ class NilaiMapelExport implements FromQuery, WithMapping, WithStyles, WithCustom
         $k = Kelas::findOrFail($this->kelas);
         return Kelas::where('id', $k->id)->with([
             'murids',
-            'mapels' => function($q) use($k) {
+            'mapels' => function ($q) use ($k) {
                 $q->where([
                     'guru_id' => Auth::id(),
                     'parent_id' => $this->id
                 ])->with([
                     'guru.guru',
-                    'soals' => function($q) use($k){
-                        $q->where(function($r) use($k){
+                    'soals' => function ($q) use ($k) {
+                        $q->where(function ($r) use ($k) {
                             $r->where([
                                 'kelas_id' => $k->id,
                                 'guru_id' => Auth::id()
                             ]);
-                        })->orWhere('kelas', $k->kelas)->with('nilais.murid.murid');
-                    }, 'tugas' => function($q) use($k){
+                        })->orWhere('kelas', $k->kelas)->with(['nilais' => function ($q) {
+                            $q->with(['murid.murid' => function ($q) {
+                                $q->where('kelas_id', $this->kelas)->with('kelas');
+                            }])->selectRaw('ANY_VALUE(status) as status, nilaiable_type, ANY_VALUE(nilaiable_id) as nilaiable_id, max(nilai) as nilai, user_id')->groupBy('user_id', 'nilaiable_id', 'nilaiable_type');
+                        }]);
+                    }, 'tugas' => function ($q) use ($k) {
                         $q->where([
                             'kelas_id' => $k->id,
                             'guru_id' => Auth::id()
-                        ])->with('nilais.murid.murid');
+                        ])->with(['nilais' => function ($q) {
+                            $q->with(['murid.murid' => function ($q) {
+                                $q->where('kelas_id', $this->kelas)->with('kelas');
+                            }])->selectRaw('ANY_VALUE(status) as status, ANY_VALUE(nilaiable_type) as nilaiable_type, ANY_VALUE(nilaiable_id) as nilaiable_id, max(nilai) as nilai, user_id')->groupBy('user_id', 'nilaiable_id');
+                        }]);
                     }
                 ]);
             }
         ]);
+        // return Kelas::where('id', $k->id)->with([
+        //     'murids',
+        //     'mapels' => function($q) use($k) {
+        //         $q->where([
+        //             'guru_id' => Auth::id(),
+        //             'parent_id' => $this->id
+        //         ])->with([
+        //             'guru.guru',
+        //             'soals' => function($q) use($k){
+        //                 $q->where(function($r) use($k){
+        //                     $r->where([
+        //                         'kelas_id' => $k->id,
+        //                         'guru_id' => Auth::id()
+        //                     ]);
+        //                 })->orWhere('kelas', $k->kelas)->with('nilais.murid.murid');
+        //             }, 'tugas' => function($q) use($k){
+        //                 $q->where([
+        //                     'kelas_id' => $k->id,
+        //                     'guru_id' => Auth::id()
+        //                 ])->with('nilais.murid.murid');
+        //             }
+        //         ]);
+        //     }
+        // ]);
     }
 
     public function columnWidths(): array

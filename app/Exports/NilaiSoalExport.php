@@ -29,8 +29,10 @@ class NilaiSoalExport implements FromQuery, WithMapping, WithStyles, WithCustomS
 
     public function query()
     {
-        return Soal::where('id', $this->id)->with(['mapel', 'nilais.murid.murid' => function ($q) {
-            $q->where('kelas_id', $this->kelas)->with('kelas');
+        return Soal::where('id', $this->id)->with(['mapel', 'nilais' => function ($q) {
+            $q->with(['murid.murid' => function ($q) {
+                $q->where('kelas_id', $this->kelas)->with('kelas');
+            }])->selectRaw('ANY_VALUE(status) as status, nilaiable_type, nilaiable_id, max(nilai) as nilai, user_id')->groupBy('user_id', 'nilaiable_id', 'nilaiable_type');
         }]);
     }
 
@@ -176,7 +178,7 @@ class NilaiSoalExport implements FromQuery, WithMapping, WithStyles, WithCustomS
                 strtoupper($value->murid->nama),
                 $value->murid->murid->jenkel == 'Laki-Laki' ? 'L' : 'P',
                 $value->nilai,
-                $value->status == 1 ? 'LULUS' : 'TIDAK LULUS'
+                $value->nilai >= 75 ? 'LULUS' : 'TIDAK LULUS'
             ];
             array_push($data, $nilai);
         }
