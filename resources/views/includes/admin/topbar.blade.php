@@ -4,7 +4,7 @@
         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
         <i class="fa fa-bars"></i>
         </button>
-
+        <span class="navbar-brand"><h3 class="text-primary font-weight-bold text-uppercase">E-LEARNING SMPN 4 PEMALANG</h3></span>
         <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
 

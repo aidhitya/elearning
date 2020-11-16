@@ -89,12 +89,29 @@
             <div class="col-xl-8 col-lg-7">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                <div class="card-header bg-info py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-white">Pengumuman</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-
+                  <ul class="list-group list-group-flush">
+                    @foreach ($pengumuman as $peng)
+                      <li class="list-group-item list-group-item-action">
+                        <a href="{{ route('pengumuman.show', $peng->id) }}" class="m-0 font-weight-bold text-dark">{{ $peng->judul }}</a>
+                        <br>
+                        @if (count($peng->kelas) > 0)
+                            Kelas 
+                        @foreach ($peng->kelas as $item)
+                            {{ $item->kelas }}{{ $item->kode_kelas }},
+                        @endforeach
+                        @else
+                        #
+                        @endif
+                        <br>
+                        {{ $peng->author->nama }}
+                      </li>
+                    @endforeach
+                  </ul>
                 </div>
               </div>
             </div>
