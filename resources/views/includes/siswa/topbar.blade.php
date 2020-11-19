@@ -23,9 +23,10 @@
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
 
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Activity Log
+                <a class="dropdown-item" href="{{ route('murid.show', Auth::user()->murid->nis) }}">
+                  <i class="far fa-address-card fa-fw mr-2 text-gray-400"></i>
+                {{-- <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> --}}
+                Profile
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">

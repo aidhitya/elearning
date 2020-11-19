@@ -95,9 +95,17 @@ class GuruController extends Controller
      * @param  \App\Models\Guru  $guru
      * @return \Illuminate\Http\Response
      */
-    public function show(Guru $guru)
+    public function show($nip)
     {
-        //
+        if (Auth::user()->guru->nip !== intval($nip)) {
+            abort(404);
+        }
+
+        $guru = User::where('id', Auth::id())->with('guru')->first();
+
+        return view('pages.guru.profile',[
+            'guru' => $guru
+        ]);
     }
 
     /**

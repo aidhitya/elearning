@@ -101,9 +101,17 @@ class MuridController extends Controller
      * @param  \App\Models\Murid  $murid
      * @return \Illuminate\Http\Response
      */
-    public function show(Murid $murid)
+    public function show($nis)
     {
-        //
+        if (Auth::user()->murid->nis !== intval($nis)) {
+            abort(404);
+        }
+
+        $murid = User::where('id', Auth::id())->with('murid')->first();
+
+        return view('pages.siswa.profile',[
+            'murid' => $murid
+        ]);
     }
 
     /**

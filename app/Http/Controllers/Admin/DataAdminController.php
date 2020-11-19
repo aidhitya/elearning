@@ -6,11 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Models\Kelas;
 use App\Models\Mapel;
 use App\Models\Soal;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class DataAdminController extends Controller
 {
+
+    public function profile()
+    {
+        $admin = User::findOrFail(Auth::id());
+        return view('pages.admin.profile',[
+            'admin' => $admin
+        ]);
+    }
+
     public function kelas()
     {
         $kelas = Kelas::with('wali_kelas.guru')->withCount('murids')->get();
