@@ -26,16 +26,15 @@ class GuruRequest extends FormRequest
         return [
             'nama' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role' => ['required', 'in:1'],
             // Register
-            'nip' => 'required|digits:16|integer|unique:gurus,nip',
+            'nip' => 'required|integer|unique:gurus,nip',
             'no_telp' => 'required|min:10|max:14|unique:gurus,no_telp',
             'agama' => 'required|string|in:Islam,Protestan,Katolik,Hindu,Buddha,Konghucu',
             'jenkel' => 'required|string|in:Laki-Laki,Perempuan',
             'dob' => 'required|date',
             'alamat' => 'required',
-            'foto' => 'required|image',
+            'foto' => 'nullable|image|max:1024',
             'pendidikan' => 'string'
         ];
     }

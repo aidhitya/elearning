@@ -8,12 +8,14 @@ use App\Models\Kelas;
 use App\Models\Mapel;
 use App\Models\Murid;
 use App\Models\Pengumuman;
+use App\Rules\CheckOldPassword;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Storage;
 
 class MuridController extends Controller
 {
@@ -107,7 +109,7 @@ class MuridController extends Controller
             abort(404);
         }
 
-        $murid = User::where('id', Auth::id())->with('murid')->first();
+        $murid = User::where('id', Auth::id())->with('murid.kelas')->first();
 
         return view('pages.siswa.profile',[
             'murid' => $murid
@@ -122,7 +124,11 @@ class MuridController extends Controller
      */
     public function edit(Murid $murid)
     {
-        //
+        $murid->load('user');
+
+        return view('pages.siswa.edit-profile',[
+            'murid' => $murid
+        ]);
     }
 
     /**
@@ -132,9 +138,66 @@ class MuridController extends Controller
      * @param  \App\Models\Murid  $murid
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Murid $murid)
+    public function update(Request $request, $nis)
     {
-        //
+        $user = Murid::where('nis', $nis)->with('user')->first();
+
+        $this->validate($request, [
+            'nama' => 'sometimes|required|string|max:50',
+            'email' => 'sometimes|required|string|email|max:50|unique:users,email,'. $user->user->id,
+            // Register
+            'oldpass' => ['sometimes', 'required', new CheckOldPassword],
+            'password' => 'sometimes|required|string|min:8|confirmed',
+            'no_telp' => 'sometimes|required|min:9|max:14|unique:murids,no_telp,'. $user->user->id . ',user_id',
+            'agama' => 'sometimes|required|string|in:Islam,Protestan,Katolik,Hindu,Buddha,Konghucu',
+            'jenkel' => 'sometimes|required|string|in:Laki-Laki,Perempuan',
+            'dob' => 'sometimes|required|date',
+            'alamat' => 'sometimes|required',
+            'foto' => 'nullable|image|max:1024'
+        ]);
+
+        $data = $request->all();
+
+        if ($request->has('password')) {
+
+            $user->user()->update([
+                'password' => Hash::make($data['password'])
+            ]);
+
+            return redirect(route('murid.show', $user->nis))->with('success', 'Password Berhasil Di Update');
+        }
+
+        $user->user()->update([
+            'nama' => $data['nama'],
+            'email' => $data['email'],
+        ]);
+
+        if ($request->hasFile('foto')) {
+
+            Storage::delete('public/' . $user->murid->foto);
+
+            $data['foto'] = $request->file('foto')->store('images/murid', 'public');
+            $user->update([
+                'no_telp' => $data['no_telp'],
+                'agama' => $data['agama'],
+                'jenkel' => $data['jenkel'],
+                'dob' => $data['dob'],
+                'alamat' => $data['alamat'],
+                'foto' => $data['foto']
+            ]);
+
+        } else {
+
+            $user->update([
+                'no_telp' => $data['no_telp'],
+                'agama' => $data['agama'],
+                'jenkel' => $data['jenkel'],
+                'dob' => $data['dob'],
+                'alamat' => $data['alamat']
+            ]);
+        }
+
+        return redirect(route('murid.show', $user->nis))->with('success', 'Profile Berhasil Di Update');
     }
 
     /**
