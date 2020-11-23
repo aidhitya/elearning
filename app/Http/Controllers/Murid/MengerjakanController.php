@@ -28,6 +28,15 @@ class MengerjakanController extends Controller
             abort(404);
         }
 
+        if ($soal->mulai > now() || $soal->selesai < now()) {
+            $soal->load(['mapel' => function($q){
+                $q->with(['child' => function($r){
+                    $r->where('kelas_id', Auth::user()->murid->kelas_id);
+                }]);
+            }]);
+            return redirect(route('detail.soal',[$soal->mapel->child[0]->id, Str::slug($mapel)]))->with('errors','Soal Belum Mulai Atau Sudah Selesai');
+        }
+
         $percobaan = Nilai::where([
             'user_id' => Auth::user()->id,
             'nilaiable_type' => 'App\Models\Soal',
