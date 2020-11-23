@@ -28,7 +28,7 @@
                                 <input type="file" name="file" class="form-control form-control-file mb-2 mr-sm-2" id="file">
                             </div>
 
-                            <button type="submit" class="btn btn-sm btn-primary mb-2" {{ $tugas->selesai < now() ? 'disabled' : ($tugas->nilais[0] !== NULL ? 'disabled' : '') }}>Upload</button>
+                            <button type="submit" class="btn btn-sm btn-primary mb-2" {{ $tugas->selesai < now() ? 'disabled' : (count($tugas->nilais) == 0 ? '' : ($tugas->nilais[0] !== NULL ? 'disabled' : '')) }}>Upload</button>
                         </form>
                     </div>
                     <div class="card mt-3">
