@@ -152,9 +152,9 @@
                                 $(this).attr('name', fname + '_' + j);
                             })
 
-                            $this.find('input:text').each(function(){
-                                tname = $(this).attr("name").split('_')[0];
-                                $(this).attr("name", tname + '_' + j + '_[]');
+                            $this.find('#jawaban').each(function(){
+                                tname = $(this).attr('name').split('_')[0];
+                                $(this).attr('name', tname + '_' + j + '_[]');
                             })
                         })
                     }
@@ -173,9 +173,11 @@
                         $(this).find('a').each(function () {
                             id = $(this).attr('id').split('_')[0];
                             href = $(this).attr('href').split('_')[0]
+                            ariac = $(this).attr('aria-controls').split('_')[0]
 
                             $(this).attr('id', id + '_' + z);
                             $(this).attr('href', href + '_' + z);
+                            $(this).attr('aria-controls', ariac + '_' + z)
                             $(this).html(z)
                         })
                     }
@@ -196,7 +198,7 @@
                     <div class="tab-pane fade" id="soal_`+t+`" role="tabpanel" aria-labelledby="soal-tab_`+t+`">
                             <a href="#" id="remove" class="btn btn-sm btn-danger float-right mb-4 my-2 ml-1">X</a>
                         <div class="form-group">
-                            <div class="summer-container">
+                            <div class="summer-container`+t+`">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -226,7 +228,7 @@
                 `);
 
                 $(`<textarea name="soal[]" required>{{ old('soal[]') }}</textarea>`)
-                    .appendTo('.summer-container')
+                    .appendTo('.summer-container'+t+'')
                     .summernote({
                     placeholder: 'Soal..',
                     height: 200,

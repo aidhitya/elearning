@@ -18,6 +18,8 @@
                             <th>No</th>
                             <th>Soal</th>
                             <th>Kategori</th>
+                            <th>Mulai</th>
+                            <th>Selesai</th>
                             <th>Mengerjakan</th>
                             <th>Action</th>
                             </tr>
@@ -28,6 +30,8 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->judul }}</td>
                                     <td>{{ $item->kategori }}</td>
+                                    <td>{{ $item->mulai }}</td>
+                                    <td>{{ $item->selesai }}</td>
                                     <td class="justify-content-between">
                                         @foreach ($item->nilais as $t)
                                             <p class="m-0">{{ $t->created_at }}</p>
@@ -41,7 +45,7 @@
                                             <a href="{{ route('get.nilai.pdf', [strtolower($item->kategori), \Str::slug($item->mapel->nama), $item->id, $s->percobaan]) }}" class="m-2 btn btn-sm btn-primary">Nilai {{ $s->percobaan }}</a>
                                         @endforeach
                                       @endif
-                                    <a href="{{ route('murid.soal', [strtolower($item->kategori), \Str::slug($soal->nama), $item->id]) }}" class="btn btn-sm btn-primary {{ $item->selesai < now() ? 'disabled' : (($item->kategori == 'UAS' || $item->kategori == 'UTS') ? (count($item->nilais) >= 1 ? 'disabled' : '') : (count($item->nilais) >= 2 ? 'disabled' : '' )) }}">Kerjakan</a>
+                                    <a href="{{ route('murid.soal', [strtolower($item->kategori), \Str::slug($soal->nama), $item->id]) }}" class="btn btn-sm btn-primary {{ ($item->selesai < now() || $item->mulai > now()) ? 'disabled' : (($item->kategori == 'UAS' || $item->kategori == 'UTS') ? (count($item->nilais) >= 1 ? 'disabled' : '') : (count($item->nilais) >= 2 ? 'disabled' : '' )) }}">Kerjakan</a>
                                     </td>
                                 </tr>
                             @endforeach
