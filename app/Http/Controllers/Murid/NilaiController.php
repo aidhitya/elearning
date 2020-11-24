@@ -137,7 +137,7 @@ class NilaiController extends Controller
             'nilaiable_id' => $soal->id,
             'percobaan' => $try
         ])->with(['nilaiable' => function(MorphTo $morphTo) {
-            $morphTo->morphWithCount([Soal::class => ['detail_soal']]);
+            $morphTo->morphWithCount([Soal::class => ['detail_soal']])->with('mapel');
         }])->with(['checker.jawaban', 'murid.murid.kelas'])->first();
         
         $pdf = PDF::loadView('pages.siswa.nilai-pdf',[

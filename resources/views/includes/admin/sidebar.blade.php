@@ -26,15 +26,15 @@
     </li>
 
     <!-- Nav Item - Users -->
-    <li class="nav-item">
+    <li class="nav-item {{ request()->is('admin/list/*') ? 'active' : null }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser" aria-expanded="true" aria-controls="collapseUser">
             <i class="fas fa-users"></i>
             <span>Users</span>
         </a>
         <div id="collapseUser" class="collapse" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="#">Guru</a>
-            <a class="collapse-item" href="#">Siswa</a>
+            <a class="collapse-item" href="{{ route('all.guru') }}">Guru</a>
+            <a class="collapse-item" href="{{ route('all.siswa') }}">Siswa</a>
             </div>
         </div>
     </li>

@@ -97,7 +97,7 @@
                   <ul class="list-group list-group-flush">
                     @foreach ($pengumuman as $peng)
                       <li class="list-group-item list-group-item-action">
-                        <a href="{{ route('pengumuman.show', $peng->id) }}" class="m-0 font-weight-bold text-dark">{{ $peng->judul }}</a>
+                        <a href="{{ route('pengumuman.show', $peng->id) }}" class="m-0 font-weight-bold text-primary">{{ $peng->judul }}</a>
                         <br>
                         @if (count($peng->kelas) > 0)
                             Kelas 
@@ -107,8 +107,7 @@
                         @else
                         #
                         @endif
-                        <br>
-                        {{ $peng->author->nama }}
+                         - {{ $peng->author->nama }}
                       </li>
                     @endforeach
                   </ul>

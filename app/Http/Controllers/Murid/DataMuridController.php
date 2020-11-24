@@ -112,7 +112,7 @@ class DataMuridController extends Controller
             $que->where('mulai', '<=', Carbon::now())->where('selesai', '>=', Carbon::now());
         })->whereHas('nilais', function ($q) {
             $q->where('user_id', Auth::id());
-        }, '<', 2)->has('detail_soal')->with('mapel:id,nama')->where(function($q) use ($userKelas, $search){
+        }, '<', 1)->has('detail_soal')->with('mapel:id,nama')->where(function($q) use ($userKelas, $search){
             $q->where([
                 'kelas' => $userKelas->kelas,
                 'mapel_id' => $search->parent_id

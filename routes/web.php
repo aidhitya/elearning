@@ -47,7 +47,7 @@ Route::namespace('Murid')->middleware(['auth', 'verified', 'roles:2'])->group(fu
 
 Route::namespace('Guru')->prefix('guru')->middleware(['auth', 'verified', 'roles:1'])->group(function () {
     Route::get('/', 'GuruController@index')->name('home.guru'); 
-    Route::resource('guru', 'GuruController')->except('index');
+    Route::resource('guru', 'GuruController')->except('index', 'store');
     Route::get('kelas/{kelas}', 'DataKelasController@index')->name('data.kelas.guru');
     Route::get('soal', 'DataKelasController@soal')->name('data.soal.guru');
     Route::get('soal/{kelas}/{soal}/detail/{judul}', 'DataKelasController@detailmurid')->name('detail.soal.murid');
@@ -67,6 +67,17 @@ Route::namespace('Admin')->prefix('admin')->middleware(['auth', 'verified', 'rol
     Route::get('nilai/{kelas}/{kel}', 'DataAdminController@detailkelas')->name('nilai.mapel');
     Route::get('nilai/{kelas}/{kel}/{map}/{mapel}', 'DataAdminController@detailmapel')->name('nilai.soal');
     Route::get('nilai/{kelas}/{kel}/{map}/{mapel}/{so}/{soal}', 'DataAdminController@detailsoal')->name('nilai.murid');
+    Route::get('list/siswa', 'UsersController@allsiswa')->name('all.siswa');
+    Route::get('list/guru', 'UsersController@allguru')->name('all.guru');
+    Route::get('tambah/siswa', 'UsersController@tambahsiswa')->name('tambah.siswa');
+    Route::get('tambah/guru', 'UsersController@tambahguru')->name('tambah.guru');
+    Route::post('store/siswa', 'UsersController@storesiswa')->name('store.siswa');
+    Route::post('store/guru', 'UsersController@storeguru')->name('store.guru');
+    Route::post('edit/siswa', 'UsersController@editsiswa')->name('edit.siswa');
+    Route::post('edit/guru', 'UsersController@editguru')->name('edit.guru');
+    Route::post('user/activation/{user}', 'UsersController@status')->name('activation');
+    Route::delete('user/delete/{user}', 'UsersController@userdelete')->name('delete.user');
+    Route::get('profile', 'DataAdminController@profile')->name('admin.profile');
 });
 
 Route::namespace('Umum')->middleware(['auth', 'verified', 'roles:0,1'])->group(function () {
