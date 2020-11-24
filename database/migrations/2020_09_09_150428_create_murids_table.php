@@ -22,7 +22,7 @@ class CreateMuridsTable extends Migration
             $table->string('jenkel');
             $table->date('dob');
             $table->text('alamat');
-            $table->text('foto');
+            $table->text('foto')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

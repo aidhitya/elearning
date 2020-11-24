@@ -21,7 +21,7 @@ class CreateGurusTable extends Migration
             $table->string('agama');
             $table->date('dob');
             $table->text('alamat');
-            $table->text('foto');
+            $table->text('foto')->nullable();
             $table->string('pendidikan')->nullable();
             $table->softDeletes();
             $table->timestamps();
