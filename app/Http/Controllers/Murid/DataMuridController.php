@@ -133,7 +133,7 @@ class DataMuridController extends Controller
             $m->where('murid_id', Auth::id());
         })->get();
         
-        return view('pages.siswa.mapel.mapel', [
+        return view('pages.siswa.mapel.mapel-materi', [
             'search' => $search,
             'soal' => $soal,
             'tugas' => $tugas

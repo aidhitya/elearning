@@ -49,49 +49,6 @@ class GuruController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('pages.guru.tambah');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(GuruRequest $request)
-    {
-        $data = $request->all();
-
-        $user = User::create([
-            'nama' => $data['nama'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role' => $data['role']
-        ]);
-
-        $data['foto'] = $request->file('foto')->store('images/guru', 'public');
-
-        $user->guru()->create([
-            'nip' => $data['nip'],
-            'no_telp' => $data['no_telp'],
-            'agama' => $data['agama'],
-            'jenkel' => $data['jenkel'],
-            'dob' => $data['dob'],
-            'alamat' => $data['alamat'],
-            'foto' => $data['foto'],
-            'pendidikan' => $data['pendidikan']
-        ]);
-
-        return redirect(route('guru.create'))->with('berhasil', 'Guru Berhasil Dibuat');
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Guru  $guru
@@ -191,16 +148,5 @@ class GuruController extends Controller
         }
 
         return redirect(route('guru.show', $user->nip))->with('success', 'Profile Berhasil Di Update');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Guru  $guru
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Guru $guru)
-    {
-        //
     }
 }

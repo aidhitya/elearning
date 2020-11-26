@@ -56,48 +56,6 @@ class MuridController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('pages.siswa.tambah');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(MuridRequest $request)
-    {
-        $data = $request->all();
-
-        $user = User::create([
-            'nama' => $data['nama'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role' => $data['role']
-        ]);
-
-        $data['foto'] = $request->file('foto')->store('images/murid', 'public');
-
-        $user->murid()->create([
-            'nis' => $data['nis'],
-            'no_telp' => $data['no_telp'],
-            'agama' => $data['agama'],
-            'jenkel' => $data['jenkel'],
-            'dob' => $data['dob'],
-            'alamat' => $data['alamat'],
-            'foto' => $data['foto']
-        ]);
-
-        return redirect(route('siswa.create'))->with('success', 'Siswa Berhasil Dibuat');
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Murid  $murid
@@ -198,16 +156,5 @@ class MuridController extends Controller
         }
 
         return redirect(route('murid.show', $user->nis))->with('success', 'Profile Berhasil Di Update');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Murid  $murid
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Murid $murid)
-    {
-        //
     }
 }

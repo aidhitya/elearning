@@ -11,9 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-// use Barryvdh\DomPDF\PDF;
 use Barryvdh\DomPDF\Facade as PDF;
-use Illuminate\Support\Facades\Session;
 
 class NilaiController extends Controller
 {

@@ -9,7 +9,6 @@ use App\Models\Kelas;
 use App\Models\Mapel;
 use App\Models\Pengumuman;
 use App\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PengumumanController extends Controller

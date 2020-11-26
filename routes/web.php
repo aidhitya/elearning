@@ -20,7 +20,7 @@ Route::get('/all/pengumuman', 'HomeController@pengumuman')->name('home.pengumuma
 Route::get('/p/{pengumuman}/{judul}', 'HomeController@detail')->name('detail.pengumuman');
 
 Route::namespace('Murid')->middleware(['auth', 'verified', 'roles:2'])->group(function(){
-    Route::resource('murid', 'MuridController');
+    Route::resource('murid', 'MuridController')->except('store', 'destroy', 'create');
     Route::get('mapel', 'DataMuridController@listmapel')->name('list.mapel');
     Route::get('mapel/{mapel}', 'DataMuridController@mapel')->name('murid.mapel');
     Route::get('mapel/{mapel}/{materi}', 'DataMuridController@materi')->name('murid.materi');
@@ -47,7 +47,7 @@ Route::namespace('Murid')->middleware(['auth', 'verified', 'roles:2'])->group(fu
 
 Route::namespace('Guru')->prefix('guru')->middleware(['auth', 'verified', 'roles:1'])->group(function () {
     Route::get('/', 'GuruController@index')->name('home.guru'); 
-    Route::resource('guru', 'GuruController')->except('index', 'store');
+    Route::resource('guru', 'GuruController')->except('index', 'store', 'destroy', 'create');
     Route::get('kelas/{kelas}', 'DataKelasController@index')->name('data.kelas.guru');
     Route::get('soal', 'DataKelasController@soal')->name('data.soal.guru');
     Route::get('soal/{kelas}/{soal}/detail/{judul}', 'DataKelasController@detailmurid')->name('detail.soal.murid');
@@ -61,7 +61,7 @@ Route::namespace('Guru')->prefix('guru')->middleware(['auth', 'verified', 'roles
 
 Route::namespace('Admin')->prefix('admin')->middleware(['auth', 'verified', 'roles:0'])->group(function () {
     Route::get('/', 'AdminController')->name('home.admin');
-    Route::resource('kelas', 'KelasController');
+    Route::resource('kelas', 'KelasController')->except('show');
     Route::resource('mapel', 'MapelController')->except('show');
     Route::get('nilai', 'DataAdminController@kelas')->name('nilai.admin');
     Route::get('nilai/{kelas}/{kel}', 'DataAdminController@detailkelas')->name('nilai.mapel');

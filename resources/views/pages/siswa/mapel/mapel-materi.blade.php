@@ -12,18 +12,11 @@
             <!-- Area Chart -->
             <div class="col-xl-7 col-lg-6">
               <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-dark">List Materi - {{ $search->nama }}</h6>
                   <h6 class="m-0 font-weight-bold text-dark">{{ $search->guru->nama }} {{ $search->guru->guru->pendidikan }}</h6>
                 </div>
-                <!-- Card Body -->
                 <div class="card-body">
-                  @if (session('berhasil'))
-                      <div class="alert alert-success">
-                          {{ session('berhasil') }}
-                      </div>
-                  @endif
                   <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                     <li class="nav-item">
                       <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Utama</a>

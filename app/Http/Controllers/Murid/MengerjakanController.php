@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
-use App\Models\Checker;
 use App\Models\KumpulTugas;
 use Illuminate\Http\Request;
 use App\Models\Soal;
@@ -18,11 +17,6 @@ class MengerjakanController extends Controller
 {
     public function soal($category, $mapel, Soal $soal)
     {
-        // session()->forget('soal');
-        // session()->forget('jawaban');
-        // session()->forget('sort');
-        // session()->forget('by');
-
         // URL
         if ($category !== strtolower($soal->kategori) || $mapel !== Str::slug($soal->mapel->nama)) {
             abort(404);

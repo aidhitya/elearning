@@ -57,7 +57,7 @@
                                 <label for="foto">Foto</label>
                                 <input type="file" name="foto" class="form-control">
                             </div>
-                            <button type="submit" class="btn btn-primary btn-user btn-block">Tambah Siswa</button>
+                            <button type="submit" class="btn btn-primary btn-user btn-block">Tambah Guru</button>
                         </form>
                     </div>
                 </div>

@@ -8,13 +8,10 @@ use App\Exports\NilaiMapelExport;
 use App\Http\Controllers\Controller;
 use App\Models\Kelas;
 use App\Models\Mapel;
-use App\User;
 use App\Models\Soal;
 use App\Models\Tugas;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 class DataKelasController extends Controller
