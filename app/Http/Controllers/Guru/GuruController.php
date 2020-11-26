@@ -34,10 +34,13 @@ class GuruController extends Controller
             $q->where([
                 'kelas' => $kelas,
                 'mapel_id' => $parent
-            ])->orWhere([
-                'kelas_id' => $kelas_id,
-                'mapel_id' => $parent
-            ]);
+            ])->orWhere(function($t) use ($kelas_id, $parent){
+                $t->where([
+                    'kelas_id' => $kelas_id,
+                    'mapel_id' => $parent,
+                    'guru_id' => Auth::id()
+                ]);
+            });
         })->where(function($r){
             $r->where('mulai', '<=', Carbon::now())->where('selesai', '>=', Carbon::now());
         })->withCount('detail_soal')->get();
