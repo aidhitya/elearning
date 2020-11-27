@@ -38,4 +38,21 @@ class GuruRequest extends FormRequest
             'pendidikan' => 'string'
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'nama' => 'Nama',
+            'email' => 'Email',
+            'role' => 'Role',
+            'nip' => 'NIP',
+            'no_telp' => 'Nomor Handphone',
+            'agama' => 'Agama',
+            'jenkel' => 'Jenis Kelamin',
+            'dob' => 'Tanggal Lahir',
+            'alamat' => 'Alamat',
+            'foto' => 'Foto',
+            'pendidikan' => 'Gelar Pendidikan'
+        ];
+    }
 }

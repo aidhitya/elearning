@@ -32,4 +32,16 @@ class MateriRequest extends FormRequest
             'keterangan' => 'nullable|string'
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'kelas' => 'Kelas Umum',
+            'kelas_id' => 'Kelas',
+            'mapel' => 'Mata Pelajaran',
+            'judul' => 'Judul',
+            'pertemuan' => 'Pertemuan',
+            'keterangan' => 'Keterangan'
+        ];
+    }
 }

@@ -38,4 +38,21 @@ class MuridRequest extends FormRequest
             'foto' => 'nullable|image|max:1024'
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'nama' => 'Nama',
+            'email' => 'Email',
+            'role' => 'Role',
+            'nis' => 'NIS',
+            'kelas' => 'Kelas',
+            'no_telp' => 'Nomor Handphone',
+            'agama' => 'Agama',
+            'jenkel' => 'Jenis Kelamin',
+            'dob' => 'Tanggal Lahir',
+            'alamat' => 'Alamat',
+            'foto' => 'Foto',
+        ];
+    }
 }

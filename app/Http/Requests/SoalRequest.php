@@ -32,4 +32,16 @@ class SoalRequest extends FormRequest
             'kategori' => 'required|string|in:Harian,UAS,UTS,Quiz'
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'judul' => 'Judul',
+            'mapel_id' => 'Mata Pelajaran',
+            'kelas' => 'Kelas',
+            'kelas_materi' => 'Kelas',
+            'materi_id' => 'Materi',
+            'kategori' => 'Kategori'
+        ];
+    }
 }

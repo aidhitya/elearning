@@ -29,4 +29,13 @@ class KelasRequest extends FormRequest
             'guru_id' => 'required|integer|exists:users,id|unique:kelas,guru_id,'. $this->kelas
         ];
     }
+
+    public function attributes()
+    {
+        return [
+           'kelas' => 'Kelas',
+           'kode_kelas' => 'Kode Kelas',
+           'guru_id' => 'Wali Kelas'
+        ];
+    }
 }

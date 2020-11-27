@@ -29,4 +29,13 @@ class MapelRequest extends FormRequest
             'kelas' => 'sometimes|required|integer|exists:kelas,id'
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'parent' => 'Mata Pelajaran',
+            'guru' => 'Guru',
+            'kelas' => 'Kelas'
+        ];
+    }
 }

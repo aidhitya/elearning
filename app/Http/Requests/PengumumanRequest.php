@@ -29,4 +29,13 @@ class PengumumanRequest extends FormRequest
             'isi' => 'required|string'
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'judul' => 'Judul',
+            'gambar' => 'Gambar',
+            'isi' => 'Isi'
+        ];
+    }
 }

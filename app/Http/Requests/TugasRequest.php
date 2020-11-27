@@ -30,4 +30,14 @@ class TugasRequest extends FormRequest
             'file' => 'nullable|file|max:2048',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'kelas_id' => 'Kelas',
+            'judul_tugas' => 'Judul',
+            'deskripsi' => 'Deskripsi',
+            'file' => 'File'
+        ];
+    }
 }
