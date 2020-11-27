@@ -78,6 +78,7 @@ Route::namespace('Admin')->prefix('admin')->middleware(['auth', 'verified', 'rol
     Route::post('user/activation/{user}', 'UsersController@status')->name('activation');
     Route::delete('user/delete/{user}', 'UsersController@userdelete')->name('delete.user');
     Route::get('profile', 'DataAdminController@profile')->name('admin.profile');
+    Route::put('update/profile/{user}', 'UsersController@updateadmin')->name('admin.profile.update');
 });
 
 Route::namespace('Umum')->middleware(['auth', 'verified', 'roles:0,1'])->group(function () {

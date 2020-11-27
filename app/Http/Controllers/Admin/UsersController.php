@@ -13,6 +13,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
+use App\Rules\CheckOldPassword;
 
 class UsersController extends Controller
 {
@@ -193,5 +194,34 @@ class UsersController extends Controller
         ]);
 
         return redirect()->route('tambah.guru')->with('success', 'Guru Berhasil Dibuat');
+    }
+
+    public function updateadmin(Request $request, User $user)
+    {
+        $this->validate($request,[
+            'email' => 'sometimes|required|email|unique:users,email,' . $user->id,
+            'nama' => 'sometimes|required|string|max:50',
+            'oldpass' => ['sometimes', 'required', new CheckOldPassword],
+            'password' => 'sometimes|required|string|min:8|confirmed',
+        ]);
+
+        $data =  $request->all();
+
+        if ($request->has('password')) {
+
+            $user->update([
+                'password' => Hash::make($data['password'])
+            ]);
+
+            return redirect(route('admin.profile'))->with('success', 'Password Berhasil Di Update');
+        }
+
+        $user->update([
+            'nama' => $data['nama'],
+            'email' => $data['email'],
+        ]);
+
+        return redirect(route('admin.profile'))->with('success', 'Profile Berhasil Di Update');
+
     }
 }
