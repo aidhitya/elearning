@@ -47,6 +47,9 @@ class LoginController extends Controller
             $login = Murid::where('nis', request('email'))->first();
             if (!$login) {
                 $login = Guru::where('nip', request('email'))->first();
+                    if (!$login) {
+                        return $this->sendFailedLoginResponse($request);
+                    }
             }
             $this->email = $login->user->email;
             return ['email' => $this->email, 'password' => $request->password];
