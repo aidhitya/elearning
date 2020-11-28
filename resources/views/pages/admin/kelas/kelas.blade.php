@@ -31,9 +31,9 @@
                       </tr>
                   </tfoot>
                   <tbody>
-                      @foreach ($kelas as $key => $item)
+                      @foreach ($kelas as $item)
                           <tr>
-                            <td>{{ $key + 1 }}</td>
+                            <td>{{ $item->id }}</td>
                             <td>{{ $item->kelas }} {{ $item->kode_kelas }}</td>
                             <td>{{ $item->wali_kelas->nama }}</td>
                             <td>
