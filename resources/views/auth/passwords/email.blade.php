@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
+@section('title', 'Lupa Password')
+
 @section('content')
-<div class="container">
+<div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -37,3 +39,7 @@
     </div>
 </div>
 @endsection
+
+@push('addon-style')
+    <link rel="stylesheet" href="{{ asset('assets/styles/main.css') }}">
+@endpush
