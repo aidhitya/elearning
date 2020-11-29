@@ -72,10 +72,11 @@
               <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">File Excel</h6>
-                  <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-arrow-circle-down"></i> File Contoh</a>
+                  <a href="{{ asset('storage/murid.xlsx') }}" class="btn btn-sm btn-primary"><i class="fas fa-arrow-circle-down"></i> File Contoh</a>
                 </div>
                 <div class="card-body">
-                    <form action="#" class="user" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('excel.murid') }}" class="user" method="post" enctype="multipart/form-data">
+                        @csrf
                         <div class="form-group">
                             <input type="file" class="form-control-file" name="excel">
                         </div>

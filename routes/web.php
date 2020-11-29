@@ -79,6 +79,8 @@ Route::namespace('Admin')->prefix('admin')->middleware(['auth', 'verified', 'rol
     Route::delete('user/delete/{user}', 'UsersController@userdelete')->name('delete.user');
     Route::get('profile', 'DataAdminController@profile')->name('admin.profile');
     Route::put('update/profile/{user}', 'UsersController@updateadmin')->name('admin.profile.update');
+    Route::post('tambah/excel/murid', 'ExceluserController@murid')->name('excel.murid');
+    Route::post('tambah/excel/guru', 'ExceluserController@guru')->name('excel.guru');
 });
 
 Route::namespace('Umum')->middleware(['auth', 'verified', 'roles:0,1'])->group(function () {
