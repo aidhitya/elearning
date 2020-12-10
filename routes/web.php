@@ -81,6 +81,9 @@ Route::namespace('Admin')->prefix('admin')->middleware(['auth', 'verified', 'rol
     Route::put('update/profile/{user}', 'UsersController@updateadmin')->name('admin.profile.update');
     Route::post('tambah/excel/murid', 'ExceluserController@murid')->name('excel.murid');
     Route::post('tambah/excel/guru', 'ExceluserController@guru')->name('excel.guru');
+    Route::get('assets/tugas', 'DataAdminController@alltugas')->name('tugas.admin');
+    Route::get('assets/tugas/{tugas}', 'DataAdminController@tugasshow')->name('tugas.admin.show');
+    Route::delete('assets/tugas/{tugas}', 'DataAdminController@tugasdelete')->name('tugas.admin.delete');
 });
 
 Route::namespace('Umum')->middleware(['auth', 'verified', 'roles:0,1'])->group(function () {

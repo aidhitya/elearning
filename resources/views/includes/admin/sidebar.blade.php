@@ -54,7 +54,7 @@
     </li>
 
     <!-- Nav Item - Assets -->
-    <li class="nav-item {{ request()->is('assets/*') ? 'active' : '' }}">
+    <li class="nav-item {{ request()->is('assets/*') ? 'active' : (request()->is('admin/assets/*') ? 'active' : '') }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAssets" aria-expanded="true" aria-controls="collapseAssets">
             <i class="fas fa-scroll"></i>
             <span>Assets</span>
@@ -63,6 +63,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="{{ route('materi.index') }}">Materi</a>
             <a class="collapse-item" href="{{ route('soal.index') }}">Soal</a>
+            <a class="collapse-item" href="{{ route('tugas.admin') }}">Tugas</a>
             </div>
         </div>
     </li>

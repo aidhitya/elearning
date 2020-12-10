@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Kelas;
 use App\Models\Mapel;
 use App\Models\Soal;
+use App\Models\Tugas;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -86,5 +87,38 @@ class DataAdminController extends Controller
         return view('pages.admin.nilai.nilai', [
             'nilai' => $nilai
         ]);
+    }
+
+    public function alltugas()
+    {
+        $tugas = Tugas::with([
+            'kelas', 'guru', 'mapel'
+        ])->get();
+
+        return view('pages.admin.tugas.tugas',[
+            'tugas' => $tugas
+        ]);
+    }
+
+    public function tugasshow(Tugas $tugas)
+    {
+        $tugas->load(['kelas', 'kumpultugas.murid.nilais' => function ($q) use ($tugas) {
+            $q->where([
+                'nilaiable_id' => $tugas->id,
+                'nilaiable_type' => 'App\Models\Tugas'
+            ])->get();
+        }]);
+        // return $tugas;
+        return view('pages.admin.tugas.detail', [
+            'tugas' => $tugas
+        ]);
+    }
+
+    public function tugasdelete(Tugas $tugas)
+    {
+        $tugas->kumpultugas()->delete();
+        $tugas->delete();
+
+        return redirect(route('tugas.admin'))->with('info', 'Tugas Berhasil Dihapus');
     }
 }
