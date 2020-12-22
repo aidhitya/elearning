@@ -29,7 +29,6 @@
         @isset($kategori)
             <option value="0">-</option>
         @endisset
-        <option value="Harian">Harian</option>
         <option value="UTS">UTS</option>
         <option value="UAS">UAS</option>
     </select>

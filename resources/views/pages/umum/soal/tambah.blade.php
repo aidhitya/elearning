@@ -11,15 +11,6 @@
             <h6 class="m-0 font-weight-bold text-primary">Tambah Soal</h6>
           </div>
           <div class="card-body">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
           <form class="user" action="{{ route('soal.store') }}" method="POST">
               @csrf
               @include('pages.umum.soal.includes.form')

@@ -30,9 +30,9 @@ class GuruRequest extends FormRequest
             // Register
             'nip' => 'required|integer|unique:gurus,nip',
             'no_telp' => 'required|min:10|max:14|unique:gurus,no_telp',
-            'agama' => 'required|string|in:Islam,Protestan,Katolik,Hindu,Buddha,Konghucu',
+            'agama' => 'required|string|in:Islam,Kristen Protestan,Katolik,Hindu,Buddha,Konghucu',
             'jenkel' => 'required|string|in:Laki-Laki,Perempuan',
-            'dob' => 'required|date',
+            'dob' => 'required|date|before:2000-12-31',
             'alamat' => 'required',
             'foto' => 'nullable|image|max:1024',
             'pendidikan' => 'string'

@@ -201,7 +201,7 @@ class SoalController extends Controller
 
     public function destroy(Soal $soal)
     {
-        if ($soal->nilais()->exists()) {
+        if ($soal->nilais()->exists() && Auth::user()->is_guru) {
             return redirect(route('soal.index'))->with('errors', 'Soal Mempunyai Relasi');
         }
         $detail = DetailSoal::where('soal_id', $soal->id)->get();

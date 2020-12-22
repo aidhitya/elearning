@@ -128,7 +128,7 @@ class DetailSoalController extends Controller
     public function destroy(DetailSoal $detail)
     {
         $soal = Soal::findOrFail($detail->soal_id);
-        if ($soal->nilais()->exists()) {
+        if ($soal->nilais()->exists() && Auth::user()->is_guru) {
             return redirect(route('soal.show', $detail->soal_id))->with('errors', 'Detail Soal Mempunyai Relasi');
         }
 

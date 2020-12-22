@@ -20,6 +20,8 @@ class isRoles
             if (Auth::user()->role == $role && Auth::user()->status == 1) {
                 if (Auth::user()->role == 2 && Auth::user()->murid->kelas_id == 0) {
                     abort(403);
+                } elseif (Auth::user()->is_guru && count(Auth::user()->mengajar) <= 0) {
+                    abort(403);
                 }
                 return $next($request);
             }

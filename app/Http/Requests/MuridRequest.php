@@ -31,9 +31,9 @@ class MuridRequest extends FormRequest
             'nis' => 'required|digits:5|integer|unique:murids,nis',
             'kelas' => 'required|integer|exists:kelas,id',
             'no_telp' => 'required|min:10|max:14|unique:murids,no_telp',
-            'agama' => 'required|string|in:Islam,Protestan,Katolik,Hindu,Buddha,Konghucu',
+            'agama' => 'required|string|in:Islam,Kristen Protestan,Katolik,Hindu,Buddha,Konghucu',
             'jenkel' => 'required|string|in:Laki-Laki,Perempuan',
-            'dob' => 'required|date',
+            'dob' => 'required|date|before:now',
             'alamat' => 'required',
             'foto' => 'nullable|image|max:1024'
         ];
