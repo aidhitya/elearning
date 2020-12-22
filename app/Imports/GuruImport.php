@@ -36,8 +36,8 @@ class GuruImport implements ToCollection, WithStartRow, WithChunkReading
             $user = User::create([
                 'nama' => $row[1],
                 'email' => $row[2],
-                'password' => Hash::make($dob),
-                'role' => 2
+                'password' => Hash::make(date_format($dob, 'Y-m-d')),
+                'role' => 1
             ]);
 
             $user->guru()->create([

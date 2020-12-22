@@ -48,7 +48,7 @@ class UsersController extends Controller
         $user->murid()->delete();
         $user->delete();
 
-        return redirect()->back()->with('success', 'User Bserta Relasinya Terhapus');
+        return redirect()->back()->with('success', 'User Beserta Relasinya Terhapus');
     }
 
     public function allsiswa()

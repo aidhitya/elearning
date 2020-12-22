@@ -37,9 +37,8 @@ class ExcelUserController extends Controller
         $data = $request->all();
         $data['excel'] = $request->file('excel')->store('users/excel', 'public');
 
-        // $excel =  storage_path('app/public/' . $data['excel']);
-            // return $data['excel'];
-        // Excel::import(new GuruImport(), $excel);
+        $excel =  storage_path('app/public/' . $data['excel']);
+        Excel::import(new GuruImport(), $excel);
         Storage::delete('public/' . $data['excel']);
 
         return redirect()->back()->with('success', 'Guru berhasil ditambahkan');

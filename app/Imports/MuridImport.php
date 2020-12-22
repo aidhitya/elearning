@@ -36,7 +36,7 @@ class MuridImport implements ToCollection, WithStartRow, WithChunkReading
             $user = User::create([
                 'nama' => $row[1],
                 'email' => $row[2],
-                'password' => Hash::make($dob),
+                'password' => Hash::make(date_format($dob, 'Y-m-d')),
                 'role' => 2
             ]);
 
