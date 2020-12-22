@@ -79,8 +79,8 @@ Route::namespace('Admin')->prefix('admin')->middleware(['auth', 'verified', 'rol
     Route::delete('user/delete/{user}', 'UsersController@userdelete')->name('delete.user');
     Route::get('profile', 'DataAdminController@profile')->name('admin.profile');
     Route::put('update/profile/{user}', 'UsersController@updateadmin')->name('admin.profile.update');
-    Route::post('tambah/excel/murid', 'ExceluserController@murid')->name('excel.murid');
-    Route::post('tambah/excel/guru', 'ExceluserController@guru')->name('excel.guru');
+    Route::post('tambah/excel/murid', 'ExcelUserController@murid')->name('excel.murid');
+    Route::post('tambah/excel/guru', 'ExcelUserController@guru')->name('excel.guru');
     Route::get('assets/tugas', 'DataAdminController@alltugas')->name('tugas.admin');
     Route::get('assets/tugas/{tugas}', 'DataAdminController@tugasshow')->name('tugas.admin.show');
     Route::delete('assets/tugas/{tugas}', 'DataAdminController@tugasdelete')->name('tugas.admin.delete');
