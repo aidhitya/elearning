@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Carbon\Carbon;
+use Illuminate\Auth\Events\Registered;
 
 class GuruImport implements ToCollection, WithStartRow, WithChunkReading
 {
@@ -33,12 +34,12 @@ class GuruImport implements ToCollection, WithStartRow, WithChunkReading
         foreach ($rows as $row) {
 
             $dob = Carbon::instance(Date::excelToDateTimeObject($row[6]));
-            $user = User::create([
+            event(new Registered($user = User::create([
                 'nama' => $row[1],
                 'email' => $row[2],
                 'password' => Hash::make(date_format($dob, 'Y-m-d')),
                 'role' => 1
-            ]);
+            ])));
 
             $user->guru()->create([
                 'nip' => $row[0],
